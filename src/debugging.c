@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   debugging.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: livliege <livliege@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/09/13 17:19:46 by livliege      #+#    #+#                 */
-/*   Updated: 2024/09/18 19:49:57 by livliege      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minishell.h"
 
 void	print_linked_list(t_env_list *linked_list)

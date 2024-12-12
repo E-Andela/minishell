@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   free_and_exit.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: livliege <livliege@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/11/08 14:53:36 by livliege      #+#    #+#                 */
-/*   Updated: 2024/11/08 17:38:11 by livliege      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	free_tokens(t_tokens *token_list)
 {
@@ -49,16 +37,13 @@ void	free_everything(t_data *data)
 {
 	// if (data->user_input)
 	// 	free(data->user_input);
-
 	// if (data->tokens_list)
 	// {
 	// 	free_tokens(data->tokens_list);
 	// 	data->tokens_list = NULL;
 	// }
-
 	free_env_list(data->environment);
 	data->environment = NULL;
-	
 	free(data);
 }
 

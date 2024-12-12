@@ -1,67 +1,65 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokens_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:53:17 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/11 14:53:17 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../../inc/minishell.h"
 
-#include "../inc/minishell.h"
-
-t_tokens	*create_token_node(char *input, t_token_type token_type, int index)
+int	find_matching_quote(char *input, int start, int *num_quotes, char quote)
 {
-	t_tokens	*new_token;
-	
-	new_token = (t_tokens *)malloc(sizeof(t_tokens));
-	if (new_token == NULL)
-		return (NULL);
-	
-	new_token->value = ft_strdup(input);
-	new_token->type = token_type;
-	new_token->index = index;
-	new_token->prev = NULL;
-	new_token->next = NULL;
-	return (new_token);
+	int	i;
+
+	i = start + 1;
+	*num_quotes += 1;
+	while (input[i] != '\0' && input[i] != quote)
+		i++;
+	if (input[i] == quote)
+		*num_quotes += 1;
+	return (i - start);
 }
 
-t_tokens *get_last_token(t_tokens *token_list)
+int	check_for_quotes(char *input)
 {
-	if (!token_list)
-		return (NULL);
-	while (token_list->next)
-		token_list = token_list->next;
-	return (token_list);
-}
+	int	i;
+	int	s;
+	int	d;
 
-int add_token(char *input, t_token_type token_type, t_tokens **token_list)
-{
-	t_tokens	*new_token;
-	t_tokens	*last_token;
-	static int	index = 0; 
-
-	if (!(*token_list))
-		index = 0;
-	new_token = create_token_node(input, token_type, index++);
-	if (new_token == NULL)
+	s = 0;
+	d = 0;
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\"')
+			i += find_matching_quote(input, i, &d, '\"');
+		if (input[i] == '\'')
+			i += find_matching_quote(input, i, &s, '\'');
+		i++;
+	}
+	if ((d > 0 && d % 2 != 0) || (s > 0 && s % 2 != 0))
 		return (0);
-	if (!(*token_list))
-	{
-		new_token->next = NULL;
-		new_token->prev = NULL;
-		*token_list = new_token;
-	}
-	else
-	{
-		last_token = get_last_token(*token_list);
-		new_token->prev = last_token;
-		last_token->next = new_token;
-	}
 	return (1);
 }
 
+int	check_whitespace(char c)
+{
+	if (c == 32 || (c > 8 && c < 14))
+		return (1);
+	return (0);
+}
 
-// add_token(token_value, WORD, &data->tokens_list);
+int	skip_spaces(char *input, int start)
+{
+	int	i;
+
+	i = 0;
+	while (check_whitespace(input[start + i]))
+		i++;
+	return (i);
+}
+
+t_token_type	check_token(char c)
+{
+	if (c == '|')
+		return (PIPE);
+	if (c == '>')
+		return (OUT_REDIRECT);
+	if (c == '<')
+		return (IN_REDIRECT);
+	else
+		return (UNSET);
+}

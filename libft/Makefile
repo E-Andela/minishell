@@ -6,13 +6,17 @@
 #    By: eandela <marvin@42.fr>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/19 12:27:38 by eandela       #+#    #+#                  #
-#    Updated: 2024/08/31 13:24:03 by eandela       ########   odam.nl          #
+#    Updated: 2024/12/12 18:58:05 by livliege      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+NAME 		= libft.a
 
-FILES =	ft_isalpha.c \
+CC			= cc
+CFLAGS 		= -Wall -Wextra -Werror
+OBJDIR 		= .obj_lib
+
+SRC =	ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
 		ft_isascii.c \
@@ -45,26 +49,28 @@ FILES =	ft_isalpha.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
+		ft_putnbr_fd.c
 
-OBJECTS = $(FILES:.c=.o)
-
-NAME = libft.a
+OBJECTS 	= $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	ar rcs $(NAME) $(OBJECTS)
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
 
-%.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJDIR) $(OBJECTS)
+	@ar rcs $(NAME) $(OBJECTS)
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS)
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean fclean re

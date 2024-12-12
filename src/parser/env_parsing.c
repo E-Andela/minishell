@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   env_parsing.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: livliege <livliege@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/12/12 14:45:32 by livliege      #+#    #+#                 */
-/*   Updated: 2024/12/12 14:45:32 by livliege      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 char	*get_env_name(char *input)
 {
-	char *name;
-	int i;
+	char	*name;
+	int		i;
 
 	i = 0;
 	while (input[i] != '=' && input[i] != '\0')
@@ -24,16 +12,15 @@ char	*get_env_name(char *input)
 	return (name);
 }
 
-char	*get_env_value(char* input)
+char	*get_env_value(char *input)
 {
 	char	*value;
 
 	value = ft_strchr(input, '=');
 	if (value != NULL)
-        value++;
+		value++;
 	return (value);
 }
-
 
 t_env_list	*create_linked_list_node(char *input)
 {
@@ -49,7 +36,7 @@ t_env_list	*create_linked_list_node(char *input)
 }
 
 // add node to back of the list
-void	env_create_linked_list(char* input, t_env_list **environment)
+void	env_create_linked_list(char *input, t_env_list **environment)
 {
 	t_env_list	*new_node;
 	t_env_list	*last_node;
@@ -68,10 +55,9 @@ void	env_create_linked_list(char* input, t_env_list **environment)
 	}
 }
 
-void parse_env(char **envp, t_data *data)
+void	parse_env(char **envp, t_data *data)
 {
-	
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (envp[i] != NULL)
@@ -79,7 +65,4 @@ void parse_env(char **envp, t_data *data)
 		env_create_linked_list(envp[i], &data->environment);
 		i++;
 	}
-	// print_linked_list(data->environment);
 }
-
-

@@ -1,0 +1,5 @@
+
+LIATH:
+
+- Make exit code expander function
+- 

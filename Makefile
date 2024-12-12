@@ -6,9 +6,12 @@
 #    By: eandela <eandela@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/12 14:42:15 by eandela       ########   odam.nl          #
+#    Updated: 2024/12/12 18:57:33 by livliege      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
+vpath %.c src src/errors_and_exit src/executor src/expander src/parser src/tokenizer
+vpath %.h inc
 
 NAME = minishell
 
@@ -18,13 +21,16 @@ LINKER = -lreadline
 SOURCE_DIR = ./src
 OBJECT_DIR = ./obj
 
-SOURCES = 	builtin_utils.c \
-			debugging.c \
-			env_parsing.c \
+LIBFTDIR = ./libft
+LIBFTNAME = libft.a
+LIBFT = $(LIBFTDIR)/$(LIBFTNAME)
+
+SOURCES = 	\
 			error_handling.c \
-			exec.c \
-			expander.c \
 			free_and_exit.c \
+			\
+			builtin_utils.c \
+			exec.c \
 			ft_echo.c \
 			ft_env.c \
 			ft_envp.c \
@@ -32,24 +38,39 @@ SOURCES = 	builtin_utils.c \
 			ft_pwd.c \
 			ft_unset.c \
 			here_doc.c \
-			main.c \
+			\
+			expander_utils.c \
+			expander.c \
+			vectors.c \
+			\
+			env_parsing.c \
+			init_nodes.c \
 			parser.c \
+			\
 			tokenizer.c \
-			tokens_utils.c
+			tokenizer_utils.c \
+			tokens_create.c \
+			\
+			debugging.c \
+			main.c \
 
-LIBFTNAME = libft.a
-LIBFTDIR = ./libft
+OBJECTS = $(patsubst %.c, $(OBJECT_DIR)/%.o, $(SOURCES))
 
-OBJECTS = $(SOURCES:%.c=$(OBJECT_DIR)/%.o)
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) $(LIBFT)
+	@echo "Building $(NAME)..."
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER)
+
+$(LIBFT):
+	@echo "Building libft..."
 	@make -C $(LIBFTDIR)
-	@cc $(CFLAGS) $(LINKER) $(OBJECTS) $(LIBFTDIR)/$(LIBFTNAME) -o $(NAME)
-	
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
-	@mkdir -p $(OBJECT_DIR)
+
+$(OBJECT_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "Compiling $< into $@..."
 	@cc $(CFLAGS) -c $< -o $@
 
 clean:
