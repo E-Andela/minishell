@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:28:57 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/11 16:28:57 by marvin           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   expander.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/12/12 14:45:22 by livliege      #+#    #+#                 */
+/*   Updated: 2024/12/12 14:45:22 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 char	*ft_realloc_copy(char *str, unsigned int old_size, unsigned int new_size)
 {
@@ -102,9 +101,6 @@ char	*get_environment_key_values(t_data *data, char	*input) // input = whole val
 	return (NULL);
 }
 
-
-
-
 char	*get_environment_key(char	*input, int *i)
 {
 	int start;
@@ -121,12 +117,6 @@ char	*get_environment_key(char	*input, int *i)
 
 void	expand_env_variable(t_vector *vector, int *i, char *token_value, t_data *data)
 {
-	// skip this $
-	// if next char is ?: we get exit status.
-	// if next char is ' " \0 or whitespace: we push $ to the vector (plus the whitespaces)
-	// if next string is an env_key, we get it from a function, then we compare to the tokens in out linked list
-	// we return the token node with the same key, and push the value to the vector
-	
 	char	*env_key;
 	char	*env_key_value;
 	int j;
@@ -157,20 +147,10 @@ void	expand_env_variable(t_vector *vector, int *i, char *token_value, t_data *da
 		}
 		return ;
 	}
-	// else we expand the key of the env variable!
-	// get the key (vanaf $ tot het geen alphabet chars meer zijn)
-
-	// we are at the char after '$'
-	
-	// ---------------------------------------------
-	// FIX THIS PART!
 	env_key = get_environment_key(token_value, i);
 	env_key_value = get_environment_key_values(data, env_key);
 	if (env_key_value == NULL)
-	{
 		return ;
-	}
-
 	else
 	{
 		j = 0; 
@@ -178,22 +158,12 @@ void	expand_env_variable(t_vector *vector, int *i, char *token_value, t_data *da
 		{
 			vector_add_char(vector, env_key_value[j]);
 			j++;
-	
 		}
-	
 	}
-
-	// -------------------------------------------------------
 }
-
 
 void	expand_double_quotes(t_vector *vector, int *i, char *token_value, t_data *data)
 {
-	// skip over first "
-	// push_to_vector till $
-	// go to expand_env_variable(); 
-
-
 	(*i)++;
 	while (token_value[(*i)] != '\"')
 	{
@@ -213,12 +183,8 @@ void	expand_double_quotes(t_vector *vector, int *i, char *token_value, t_data *d
 
 }
 
-
 void	expand_single_quotes(t_vector *vector, int *i, char *token_value)
 {
-	// skip over first '
-	// push_to_vector till next '
-	// skip this '
 	(*i)++;
 	while (token_value[*i] != '\'')
 	{
@@ -229,34 +195,27 @@ void	expand_single_quotes(t_vector *vector, int *i, char *token_value)
 	
 }
 
-
 void	expander(t_vector *vector, int *i, char *token_value, t_data *data)
 {
 
 	if (token_value[*i] == '\'')
 	{
-		// printf("skipped char:		%c\n", token_value[*i]);
 		expand_single_quotes(vector, i, token_value);
 	}
 	if (token_value[*i] == '\"')
 	{
-		// printf("skipped char:		%c\n", token_value[*i]);
 		expand_double_quotes(vector, i, token_value, data);
 	}
 	if (token_value[*i] == '$')
 	{
-		// printf("skipped char:		%c\n", token_value[*i]);
 		expand_env_variable(vector, i, token_value, data);
 	}
 }
-
-
 
 void	expand_token(char**	token_value, t_data *data)
 {
 	int i;
 	t_vector vector;
-	// char	*temp;
 
     vector_init(&vector);
 	i = 0;
@@ -273,16 +232,10 @@ void	expand_token(char**	token_value, t_data *data)
 		}
 	}
 	vector_add_char(&vector, '\0');
-	// printf("string in vector: 	%s\n", vector.value);
-
 	free(*token_value);
-
 	*token_value = ft_strdup(vector.value);
-
 	free(vector.value);
-	// printf("new token value: 	%s\n", *token_value);
 }
-
 
 bool	check_dollar_sign(char	*str)
 {
@@ -308,25 +261,5 @@ void expander_check(t_tokens *tokens_list, t_data *data)
 	}
 }
 
-// void expander_init(t_data *data)
-// {
-//     t_tokens *temp;
-	
-//     expander_check(data->tokens_list);
-// 	temp = data->tokens_list;
-//     while (temp != NULL)
-//     {
-//         if (temp->expandable == true)
-//         {
-//             // printf("EXPAND :        	%s\n", temp->value);
-//             // printf("bool expandable:    	%d\n", temp->expandable);
-//             expand_token(&temp->value, data);
-//         }
-//         temp = temp->next;  
-//     }
-	
-
-    // data->tokens_list still points to the head of the list here
-// }
 
 

@@ -1,68 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 16:45:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/25 16:45:45 by marvin           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/12/12 14:45:45 by livliege      #+#    #+#                 */
+/*   Updated: 2024/12/12 14:45:45 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-
-// The first thing the parser does is loop through the lexer list until it encounters a pipe. 
-// It then takes all the nodes before the pipe as one command, and creates a node in the t_simple_cmds struct. 
-// If it doesn't find a pipe it takes all the (remaining) nodes as one command.
-
-// The parser takes the t_tokens list (left) and converts it into the t_simple_cmds list (right)
-
-// - For each command it first checks for redirections, which it stores in the *redirections linked list, 
-// 		which holds both the token and the filename or delimiter in the case of a heredoc. 
-// - When the nodes are added to the *redirections list, they are deleted from the lexer list. 
-// - Next it checks if the first word is a builtin, in which case it stores a function pointer to the corresponding function, more on this bellow. 
-// - As the redirections have been removed from the lexer list, the parser can easily combines all remaining words into a 2D array, which is a required execve argument. 
-// - It also makes it easier to handle situations where the words may be seperated by redirections, for example:
-
-// cat > file -e
-
-// As > and file are already deleted from the lexer list when they are added to the redirections list, all that remains is cat and -e. 
-// Which then can easily be added into an array.
-
-// This process is repeated until the end of the lexer list.
-
-
-// 		ls -l | echo a > file
-
-
-t_command	*init_command_node(void)
-{
-	t_command *cmd_node;
-
-	cmd_node = (t_command *)malloc(sizeof(t_command));
-	if (cmd_node == NULL)
-		return (NULL);
-	cmd_node->args = NULL;
-	cmd_node->redirections = NULL;
-	cmd_node->next = NULL;
-	cmd_node->prev = NULL;
-	return (cmd_node);
-}
-
-
-t_redirections *init_redirection_node(char *file, t_token_type type)
-{
-    t_redirections *redir;
-	redir = (t_redirections *)malloc(sizeof(t_redirections));
-    if (redir == NULL)
-        return (NULL);
-    redir->file = ft_strdup(file);
-    redir->type = type;
-    redir->next = NULL;
-    return (redir);
-}
 
 void add_argument(t_command *cmd, char *arg)
 {
@@ -109,7 +57,6 @@ void add_redirection(t_command *cmd, char *file, t_token_type type)
     }
 }
 
-
 void parser(t_data *data)
 {
     t_command *current_cmd_node;
@@ -144,14 +91,12 @@ void parser(t_data *data)
             {
                 data->tokens_list = data->tokens_list->next;
                 if (data->tokens_list == NULL)
-                    break; // Prevent accessing NULL
+                    break;
                 continue;
             }
         }
         if (data->tokens_list->type == WORD)
-        {
             add_argument(current_cmd_node, data->tokens_list->value);
-        }
         else if (data->tokens_list->type == OUT_REDIRECT || data->tokens_list->type == IN_REDIRECT ||
                  data->tokens_list->type == OUT_APPEND || data->tokens_list->type == HERE_DOC)
         {
@@ -170,9 +115,3 @@ void parser(t_data *data)
     }
     data->command_list = head_cmd_node;
 }
-
-
-// vind ik een woord - 2d aray add back functie met strdup
-// vind ik een special token + word - redirect node maken + filename
-// PIPE!!!! met recursion is dubbel points! en een kusje
-

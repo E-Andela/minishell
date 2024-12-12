@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/12 12:16:40 by livliege      #+#    #+#                 */
-/*   Updated: 2024/11/29 17:19:39 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/12 15:25:02 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,11 @@ int	handle_quotes(int start, char *input, char quote)
 	return (i);
 }
 
-
+// here we are going to read the words, we're not going to handle them yet
 int check_words(char *input, int i, t_data *data)
 {
-	// here we are going to read the words, we're not going to handle them yet
 	int				j;
 	char			*token_value;
-	// t_token_type 	token_type;
 
 	j = 0;
 	while (input[i + j] && !(check_token(input[i + j])))
@@ -140,7 +138,6 @@ int check_words(char *input, int i, t_data *data)
 			j++;
 	}
 	token_value = ft_substr(input, i, j);
-	// token_type = check_word_type(token_value, data);
 	if (!add_token(token_value, WORD, &data->tokens_list))
 		return (free(token_value), -1);
 	return (free(token_value), j);
