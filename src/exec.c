@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/29 13:28:04 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/08 22:24:42 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/12 14:41:59 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,9 +220,9 @@ int	wait_for_children(void)
 	status = 0;
 	while (wait(&status) != -1 || errno != ECHILD)
 	{
-		printf("status: %i, %i\n", WEXITSTATUS(status), status);
+		// printf("status: %i, %i\n", WEXITSTATUS(status), status);
 	}
-	printf("final status: %i, %i\n", WEXITSTATUS(status), status);
+	// printf("final status: %i, %i\n", WEXITSTATUS(status), status);
 	return (status);	
 }
 
@@ -274,7 +274,7 @@ int execute_builtin_command(t_command *cmd_list, t_env_list *env_list, int **pip
 	int status;
 	
 	handle_pipes(pipes, cmd_list, pipe_size);
-	if (status = handle_redirections(cmd_list->redirections) != 0)
+	if ((status = handle_redirections(cmd_list->redirections)) != 0)
 		return (status);
 	status = execute_builtin(cmd_list->args, env_list);
 	dup2(og_stdin, STDIN_FILENO);
@@ -310,7 +310,6 @@ int execute_external_command(t_command *cmd_list, t_env_list *env_list, int **pi
 
 int execute_commands(t_command *cmd_list, t_env_list *env_list)
 {
-	int id;
 	int **pipes;
 	const int pipe_size = count_cmds(cmd_list) - 1;
 	
@@ -328,6 +327,7 @@ int execute_commands(t_command *cmd_list, t_env_list *env_list)
 		cmd_list = cmd_list->next;
 	}
 	close_pipes(pipes, pipe_size);
+	return (0);
 }
 
 
