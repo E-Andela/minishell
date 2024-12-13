@@ -6,7 +6,7 @@
 #    By: eandela <eandela@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/12 18:57:33 by livliege      ########   odam.nl          #
+#    Updated: 2024/12/13 19:40:53 by eandela       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SOURCES = 	\
 			\
 			builtin_utils.c \
 			exec.c \
+			new_exec.c \
 			ft_echo.c \
 			ft_env.c \
 			ft_envp.c \

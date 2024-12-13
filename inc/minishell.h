@@ -62,7 +62,21 @@ int				execute_builtin(char **args, t_env_list *env_list);
 // exec.c
 void			execute_cmds(t_command *cmd_list, t_env_list *env_list);
 int				wait_for_children(void);
-int				execute_commands(t_command *cmd_list, t_env_list *env_list);
+// int				execute_commands(t_command *cmd_list, t_env_list *env_list);
+void execute_cmds(t_command *cmd_list, t_env_list *env_list);
+int	wait_for_children(void);
+int execute_commands(t_command *cmd_list, t_env_list *env_list);
+int	count_cmds(t_command *cmd_list);
+char	*ft_getenv(char *name, char **envp);
+char	*get_path(char *command, char *full_path);
+int handle_redirections(t_redirections *red_list);
+void close_pipes(int **pipes, int size);
+void handle_pipes(int **pipes, t_command *cmd_list, int size);
+int **create_pipes(int num_pipes);
+
+// new_exec.c
+int execute_commands(t_command *cmd_list, t_env_list *env_list);
+
 
 // ft_echo.c
 int				ft_echo(char **arg);
