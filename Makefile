@@ -6,7 +6,7 @@
 #    By: eandela <eandela@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/12 18:57:33 by livliege      ########   odam.nl          #
+#    Updated: 2024/12/13 15:25:25 by anonymous     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ vpath %.h inc
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 LINKER = -lreadline
 
 SOURCE_DIR = ./src

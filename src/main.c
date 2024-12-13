@@ -2,16 +2,6 @@
 
 void	reset_data(t_data *data)
 {
-	// if (data->tokens_list)
-	// {
-	// 	free_tokens(data->tokens_list);
-	// 	data->tokens_list = NULL;
-	// }
-	// if (data->user_input)
-	// {
-	// 	free(data->user_input);
-	// 	data->user_input = NULL;
-	// }
 	free_tokens(data->tokens_list);
 	data->tokens_list = NULL;
 	free(data->user_input);

@@ -6,14 +6,14 @@
 #    By: eandela <marvin@42.fr>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/19 12:27:38 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/12 18:58:05 by livliege      ########   odam.nl          #
+#    Updated: 2024/12/13 15:26:07 by anonymous     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= libft.a
 
 CC			= cc
-CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= #-Wall -Wextra -Werror
 OBJDIR 		= .obj_lib
 
 SRC =	ft_isalpha.c \
