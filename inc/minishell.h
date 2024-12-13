@@ -157,6 +157,14 @@ int 	add_token(char *input, t_token_type token_type, t_tokens **token_list);
 void execute_cmds(t_command *cmd_list, t_env_list *env_list);
 int	wait_for_children(void);
 int execute_commands(t_command *cmd_list, t_env_list *env_list);
+int	count_cmds(t_command *cmd_list);
+char	*ft_getenv(char *name, char **envp);
+char	*get_path(char *command, char *full_path);
+int handle_redirections(t_redirections *red_list);
+void close_pipes(int **pipes, int size);
+void handle_pipes(int **pipes, t_command *cmd_list, int size);
+int **create_pipes(int num_pipes);
+
 
 // here_doc.c
 int handle_here_doc(t_redirections *red_list);

@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/12/07 16:12:00 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/08 22:02:22 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/13 16:16:52 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_builtin(char *cmd)
 {
+	if (!cmd)
+		return (0);
 	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
 		return (1);
 	if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
