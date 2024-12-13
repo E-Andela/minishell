@@ -6,7 +6,7 @@
 #    By: eandela <eandela@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/12 14:42:15 by eandela       ########   odam.nl          #
+#    Updated: 2024/12/12 22:07:21 by eandela       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,11 @@ SOURCES = 	builtin_utils.c \
 			ft_pwd.c \
 			ft_unset.c \
 			here_doc.c \
-			main.c \
 			parser.c \
 			tokenizer.c \
-			tokens_utils.c
+			tokens_utils.c \
+			new_exec.c \
+			main.c
 
 LIBFTNAME = libft.a
 LIBFTDIR = ./libft
