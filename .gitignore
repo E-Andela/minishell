@@ -1,3 +1,4 @@
-obj
 libft/.obj_lib
+libft/libft.a
+obj
 minishell

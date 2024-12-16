@@ -1,4 +1,3 @@
-
 LIATH:
 
 - Make exit code expander function
@@ -7,4 +6,6 @@ LIATH:
 (ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
 (ft_envp.c:205:25: error: variable ‘i’ set but not used [-Werror=unused-but-set-variable] 205 | int  i;)
 	op mijn laptop runt blijkbaar een andere cc/gcc versie die dit wel opmerkt
+
+- when using echo "hallo doei" it returns "hallo doei". we need to trim the quotes
 
