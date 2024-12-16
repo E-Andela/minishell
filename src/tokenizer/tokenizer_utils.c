@@ -31,8 +31,8 @@ int	check_for_quotes(char *input)
 		i++;
 	}
 	if ((d > 0 && d % 2 != 0) || (s > 0 && s % 2 != 0))
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
 int	check_whitespace(char c)

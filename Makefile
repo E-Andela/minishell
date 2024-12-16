@@ -6,7 +6,7 @@
 #    By: eandela <eandela@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/13 15:25:25 by anonymous     ########   odam.nl          #
+#    Updated: 2024/12/16 18:03:04 by anonymous     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	@echo "Building $(NAME)..."
-	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER)
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g -fsanitize=address
 
 $(LIBFT):
 	@echo "Building libft..."

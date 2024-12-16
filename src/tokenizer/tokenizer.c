@@ -72,6 +72,8 @@ int	tokenizer(char *input, t_data *data)
 	int	i;
 	int	j;
 
+	if (data->tokens_list)
+		free_tokens_list(data->tokens_list);
 	i = 0;
 	while (input[i] != '\0')
 	{
@@ -82,8 +84,8 @@ int	tokenizer(char *input, t_data *data)
 		else
 			j = check_words(input, i, data);
 		if (j < 0)
-			return (0);
+			return (false);
 		i += j;
 	}
-	return (1);
+	return (true);
 }

@@ -37,12 +37,12 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-int				unexpected_token_error(t_data *data, t_tokens *token_list);
+void				unexpected_token_error(t_data *data, t_tokens *token_list);
 
 // free_and_exit.c 
-void			free_tokens(t_tokens *token_list);
-void			free_everything(t_data *data);
-void			exit_program(char *error_message, int errnbr);
+void			free_tokens_list(t_tokens *token_list);
+void			free_data(t_data *data);
+void			exit_program(char *error_message, int errnbr, t_data *data);
 
 // builtin_utils.c
 int				is_builtin(char *cmd);
@@ -85,7 +85,7 @@ int				ft_unset(char **args, t_env_list **env_list);
 int				handle_here_doc(t_redirections *red_list);
 
 // expander_utils.c
-char			*get_environment_key(char	*input, int *i);
+char			*get_environment_key(char	*input, int *i, t_data *data);
 char			*get_environment_key_values(t_data *data, char	*input);
 
 // expander.c 

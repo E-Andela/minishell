@@ -25,14 +25,14 @@ void	add_argument(t_command *cmd, char *arg)
 	cmd->args = new_args;
 }
 
-void	add_redirection(t_command *cmd, char *file, t_token_type type)
+void	add_redirection(t_command *cmd, char *file, t_token_type type, t_data *data)
 {
 	t_redirections	*redir;
 	t_redirections	*current;
 
 	redir = init_redirection_node(file, type);
 	if (redir == NULL)
-		return (exit_program(ERR_MALLOC, errno));
+		exit_program(ERR_MALLOC, errno, data);
 	if (!cmd->redirections)
 		cmd->redirections = redir;
 	else
@@ -53,7 +53,7 @@ void	parser(t_data *data)
 	current_cmd_node = NULL;
 	head_cmd_node = NULL;
 	if (data->tokens_list == NULL)
-		exit_program(ERR_TOKEN, errno);
+		exit_program(ERR_TOKEN, errno, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
 		unexpected_token_error(data, data->tokens_list);
@@ -65,7 +65,7 @@ void	parser(t_data *data)
 		{
 			new_cmd = init_command_node();
 			if (new_cmd == NULL)
-				return (exit_program(ERR_MALLOC, errno));
+				exit_program(ERR_MALLOC, errno, data);
 			if (head_cmd_node == NULL)
 				head_cmd_node = new_cmd;
 			if (current_cmd_node != NULL)
@@ -88,7 +88,7 @@ void	parser(t_data *data)
 		{
 			if (data->tokens_list->next)
 			{
-				add_redirection(current_cmd_node, data->tokens_list->next->value, data->tokens_list->type);
+				add_redirection(current_cmd_node, data->tokens_list->next->value, data->tokens_list->type, data);
 				data->tokens_list = data->tokens_list->next;
 			}
 			else

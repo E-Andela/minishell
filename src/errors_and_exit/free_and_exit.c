@@ -1,57 +1,100 @@
 #include "../../inc/minishell.h"
 
-void	free_tokens(t_tokens *token_list)
+void	free_tokens_list(t_tokens *token_list)
 {
-	t_tokens	*temp_tokens;
+	t_tokens	*next_node;
 
-	if (!token_list)
-		return ;
 	while (token_list)
 	{
-		temp_tokens = token_list->next;
+		next_node = token_list->next;
 		free(token_list->value);
 		free(token_list);
-		token_list = temp_tokens;
+		token_list = next_node;
 	}
-	// tokens_list = NULL;
 }
 
-void	free_env_list(t_env_list *list)
+void	free_env_list(t_env_list *env_list)
 {
-	t_env_list	*temp_list;
+	t_env_list	*next_node;
 
-	if (!list)
-		return ;
-	while (list)
+	while (env_list)
 	{
-		temp_list = list->next;
-		free(list->key);
-		free(list->key_value);
-		free(list);
-		list = temp_list;
+		next_node = env_list->next;
+		free(env_list->key);
+		free(env_list->key_value);
+		free(env_list);
+		env_list = next_node;
 	}
-	// list = NULL;
+}
+void	free_cmd_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+void	free_redirections(t_redirections *redirs)
+{
+	t_redirections	*next_node;
+
+	while (redirs)
+	{
+		next_node = redirs->next;
+		free(redirs->file);
+		free(redirs);
+		redirs = next_node;
+	}
 }
 
-void	free_everything(t_data *data)
+void	free_command_list(t_command *command_list)
 {
-	// if (data->user_input)
-	// 	free(data->user_input);
-	// if (data->tokens_list)
-	// {
-	// 	free_tokens(data->tokens_list);
-	// 	data->tokens_list = NULL;
-	// }
-	free_env_list(data->environment);
-	data->environment = NULL;
+	t_command	*next_node;
+
+	if (!command_list)
+		return ;
+	while (command_list)
+	{
+		next_node = command_list->next;
+		if (command_list->args)
+		{
+			free_cmd_args(command_list->args);
+			command_list->args = NULL;
+		}
+		if (command_list->redirections)
+		{
+			free_redirections(command_list->redirections);
+			command_list->redirections = NULL;
+		}
+		free(command_list);
+		command_list = next_node;
+	}
+}
+
+void	free_data(t_data *data)
+{
+	if (data->user_input)
+		free(data->user_input);
+	if (data->environment)
+	{
+		free_env_list(data->environment);
+		data->environment = NULL;
+	}
+	if (data->tokens_list)
+	{
+		free_tokens_list(data->tokens_list);
+		data->tokens_list = NULL;
+	}
+	if (data->command_list)
+	{
+		free_command_list(data->command_list);
+		data->command_list = NULL;
+	}
 	free(data);
 }
 
-void	exit_program(char *error_message, int errnbr)
-{
-	if (errnbr == 127)
-		write(STDERR_FILENO, error_message, ft_strlen(error_message));
-	else
-		perror(error_message);
-	exit(errnbr);
-}
+
