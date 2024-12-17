@@ -5,6 +5,7 @@ void	add_argument(t_command *cmd, char *arg)
 	int		count;
 	int		i;
 	char	**new_args;
+	char	*trimmed_arg;
 
 	count = 0;
 	if (cmd->args)
@@ -19,7 +20,8 @@ void	add_argument(t_command *cmd, char *arg)
 		new_args[i] = cmd->args[i];
 		i++;
 	}
-	new_args[count] = ft_strdup(arg);
+	trimmed_arg = ft_strtrim(arg, "\'\"");
+	new_args[count] = ft_strdup(trimmed_arg);
 	new_args[count + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;

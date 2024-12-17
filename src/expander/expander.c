@@ -1,5 +1,24 @@
 #include "../../inc/minishell.h"
 
+
+// t_vector *expand_exit_code(t_vector *vector, int exit_code) 
+// {
+// 	char *exit_str;
+// 	int	i;
+
+// 	exit_str = ft_itoa(exit_code);
+// 	if (!exit_str)
+// 		exit_program(ERR_MALLOC, errno);
+// 	i = 0;
+// 	while (exit_str[i] != '\0')
+// 	{
+// 		vector_add_char(vector, exit_str[i]);
+// 		i++;
+// 	}
+// 	free(exit_str);
+// 	return (vector);
+// }
+
 t_vector	*expand_exit_code(t_vector *vector)
 {
 	vector_add_char(vector, 'E');
