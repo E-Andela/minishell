@@ -37,7 +37,7 @@ void	expand_env_variable(t_vector *vector, int *i, char *token_value, t_data *da
 		}
 		return ;
 	}
-	env_key = get_environment_key(token_value, i);
+	env_key = get_environment_key(token_value, i, data);
 	env_key_value = get_environment_key_values(data, env_key);
 	if (env_key_value == NULL)
 		return ;

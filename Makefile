@@ -1,21 +1,10 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: eandela <eandela@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2024/12/12 14:24:59 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/13 19:40:53 by eandela       ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
 
 vpath %.c src src/errors_and_exit src/executor src/expander src/parser src/tokenizer
 vpath %.h inc
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 LINKER = -lreadline
 
 SOURCE_DIR = ./src
@@ -63,7 +52,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	@echo "Building $(NAME)..."
-	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER)
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g -fsanitize=address
 
 $(LIBFT):
 	@echo "Building libft..."

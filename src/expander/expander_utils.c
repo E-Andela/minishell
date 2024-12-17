@@ -16,7 +16,7 @@ char	*get_environment_key_values(t_data *data, char	*input)
 	return (NULL);
 }
 
-char	*get_environment_key(char	*input, int *i)
+char	*get_environment_key(char	*input, int *i, t_data *data)
 {
 	int		start;
 	char	*key;
@@ -26,7 +26,7 @@ char	*get_environment_key(char	*input, int *i)
 		(*i)++;
 	key = ft_substr(input, start, (*i) - start);
 	if (key == NULL)
-		exit_program("malloc", errno);
+		exit_program(ERR_MALLOC, errno, data);
 	return (key);
 }
 

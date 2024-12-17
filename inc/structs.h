@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   structs.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: livliege <livliege@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/12/12 14:42:36 by livliege      #+#    #+#                 */
-/*   Updated: 2024/12/12 15:02:38 by livliege      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
@@ -52,7 +41,7 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }	t_tokens;
 
-// In case of an heredoc, *file will be the delimiter.
+// In case of a heredoc, *file will be the delimiter.
 typedef struct s_redirection
 {
 	char					*file;
@@ -74,7 +63,6 @@ typedef struct s_data
 	char			*user_input;
 	t_env_list		*environment;
 	t_tokens		*tokens_list;
-	// unsigned int	pipe_count;
 	t_command		*command_list;
 
 }	t_data;

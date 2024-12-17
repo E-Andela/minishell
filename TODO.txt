@@ -1,5 +1,39 @@
 
-LIATH:
 
 - Make exit code expander function
-- 
+- un-comment flags in libft makefile and minishell makefile and
+- remove unused variables 
+(ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
+(ft_envp.c:205:25: error: variable ‘i’ set but not used [-Werror=unused-but-set-variable] 205 | int  i;)
+	op mijn laptop runt blijkbaar een andere cc/gcc versie die dit wel opmerkt
+
+- when using echo "hallo doei" it returns "hallo doei". we need to trim the quotes
+
+WRONG:
+	user: "$USER"
+	command not found: No such file or directory
+CORRECT:
+	user: "$USER"
+	goliath: command not found
+
+
+fix this function: now cmd e will return true because it only checks the length of "e" (or cmd)
+to fix: get ft_strlen(cmd + 1) or ft_strlen("echo") 
+int is_builtin(char *cmd)
+{
+	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
+		return (1);
+	// if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
+	// 	return (1);
+	if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
+		return (1);
+	// if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
+	// 	return (1);
+	return (0);
+}

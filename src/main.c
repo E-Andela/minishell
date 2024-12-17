@@ -1,23 +1,5 @@
 #include "../inc/minishell.h"
 
-void	reset_data(t_data *data)
-{
-	// if (data->tokens_list)
-	// {
-	// 	free_tokens(data->tokens_list);
-	// 	data->tokens_list = NULL;
-	// }
-	// if (data->user_input)
-	// {
-	// 	free(data->user_input);
-	// 	data->user_input = NULL;
-	// }
-	free_tokens(data->tokens_list);
-	data->tokens_list = NULL;
-	free(data->user_input);
-	mini_loop(data);
-}
-
 void	set_index(t_command *cmd_list)
 {
 	int	i;
@@ -35,26 +17,32 @@ void	mini_loop(t_data *data)
 {
 	char	*input;
 
-	input = readline(USER_MSG);
-	data->user_input = ft_strtrim(input, " ");
-	if (data->user_input[0] == '\0')
+	while (1)
 	{
-		ft_putendl_fd("exiting minishell...\n", STDOUT_FILENO);
-		exit(EXIT_SUCCESS);
+		input = readline(USER_MSG);
+		if (!input)
+			continue ;
+		data->user_input = ft_strtrim(input, " ");
+		if (!data->user_input)
+			exit_program(ERR_MALLOC, errno, data);
+		if (data->user_input[0] == '\0')
+			continue ;
+		add_history(input);
+		free(input);
+		if (!check_for_quotes(data->user_input))
+			exit_program(ERR_QUOTES, errno, data);
+		if (!tokenizer(data->user_input, data))
+			exit_program(ERR_TOKEN, errno, data);
+		print_tokens(data->tokens_list);
+		expander_check(data->tokens_list, data);
+		parser(data);
+		print_cmd_list(data->command_list);
+		set_index(data->command_list);
+		execute_commands(data->command_list, data->environment);
+		wait_for_children();
 	}
-	add_history(input);
-	free(input);
-	if (!check_for_quotes(data->user_input))
-		return (exit_program(ERR_QUOTES, errno));
-	if (!tokenizer(data->user_input, data))
-		return (exit_program(ERR_TOKEN, errno));
-	expander_check(data->tokens_list, data);
-	parser(data);
-	set_index(data->command_list);
-	execute_commands(data->command_list, data->environment);
-	wait_for_children();
-	reset_data(data);
 }
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -62,14 +50,12 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argv;
 	if (argc != 1)
-		exit_program(ERR_ARGC, errno);
+		exit_program(ERR_ARGC, errno, data);
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
 		exit(EXIT_FAILURE);
-	// parse_env(envp, data);
 	data->environment = ft_arr2ll(envp);
-	// expander_loop(data);
 	mini_loop(data);
-	free_everything(data);
+	free_data(data);
 	return (0);
 }
