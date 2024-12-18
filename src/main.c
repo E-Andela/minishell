@@ -29,14 +29,19 @@ void	mini_loop(t_data *data)
 			continue ;
 		add_history(input);
 		free(input);
-		if (!check_for_quotes(data->user_input))
-			exit_program(ERR_QUOTES, errno, data);
-		if (!tokenizer(data->user_input, data))
-			exit_program(ERR_TOKEN, errno, data);
+
+		tokenizer(data->user_input, data);
 		print_tokens(data->tokens_list);
+
 		expander_check(data->tokens_list, data);
+		printf("after expantion:\n");
+		print_tokens(data->tokens_list);
+
+
 		parser(data);
+		printf("after parser:\n");
 		print_cmd_list(data->command_list);
+
 		set_index(data->command_list);
 		execute_commands(data->command_list, data->environment);
 		wait_for_children();

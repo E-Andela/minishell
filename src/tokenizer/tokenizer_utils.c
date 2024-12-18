@@ -32,6 +32,8 @@ int	check_for_quotes(char *input)
 	}
 	if ((d > 0 && d % 2 != 0) || (s > 0 && s % 2 != 0))
 		return (false);
+	printf("single: %d, double: %d\n", s, d);
+
 	return (true);
 }
 

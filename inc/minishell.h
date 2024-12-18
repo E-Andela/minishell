@@ -40,6 +40,7 @@ void			print_cmd_list(t_command *command_list);
 void				unexpected_token_error(t_data *data, t_tokens *token_list);
 
 // free_and_exit.c 
+void			free_command_list(t_command *command_list);
 void			free_tokens_list(t_tokens *token_list);
 void			free_data(t_data *data);
 void			exit_program(char *error_message, int errnbr, t_data *data);
@@ -105,10 +106,11 @@ char			*get_environment_key_values(t_data *data, char	*input);
 // expander.c 
 void			expander_check(t_tokens	*token_list, t_data	*data);
 void			expand_token(char **token_value, t_data *data);
+void			remove_quotes(char **token_value, t_data *data);
 
 // vectors.c
-void			vector_add_char(t_vector *vector, char c);
-void			vector_init(t_vector *vector);
+void			vector_add_char(t_vector *vector, char c, t_data *data);
+void			vector_init(t_vector *vector, t_data *data);
 
 // env_parsing.c 
 void			parse_env(char **envp, t_data *data);
@@ -121,20 +123,20 @@ t_command		*init_command_node(void);
 void			parser(t_data *data);
 
 // tokenizer_utils.c
+int				find_matching_quote(char *input, int start, int *num_quotes, char quote);
 t_token_type	check_token(char c);
 int				skip_spaces(char *input, int start);
 
 // tokenizer.c 
 int				check_for_quotes(char *input);
 int				check_whitespace(char c);
-int				tokenizer(char *input, t_data *data);
+void				tokenizer(char *input, t_data *data);
 
 // tokens_create.c
-int				add_token(char *input, t_token_type token_type,
-					t_tokens **token_list);
+void				add_token(char *input, t_token_type token_type,
+					t_tokens **token_list, t_data *data);
 
 // main.c
-void			reset_data(t_data *data);
 void			mini_loop(t_data *data);
 
 #endif

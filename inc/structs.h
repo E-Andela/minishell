@@ -64,7 +64,6 @@ typedef struct s_data
 	t_env_list		*environment;
 	t_tokens		*tokens_list;
 	t_command		*command_list;
-
 }	t_data;
 
 #endif

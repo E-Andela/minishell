@@ -25,7 +25,7 @@ char	*get_environment_key(char	*input, int *i, t_data *data)
 	while (input[(*i)] && (ft_isalnum(input[(*i)]) || input[(*i)] == '_'))
 		(*i)++;
 	key = ft_substr(input, start, (*i) - start);
-	if (key == NULL)
+	if (!key)
 		exit_program(ERR_MALLOC, errno, data);
 	return (key);
 }
@@ -50,6 +50,8 @@ void	expander_check(t_tokens *tokens_list, t_data *data)
 	{
 		if ((tokens_list->type == WORD) && (check_dollar_sign(tokens_list->value) == true))
 			expand_token(&tokens_list->value, data);
+		else if ((tokens_list->type == WORD) && (check_for_quotes(tokens_list->value)))
+			remove_quotes(&tokens_list->value, data);
 		tokens_list = tokens_list->next;
 	}
 }

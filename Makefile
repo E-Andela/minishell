@@ -52,8 +52,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	@echo "Building $(NAME)..."
-	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g 
-#-fsanitize=address
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g -fsanitize=address
 
 $(LIBFT):
 	@echo "Building libft..."

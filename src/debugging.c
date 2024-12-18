@@ -64,7 +64,6 @@ void	print_tokens(t_tokens *token_list)
 			// printf("token index:	%d\n", temp->index);
 			printf("value:		%s\n", temp->value);
 			printf("type:		%s (%d)\n", get_token_type_string(temp->type), temp->type);
-			// printf("expandable?:	%d\n", temp->expandable);
 			printf("%s----------------------------------%s\n", BLUE, DEFAULT);
 			temp = temp->next;
 		}
@@ -97,7 +96,7 @@ void print_cmd_list(t_command *head_cmd_node)
             i = 0;
 			while (current_cmd->args[i] != NULL)
         	{
-				printf("%s  ", current_cmd->args[i]);
+				printf("%s  \n		", current_cmd->args[i]);
 				i++;
 			}             
 			printf("\n");
@@ -106,6 +105,7 @@ void print_cmd_list(t_command *head_cmd_node)
         {
             printf("None\n");
         }
+
 
         // Print redirections
         printf("%sRedirections:	", YELLOW);
@@ -126,6 +126,7 @@ void print_cmd_list(t_command *head_cmd_node)
         else
             printf("%sNone\n", DEFAULT);
         printf("\n");
+		printf("%s----------------------------------%s\n", BLUE, DEFAULT);
         current_cmd = current_cmd->next;
     }
 }

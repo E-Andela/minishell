@@ -38,3 +38,27 @@
 			// 	return (1);
 			return (0);
 		}
+
+
+
+[X]	user: echo 'ha'"llo" 	=	ha'"llo
+	bash: echo 'ha'"llo" 	->	hallo
+
+[ ]	user: echo 'ha'"llo"'	=
+	Missing closing quote.
+	: Interrupted system call
+	bash: echo 'ha'"llo"'	->
+	>
+
+[ ]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
+
+
+
+check expander to make it so quotes get trimmed after expention
+
+
+
+[ ] echo "HALLO"'$USER' 	-> HALLO'goliath' (moet zijn: HALLO$USER)
+[x] echo "HALLO" '$USER'	-> HALLO" $USER
+
+

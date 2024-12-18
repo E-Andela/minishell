@@ -14,14 +14,17 @@ void	add_argument(t_command *cmd, char *arg)
 			count++;
 	}
 	new_args = (char **)malloc(sizeof(char *) * (count + 2));
+	if (!new_args)
+		exit_program(ERR_MALLOC, errno, NULL);
 	i = 0;
 	while (i < count)
 	{
 		new_args[i] = cmd->args[i];
 		i++;
 	}
-	trimmed_arg = ft_strtrim(arg, "\'\"");
-	new_args[count] = ft_strdup(trimmed_arg);
+	new_args[count] = ft_strdup(arg);
+	if (!new_args[count])
+		exit_program(ERR_MALLOC, errno, NULL);
 	new_args[count + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;
@@ -33,7 +36,7 @@ void	add_redirection(t_command *cmd, char *file, t_token_type type, t_data *data
 	t_redirections	*current;
 
 	redir = init_redirection_node(file, type);
-	if (redir == NULL)
+	if (!redir)
 		exit_program(ERR_MALLOC, errno, data);
 	if (!cmd->redirections)
 		cmd->redirections = redir;
@@ -50,8 +53,10 @@ void	parser(t_data *data)
 {
 	t_command	*current_cmd_node;
 	t_command	*head_cmd_node;
-	t_command	*new_cmd;
+	t_command	*new_cmd_node;
 
+	if (data->command_list)
+		free_command_list(data->command_list);
 	current_cmd_node = NULL;
 	head_cmd_node = NULL;
 	if (data->tokens_list == NULL)
@@ -65,17 +70,17 @@ void	parser(t_data *data)
 	{
 		if (data->tokens_list->type == PIPE || current_cmd_node == NULL)
 		{
-			new_cmd = init_command_node();
-			if (new_cmd == NULL)
+			new_cmd_node = init_command_node();
+			if (new_cmd_node == NULL)
 				exit_program(ERR_MALLOC, errno, data);
 			if (head_cmd_node == NULL)
-				head_cmd_node = new_cmd;
+				head_cmd_node = new_cmd_node;
 			if (current_cmd_node != NULL)
 			{
-				current_cmd_node->next = new_cmd;
-				new_cmd->prev = current_cmd_node;
+				current_cmd_node->next = new_cmd_node;
+				new_cmd_node->prev = current_cmd_node;
 			}
-			current_cmd_node = new_cmd;
+			current_cmd_node = new_cmd_node;
 			if (data->tokens_list->type == PIPE)
 			{
 				data->tokens_list = data->tokens_list->next;
@@ -102,4 +107,8 @@ void	parser(t_data *data)
 		data->tokens_list = data->tokens_list->next;
 	}
 	data->command_list = head_cmd_node;
+	free_tokens_list(data->tokens_list);
 }
+
+
+
