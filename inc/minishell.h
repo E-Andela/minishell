@@ -69,6 +69,8 @@ int **create_pipes(int num_pipes);
 // new_exec.c
 int execute_commands(t_command *cmd_list, t_env_list *env_list);
 
+// ft_cd.c
+int	ft_cd(char **args, t_env_list *env_list);
 
 // ft_echo.c
 int				ft_echo(char **arg);

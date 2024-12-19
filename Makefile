@@ -19,6 +19,7 @@ SOURCES = 	\
 			free_and_exit.c \
 			\
 			builtin_utils.c \
+			ft_cd.c \
 			exec.c \
 			new_exec.c \
 			ft_echo.c \
