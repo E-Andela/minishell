@@ -26,7 +26,7 @@ char	*get_environment_key(char	*input, int *i, t_data *data)
 		(*i)++;
 	key = ft_substr(input, start, (*i) - start);
 	if (!key)
-		exit_program(ERR_MALLOC, errno, data);
+		shell_exit(MALLOC_FAIL);
 	return (key);
 }
 

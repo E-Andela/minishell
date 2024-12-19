@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/23 23:53:18 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/19 22:02:26 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ char *new_name()
 
 	++i;
 	name = ft_strjoin("/tmp/.heredoc", ft_itoa(i));
-	return (name);	
+	if (!name)
+		shell_exit(MALLOC_FAIL);
+	return (name);
 }
 
 void	heredoc_loop(int fd, t_redirections *red_list)
@@ -50,15 +52,9 @@ int handle_here_doc(t_redirections *red_list)
 	int fd;
 
 	name = new_name();
-	if (!name)
-	{
-		perror("new_name");
-		return (-1);
-	}
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror("open");
 		free(name);
 		return (-1);
 	}	
@@ -70,7 +66,6 @@ int handle_here_doc(t_redirections *red_list)
 	{
 		free(name);
 		unlink(name);
-		perror("open");
 		return (-1);
 	}
 	dup2(fd, STDIN_FILENO);

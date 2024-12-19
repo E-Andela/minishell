@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 14:58:32 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/19 22:21:16 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char *get_key(char *key_value)
 	}
 	key = malloc(sizeof(char) * (eq + 1));
 	if (!key)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	ft_strlcpy(key, key_value, eq + 1);
 	return (key);
 }
@@ -75,7 +75,7 @@ char *get_value(char *key_value)
 		return (NULL);
 	value = ft_strdup(key_value + eq + 1);
 	if (!value)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	return (value);
 }
 
@@ -114,8 +114,6 @@ int export_variables(char **args, t_env_list *env_list)
 			if (!new)
 			{
 				new = new_element(args[i]);
-				if (!new)
-					return (1);
 				add_element_back(&env_list, new);
 			}
 			else
@@ -130,7 +128,7 @@ int export_variables(char **args, t_env_list *env_list)
 		}
 		else
 		{
-			perror("export: not a valid identifier");
+			ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
 			exit_status = 1;
 		}
 		free(key);
@@ -146,7 +144,6 @@ void	sort_envp_list(t_env_list *head)
 
 	if (head == NULL || head->next == NULL)
         return;
-
 	current = head;
 	while (current)
 	{

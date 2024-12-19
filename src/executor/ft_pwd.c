@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/15 15:52:16 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/19 22:04:32 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_pwd(void)
 	
 	getcwd(pwd, PATH_MAX);
 	if (!getcwd(pwd, PATH_MAX))
-		return (EXIT_FAILURE);
+		shell_exit(CWD_FAIL);
 	ft_putstrendl_fd(pwd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
