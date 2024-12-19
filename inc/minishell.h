@@ -38,6 +38,8 @@ void			print_cmd_list(t_command *command_list);
 
 // error_handling.c 
 void				unexpected_token_error(t_data *data, t_tokens *token_list);
+void shell_exit(t_error_type error);
+void display_error(char *error_msg);
 
 // free_and_exit.c 
 void			free_command_list(t_command *command_list);

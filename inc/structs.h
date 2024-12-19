@@ -32,6 +32,19 @@ typedef enum s_token_type
 	HERE_DOC
 }	t_token_type;
 
+typedef enum s_error_type
+{
+	MALLOC_FAIL,
+	PIPE_FAIL,
+	FORK_FAIL,
+	ARGUMENTS_FAIL,
+	OPEN_FAIL,
+	CWD_FAIL,
+	CMD_FAIL,
+	EXECVE_FAIL,
+	EXIT
+}	t_error_type;
+
 typedef struct s_tokens
 {
 	char			*value;
@@ -64,6 +77,7 @@ typedef struct s_data
 	t_env_list		*environment;
 	t_tokens		*tokens_list;
 	t_command		*command_list;
+	int				exit_code;
 }	t_data;
 
 #endif

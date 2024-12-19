@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/04 18:28:31 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/19 22:23:59 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*key_val_to_str(t_env_list *element)
 	len = ft_strlen(element->key) + ft_strlen(element->key_value) + 2;
 	string = malloc(sizeof(char) * len);
 	if (!string)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	string[len - 1] = '\0';
 	while (i < len)
 	{
@@ -71,7 +71,7 @@ char **ft_ll2arr(t_env_list *envp)
 	entries = ll_count(envp, true);
 	ret = malloc(sizeof(char*) * (entries + 1));
 	if (!ret)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	ret[entries] = NULL;
 	while (envp)
 	{
@@ -112,7 +112,7 @@ t_env_list *new_element(char *envp)
 	i = get_eq_index(envp);
 	element = malloc(sizeof(t_env_list));
 	if (!element)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	if (i < 0)
 	{
 		element->key = ft_strdup(envp);
@@ -122,10 +122,10 @@ t_env_list *new_element(char *envp)
 	}
 	element->key = ft_substr(envp, 0, i);
 	if (!element->key)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	element->key_value = ft_strdup(envp + (i + 1));
 	if (!element->key_value)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	element->next = NULL;
 	return (element);
 }
@@ -156,8 +156,6 @@ t_env_list	*ft_arr2ll(char **envp)
 	while (envp[i])
 	{
 		tmp = new_element(envp[i]);
-		if (!tmp)
-			return (NULL);
 		if (!head)
 		{
 			head = tmp;
@@ -251,15 +249,15 @@ t_env_list *duplicate_node(t_env_list *node)
 
 	dup = malloc(sizeof(t_env_list));
 	if (!dup)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	dup->key = ft_strdup(node->key);
 	if (!dup->key)
-		return (NULL);
+		shell_exit(MALLOC_FAIL);
 	if (node->key_value)
 	{
 		dup->key_value = ft_strdup(node->key_value);
 		if (!dup->key_value)
-			return (NULL);
+			shell_exit(MALLOC_FAIL);
 	}
 	dup->next = NULL;
 	return (dup);

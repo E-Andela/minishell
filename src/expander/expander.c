@@ -20,15 +20,13 @@
 
 t_vector	*expand_exit_code(t_vector *vector, t_data *data)
 {
-	vector_add_char(vector, 'E', data);
-	vector_add_char(vector, 'X', data);
-	vector_add_char(vector, 'I', data);
-	vector_add_char(vector, 'T', data);
-	vector_add_char(vector, '-', data);
-	vector_add_char(vector, 'C', data);
-	vector_add_char(vector, 'O', data);
-	vector_add_char(vector, 'D', data);
-	vector_add_char(vector, 'E', data);
+	char *exit_code = ft_itoa(data->exit_code);
+	int i = 0;
+	while (exit_code[i])
+	{
+		vector_add_char(vector, exit_code[i], data);
+		i++;
+	}
 	return (vector);
 }
 

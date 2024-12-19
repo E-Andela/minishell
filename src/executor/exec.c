@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/29 13:28:04 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/13 19:33:27 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/19 23:02:57 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*get_path(char *command, char *full_path)
 	{
 		path_part = ft_strjoin("/", command);
 		path = ft_strjoin(split_path[i], path_part);
+		if (!path_part || !path)
+			shell_exit(MALLOC_FAIL);
 		free(path_part);
 		if (access(path, F_OK) == 0)
 		{
@@ -92,10 +94,7 @@ int **create_pipes(int num_pipes)
 	int i;
 
 	i = 0;
-	if (num_pipes > 0)
-		pipes = malloc(sizeof(int *) * num_pipes);
-	else
-		return NULL;
+	pipes = malloc(sizeof(int *) * num_pipes);
 	if (!pipes)
 		return NULL;
 	while (i < num_pipes)
@@ -117,7 +116,6 @@ int **create_pipes(int num_pipes)
 				free(pipes[i]);
 				i--;
 			}
-            perror("pipe failed");
             return NULL;
         }
 		i++;
@@ -138,8 +136,8 @@ int handle_redirections(t_redirections *red_list)
 			file = open(red_list->file, O_RDONLY);
 			if (file == -1)
 			{
-				perror("asdfsadf");
-				return (-1);
+				perror(red_list->file);
+				return (1);
 			}
 			dup2(file, STDIN_FILENO);
 			close(file);
@@ -149,8 +147,8 @@ int handle_redirections(t_redirections *red_list)
 			file = open(red_list->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (file == -1)
 			{
-				perror("open ");
-				return (-1);
+				perror(red_list->file);
+				return (1);
 			}
 			dup2(file, STDOUT_FILENO);
 			close(file);
@@ -160,8 +158,8 @@ int handle_redirections(t_redirections *red_list)
 			file = open(red_list->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (file == -1)
 			{
-				perror("open append file failed");
-				return (-1);
+				perror(red_list->file);
+				return (1);
 			}
 			dup2(file, STDOUT_FILENO);
 			close(file);
@@ -220,10 +218,10 @@ int	wait_for_children(void)
 	status = 0;
 	while (wait(&status) != -1 || errno != ECHILD)
 	{
-		// printf("status: %i, %i\n", WEXITSTATUS(status), status);
+		printf("status: %i, %i\n", WEXITSTATUS(status), status);
 	}
 	// printf("final status: %i, %i\n", WEXITSTATUS(status), status);
-	return (status);	
+	return (WEXITSTATUS(status));	
 }
 
 // void execute_cmds(t_command *cmd_list, t_env_list *env_list)
