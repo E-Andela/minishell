@@ -19,9 +19,12 @@ void	mini_loop(t_data *data)
 
 	while (1)
 	{
+		init_signals();
 		input = readline(USER_MSG);
 		if (!input)
-			continue ;
+		{
+			exit(0);
+		}
 		data->user_input = ft_strtrim(input, " ");
 		if (!data->user_input)
 			exit_program(ERR_MALLOC, errno, data);
