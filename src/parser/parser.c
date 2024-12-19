@@ -109,6 +109,3 @@ void	parser(t_data *data)
 	data->command_list = head_cmd_node;
 	free_tokens_list(data->tokens_list);
 }
-
-
-

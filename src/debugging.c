@@ -84,9 +84,10 @@ void print_cmd_list(t_command *head_cmd_node)
 	    return;
 	}
     current_cmd = head_cmd_node;
+	printf("%s----------------------------------%s\n", BLUE, DEFAULT);
+
     while (current_cmd != NULL)
     {
-		printf("%s----------------------------------%s\n", BLUE, DEFAULT);
         // printf("%sCommand Node:\n%s", YELLOW, GREEN);
 
         // Print arguments

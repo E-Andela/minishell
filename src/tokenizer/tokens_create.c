@@ -17,7 +17,7 @@
 // 	}
 // }
 
-t_tokens	*create_token_node(char *input, t_token_type token_type, int index, int quotes, t_data *data)
+t_tokens	*create_token_node(char *input, t_token_type token_type, int index, t_data *data)
 {
 	t_tokens	*new_token;
 
@@ -43,33 +43,15 @@ t_tokens	*get_last_token(t_tokens *token_list)
 	return (token_list);
 }
 
-
-
-
-// int	find_matching_quote(char *input, int start, int *num_quotes, char quote)
-// {
-// 	int	i;
-
-// 	i = start + 1;
-// 	*num_quotes += 1;
-// 	while (input[i] != '\0' && input[i] != quote)
-// 		i++;
-// 	if (input[i] == quote)
-// 		*num_quotes += 1;
-// 	return (i - start);
-// }
-
-
 void	add_token(char *input, t_token_type token_type, t_tokens **token_list, t_data *data)
 {
 	t_tokens	*new_token;
 	t_tokens	*last_token;
-	int			quotes;
 	static int	index = 0;
 
 	if (!(*token_list))
 		index = 0;
-	new_token = create_token_node(input, token_type, index++, quotes, data);
+	new_token = create_token_node(input, token_type, index++, data);
 	if (!new_token)
 		exit_program(ERR_MALLOC, errno, data);
 	if (!(*token_list))

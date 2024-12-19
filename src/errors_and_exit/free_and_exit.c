@@ -12,7 +12,6 @@ void	free_tokens_list(t_tokens *token_list)
 		token_list = next_node;
 	}
 	token_list = NULL;
-
 }
 
 void	free_env_list(t_env_list *env_list)
@@ -29,6 +28,7 @@ void	free_env_list(t_env_list *env_list)
 	}
 	env_list = NULL;
 }
+
 void	free_cmd_args(char **args)
 {
 	int	i;
@@ -41,6 +41,7 @@ void	free_cmd_args(char **args)
 	}
 	free(args);
 }
+
 void	free_redirections(t_redirections *redirs)
 {
 	t_redirections	*next_node;
@@ -77,7 +78,6 @@ void	free_command_list(t_command *command_list)
 		command_list = next_node;
 	}
 	command_list = NULL;
-
 }
 
 void	free_data(t_data *data)
@@ -98,5 +98,3 @@ void	free_data(t_data *data)
 	}
 	free(data);
 }
-
-

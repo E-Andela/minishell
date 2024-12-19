@@ -37,7 +37,6 @@ void	mini_loop(t_data *data)
 		printf("after expantion:\n");
 		print_tokens(data->tokens_list);
 
-
 		parser(data);
 		printf("after parser:\n");
 		print_cmd_list(data->command_list);
@@ -48,7 +47,6 @@ void	mini_loop(t_data *data)
 	}
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -58,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 		exit_program(ERR_ARGC, errno, data);
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
-		exit(EXIT_FAILURE);
+		exit_program(ERR_MALLOC, errno, data);
 	data->environment = ft_arr2ll(envp);
 	mini_loop(data);
 	free_data(data);

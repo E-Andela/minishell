@@ -56,6 +56,14 @@ static void	vector_resize(t_vector *vector, int new_capacity, t_data *data)
 	vector->capacity = new_capacity;
 }
 
+void	vector_add_char(t_vector *vector, char c, t_data *data)
+{
+	if (vector->capacity == vector->total)
+		vector_resize(vector, vector->capacity * 2, data);
+	vector->value[vector->total] = c;
+	vector->total++;
+}
+
 void	vector_init(t_vector *vector, t_data *data)
 {
 	vector->capacity = VECTOR_INIT_CAPACITY;
@@ -65,10 +73,3 @@ void	vector_init(t_vector *vector, t_data *data)
 		exit_program(ERR_MALLOC, errno, data);
 }
 
-void	vector_add_char(t_vector *vector, char c, t_data *data)
-{
-	if (vector->capacity == vector->total)
-		vector_resize(vector, vector->capacity * 2, data);
-	vector->value[vector->total] = c;
-	vector->total++;
-}

@@ -1,6 +1,5 @@
 #include "../../inc/minishell.h"
 
-
 // t_vector *expand_exit_code(t_vector *vector, int exit_code, t_data *data) 
 // {
 // 	char *exit_str;
@@ -131,37 +130,35 @@ void	expand_token(char **token_value, t_data *data)
 	free(vector.value);
 }
 
-
 void	remove_quotes(char **token_value, t_data *data)
 {
 	int			i;
-	char c;
+	char		c;
 	t_vector	vector;
 
 	vector_init(&vector, data);
 	i = 0;
-    while ((*token_value)[i] != '\0')
-    {
-        if ((*token_value)[i] == '\'' || (*token_value)[i] == '\"')
-        {
-            c = (*token_value)[i]; // Store the current quote type
-            i++; // Skip the opening quote
-            while ((*token_value)[i] != c && (*token_value)[i] != '\0')
-            {
-                vector_add_char(&vector, (*token_value)[i], data);
-                i++;
-            }
-            if ((*token_value)[i] == c) // Skip the closing quote
-                i++;
-        }
-        else
-        {
-            vector_add_char(&vector, (*token_value)[i], data);
-            i++;
-        }
-    }
+	while ((*token_value)[i] != '\0')
+	{
+		if ((*token_value)[i] == '\'' || (*token_value)[i] == '\"')
+		{
+			c = (*token_value)[i];
+			i++;
+			while ((*token_value)[i] != c && (*token_value)[i] != '\0')
+			{
+				vector_add_char(&vector, (*token_value)[i], data);
+				i++;
+			}
+			if ((*token_value)[i] == c && (*token_value)[i] != '\0')
+				i++;
+		}
+		else
+		{
+			vector_add_char(&vector, (*token_value)[i], data);
+			i++;
+		}
+	}
 	vector_add_char(&vector, '\0', data);
-	printf("%svector = %s\n%s", RED, vector.value, DEFAULT);
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
 	free(vector.value);
