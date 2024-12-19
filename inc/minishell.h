@@ -136,6 +136,10 @@ void				tokenizer(char *input, t_data *data);
 void				add_token(char *input, t_token_type token_type,
 					t_tokens **token_list, t_data *data);
 
+// signals.c
+void	init_signals();
+void	init_child_signals();
+
 // main.c
 void			mini_loop(t_data *data);
 

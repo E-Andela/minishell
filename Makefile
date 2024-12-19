@@ -1,5 +1,5 @@
 
-vpath %.c src src/errors_and_exit src/executor src/expander src/parser src/tokenizer
+vpath %.c src src/errors_and_exit src/executor src/expander src/parser src/tokenizer src/signals
 vpath %.h inc
 
 NAME = minishell
@@ -40,6 +40,8 @@ SOURCES = 	\
 			tokenizer.c \
 			tokenizer_utils.c \
 			tokens_create.c \
+			\
+			signals.c \
 			\
 			debugging.c \
 			main.c \

@@ -22,6 +22,7 @@ int execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 	while (cmd_list)
 	{
 		id = fork();
+		init_child_signals();
 		if (id == 0)
 		{
 			handle_pipes(pipes, cmd_list, pipe_size);
