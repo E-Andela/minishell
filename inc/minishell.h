@@ -102,6 +102,9 @@ int				ft_unset(char **args, t_env_list **env_list);
 
 // here_doc.c
 int				handle_here_doc(t_redirections *red_list);
+int				create_heredocs(t_command *cmd_list);
+int				redirect_heredoc(t_redirections *redirection);
+
 
 // expander_utils.c
 char			*get_environment_key(char	*input, int *i, t_data *data);

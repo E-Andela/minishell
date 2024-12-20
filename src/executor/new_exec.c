@@ -3,8 +3,12 @@
 int execute_single_command(t_command *cmd_list, t_env_list *env_list)
 {
 	int status;
+	int og_stdin;
 
+	og_stdin = dup(STDIN_FILENO);
+	status = create_heredocs(cmd_list);
 	status = handle_redirections(cmd_list->redirections);
+	dup2(og_stdin, STDIN_FILENO);
 	status = execute_builtin(cmd_list->args, env_list);
 	return (status);
 }
@@ -22,6 +26,8 @@ void execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 		if (!pipes)
 			shell_exit(PIPE_FAIL);
 	}
+	if (create_heredocs(cmd_list) != 0)
+		shell_exit(HEREDOC_FAIL);
 	while (cmd_list)
 	{
 		id = fork();

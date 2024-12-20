@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/29 13:28:04 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/19 23:02:57 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/20 18:02:17 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int handle_redirections(t_redirections *red_list)
 		else if (red_list->type == HERE_DOC)
 		{
 			dup2(og_stdin, STDIN_FILENO);
-			handle_here_doc(red_list);
+			redirect_heredoc(red_list);
 		}
 		red_list = red_list->next;
 	}

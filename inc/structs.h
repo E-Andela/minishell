@@ -42,6 +42,7 @@ typedef enum s_error_type
 	CWD_FAIL,
 	CMD_FAIL,
 	EXECVE_FAIL,
+	HEREDOC_FAIL,
 	EXIT
 }	t_error_type;
 
