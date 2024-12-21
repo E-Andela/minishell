@@ -63,7 +63,7 @@ void	parser(t_data *data)
 		exit_program(ERR_TOKEN, errno, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
-		unexpected_token_error(data, data->tokens_list);
+		unexpected_token_error(data->tokens_list);
 		return ;
 	}
 	while (data->tokens_list != NULL)
@@ -100,7 +100,7 @@ void	parser(t_data *data)
 			}
 			else
 			{
-				unexpected_token_error(data, data->tokens_list);
+				unexpected_token_error(data->tokens_list);
 				return ;
 			}
 		}

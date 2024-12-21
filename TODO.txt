@@ -64,6 +64,15 @@
 	it then getst stuck and after closing out of the program it writes more weird stuff
 	echo "HELLO $USER!" > file2 | wc -l > file1 does work!
 
+[] WTF!
+./minishell 5 5
+Segmentation fault (core dumped)
+	- its because ive put (void)argv in the main function.
+
+[] compile with flags and fix errors
+[] norminette
+
+
 
 
 Tests

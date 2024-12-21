@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	(void) argv;
+	// (void) argv;
 	if (argc != 1)
 		exit_program(ERR_ARGC, errno, data);
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);

@@ -37,7 +37,7 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-void				unexpected_token_error(t_data *data, t_tokens *token_list);
+void				unexpected_token_error(t_tokens *token_list);
 
 // free_and_exit.c 
 void			free_command_list(t_command *command_list);
