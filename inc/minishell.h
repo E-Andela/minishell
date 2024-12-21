@@ -37,7 +37,9 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-void				unexpected_token_error(t_tokens *token_list);
+void				unexpected_token_error(t_data *data, t_tokens *token_list);
+void shell_exit(t_error_type error);
+void display_error(char *error_msg);
 
 // free_and_exit.c 
 void			free_command_list(t_command *command_list);
@@ -67,6 +69,8 @@ int **create_pipes(int num_pipes);
 // new_exec.c
 int execute_commands(t_command *cmd_list, t_env_list *env_list);
 
+// ft_cd.c
+int	ft_cd(char **args, t_env_list *env_list);
 
 // ft_echo.c
 int				ft_echo(char **arg);
@@ -98,6 +102,9 @@ int				ft_unset(char **args, t_env_list **env_list);
 
 // here_doc.c
 int				handle_here_doc(t_redirections *red_list);
+int				create_heredocs(t_command *cmd_list);
+int				redirect_heredoc(t_redirections *redirection);
+
 
 // expander_utils.c
 char			*get_environment_key(char	*input, int *i, t_data *data);
@@ -135,6 +142,10 @@ void				tokenizer(char *input, t_data *data);
 // tokens_create.c
 void				add_token(char *input, t_token_type token_type,
 					t_tokens **token_list, t_data *data);
+
+// signals.c
+void	init_signals();
+void	init_child_signals();
 
 // main.c
 void			mini_loop(t_data *data);

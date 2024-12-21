@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/12/07 16:12:00 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/13 19:35:53 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/19 23:27:53 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int is_builtin(char *cmd)
 		return (1);
 	if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
 		return (1);
-	// if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-	// 	return (1);
+	if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
+		return (1);
 	if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
 		return (1);
 	if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
@@ -39,8 +39,8 @@ int execute_builtin(char **args, t_env_list *env_list)
 		return (ft_echo(args));
 	if (ft_strncmp(args[0], "pwd", ft_strlen(args[0])) == 0)
 		return (ft_pwd());
-	// if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
-	// 	return (ft_cd(args));
+	if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
+		return (ft_cd(args, env_list));
 	if (ft_strncmp(args[0], "export", ft_strlen(args[0])) == 0)
 		return (ft_export(args, env_list));
 	if (ft_strncmp(args[0], "unset", ft_strlen(args[0])) == 0)
