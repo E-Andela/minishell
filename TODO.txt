@@ -9,7 +9,7 @@
 [X] when using echo "hallo doei" it returns "hallo doei". we need to trim the quotes
 
 
-[ ] fix this function: now cmd e will return true because it only checks the length of "e" (or cmd)
+[X] fix this function: now cmd e will return true because it only checks the length of "e" (or cmd)
 		to fix: get ft_strlen(cmd + 1) or ft_strlen("echo") 
 		int is_builtin(char *cmd)
 		{
@@ -52,22 +52,24 @@
 			user: "$USER"
 			goliath: command not found
 
-[ ] check two token nodes next to eachother. 
+[ ] check two token nodes next to each other. 
 	[ ] echo <<< now gets parsed as a heredock with < as dilimiter. this needs to be a syntax unexpected token error.
 	[ ]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
 
 
 
-[] 	echo "hallo '$USER' hoe gaat het?" -> hallo 'goliath' hoe gaat het?
+[X] 	echo "hallo '$USER' hoe gaat het?" -> hallo 'goliath' hoe gaat het?
 []	echo $USER > file1  writes this in file1: 	goliath
 												[?2004huser:
 	it then getst stuck and after closing out of the program it writes more weird stuff
 	echo "HELLO $USER!" > file2 | wc -l > file1 does work!
 
+
 [] WTF!
 ./minishell 5 5
 Segmentation fault (core dumped)
 	- its because ive put (void)argv in the main function.
+
 
 [] compile with flags and fix errors
 [] norminette
