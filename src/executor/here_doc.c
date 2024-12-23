@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/23 23:53:18 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/20 18:18:39 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/23 19:30:06 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	heredoc_loop(int fd, t_redirections *red_list)
 	char *buffer;
 	size_t len;
 
-	while (1)
+	init_heredoc_signals();
+	while (1 && g_signal != SIGINT)
 	{
 		buffer = readline("> ");
 		if (!buffer)
@@ -44,6 +45,7 @@ void	heredoc_loop(int fd, t_redirections *red_list)
 		write(fd, "\n", 1);
 		free(buffer);
 	}
+	init_signals();
 }
 
 int create_heredoc_file(t_redirections *redirection)
@@ -59,6 +61,15 @@ int create_heredoc_file(t_redirections *redirection)
 		return (-1);
 	}
 	heredoc_loop(fd, redirection);
+	// printf("g_signal: %i\n", g_signal);
+	if (g_signal == SIGINT)
+	{
+		// printf("return signal from heredoc\n");
+		close(fd);
+		unlink(file_name);
+		free(file_name);
+		return (130);
+	}
 	free(redirection->file);
 	redirection->file = file_name;
 	close(fd);
@@ -68,15 +79,15 @@ int create_heredoc_file(t_redirections *redirection)
 int	create_heredocs(t_command *cmd_list)
 {
 	t_redirections *redirection;
-
+	int status;
 	while (cmd_list)
 	{
 		redirection = cmd_list->redirections;
 		while (redirection)
 		{
 			if (redirection->type == HERE_DOC)
-				if (create_heredoc_file(redirection) == -1)
-					return (-1);
+				if ((status = create_heredoc_file(redirection)) != 0)
+					return (status);
 			redirection = redirection->next;
 		}
 		cmd_list = cmd_list->next;
@@ -100,31 +111,31 @@ int redirect_heredoc(t_redirections *redirection)
 	return 0;	
 }
 
-int handle_here_doc(t_redirections *red_list)
-{
-	char *name;
-	int fd;
+// int handle_here_doc(t_redirections *red_list)
+// {
+// 	char *name;
+// 	int fd;
 
-	name = new_name();
-	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		free(name);
-		return (-1);
-	}	
-	heredoc_loop(fd, red_list);
-	close(fd);
+// 	name = new_name();
+// 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 	if (fd == -1)
+// 	{
+// 		free(name);
+// 		return (-1);
+// 	}	
+// 	heredoc_loop(fd, red_list);
+// 	close(fd);
 	
-	fd = open(name, O_RDONLY);
-	if (fd == -1)
-	{
-		free(name);
-		unlink(name);
-		return (-1);
-	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	unlink(name);
-	free(name);
-	return (0);
-}
+// 	fd = open(name, O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		free(name);
+// 		unlink(name);
+// 		return (-1);
+// 	}
+// 	dup2(fd, STDIN_FILENO);
+// 	close(fd);
+// 	unlink(name);
+// 	free(name);
+// 	return (0);
+// }
