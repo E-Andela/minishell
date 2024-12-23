@@ -80,7 +80,7 @@ void print_cmd_list(t_command *head_cmd_node)
 
 	if (!head_cmd_node)
 	{
-	    printf("No commands to print.\n");
+	    printf("Command list is empty.\n");
 	    return;
 	}
     current_cmd = head_cmd_node;

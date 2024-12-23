@@ -49,7 +49,7 @@ void	add_redirection(t_command *cmd, char *file, t_token_type type, t_data *data
 	}
 }
 
-void	parser(t_data *data)
+int	parser(t_data *data)
 {
 	t_command	*current_cmd_node;
 	t_command	*head_cmd_node;
@@ -64,7 +64,7 @@ void	parser(t_data *data)
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
 		unexpected_token_error(data->tokens_list);
-		return ;
+		return (false);
 	}
 	while (data->tokens_list != NULL)
 	{
@@ -83,9 +83,13 @@ void	parser(t_data *data)
 			current_cmd_node = new_cmd_node;
 			if (data->tokens_list->type == PIPE)
 			{
+				if (data->tokens_list->next == NULL)
+				{
+					unexpected_token_error(data->tokens_list);
+					return (false);
+					// break ;
+				}
 				data->tokens_list = data->tokens_list->next;
-				if (data->tokens_list == NULL)
-					break ;
 				continue ;
 			}
 		}
@@ -101,11 +105,12 @@ void	parser(t_data *data)
 			else
 			{
 				unexpected_token_error(data->tokens_list);
-				return ;
+				return (false);
 			}
 		}
 		data->tokens_list = data->tokens_list->next;
 	}
 	data->command_list = head_cmd_node;
 	free_tokens_list(data->tokens_list);
+	return (true);
 }

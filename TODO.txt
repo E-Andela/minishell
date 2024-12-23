@@ -59,8 +59,10 @@
 
 
 [X] 	echo "hallo '$USER' hoe gaat het?" -> hallo 'goliath' hoe gaat het?
-[]	echo $USER > file1  writes this in file1: 	goliath
+[ ]	echo $USER > file1  writes this in file1: 	goliath
 												[?2004huser:
+		-> dub function needs to set STDOUT back to terminal? now STDOUT stayes in file1
+
 	it then getst stuck and after closing out of the program it writes more weird stuff
 	echo "HELLO $USER!" > file2 | wc -l > file1 does work!
 
@@ -77,102 +79,182 @@ Segmentation fault (core dumped)
 
 
 
-Tests
 
-[ ] 	echo bonjour ; |
-[ ] 	echo bonjour | |
-[ ] 	|
-[ ] 	echo bonjour |;
-[ ] 	echo bonjour ; ls
-[ ] 	echo bonjour > test\ 1
-[ ] 	cd $HOME/Documents
-[ ] 	echo "\s" & echo "\s"
-[ ] 	echo >
-[ ] 	echo -n -n -nnnn -nnnnm
-[ ] 	cat /dev/random | head -n 1 | cat -e
-[ ] 	unset var1 # with undefined var1
-[ ] 	export "" et unset ""
-[ ] 	echo test > file test1
-[ ] 	$
-[ ] 	not_cmd bonjour > salut
-[ ] 	env puis export puis env # vars aren't sorted
-[ ] 	cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code
-[ ] 	cat Makefile | grep pr | head -n 5 | cat test (bin) # check status code
-[ ] 	cat Makefile | grep pr | head -n 5 | hello (NA) # check status code
-[ ] 	echo bonjour >>> test
-[ ] 	echo bonjour > > out
-[ ] 	echo 2 >> out1 > out2
-[ ] 	echo 2 > out1 >> out2
-[ ] 	cat < test # with non-existent test
-[ ] 	export var; export var=test
-[ ] 	echo bonjour > $test # with test not defined
-[ ] 	file_name_in_current_dir
-[ ] 	cd ../../../../../.. ; pwd
-[ ] 	ctrl-C . 130 sur bin(ex : sleep 10)&line vide
-[ ] 	ctrl-\ .131 sur bin
-[ ] 	echo "bip | bip ; coyotte > < " "
-[ ] 	cat | cat | cat | ls # check outputs order
-[ ] 	$bla # with bla not defined
-[ ] 	export var ="cat Makefile | grep >"
-[ ] 	export "test=ici"=coucou
-[ ] 	c$var Makefile # with var=at
-[ ] 	$LESS$VAR
-[ ] 	/bin/echo bonjour
-[ ] 	not_cmd
-[ ] 	sleep 5 | exit
-[ ] 	echo bonjour > $test w/ t
-[ ] 	"exit retour a la ligne"
-[ ] 	minishell # binary not in path without "./" before
-[ ] 	cat diufosgid # check exit code
-[ ] 	exit # should return the last exit code value
-[ ] 	exit -10
-[ ] 	exit +10
-[ ] 	;
-[ ] 	echo coucou | ;
-[ ] 	echo "$HOME"
-[ ] 	echo '$HOME'
-[ ] 	export ; env # display is different for both commands
-[ ] 	echo $HOME
-[ ] 	> log echo coucou
-[ ] 	echo hudifg d | | hugdfihd
-[ ] 	echo
-[ ] 	echo simple
-[ ] 	echo -n simple
-[ ] 	echo ''
-[ ] 	echo ""
-[ ] 	echo "\"
-[ ] 	echo "\n \n \n"
-[ ] 	echo "\n \n \\n"
-[ ] 	echo ;;
-[ ] 	echo hi";" hihi
-[ ] 	echo hi " ; " hihi
-[ ] 	cd
-[ ] 	cd .
-[ ] 	cd ~
-[ ] 	cd /
-[ ] 	cd no_file
-[ ] 	cd a b c d
-[ ] 	pwd a
-[ ] 	pwd a b c d
-[ ] 	export LOL=lala ROR=rara
-[ ] 	unset LOL ROR
-[ ] 	export "HI= hi"
-[ ] 	export "HI =hi"
-[ ] 	/bin/ls
-[ ] 	# write something the press ctrl+c
-[ ] 	# write something then press ctrl+d
-[ ] 	# write something then press ctrl+\
-[ ] 	echo $?
-[ ] 	l^Ds
-[ ] 	echo |
-[ ] 	| echo
-[ ] 	sort | ls # check output order
-[ ] 	cat < >
-[ ] 	cat < <
-[ ] 	cat > >
-[ ] 	> a ls > b < Makefile
-[ ] 	echo > a Hello World!
-[ ] 	> a echo Hello World!
-[ ] 	cat < Makefile | grep gcc > output
-[ ] 	exit 0 | exit 1
-[ ] 	exit 1 | exit 0
+
+TEEEEEEEESSSSTING!!!!!:::::::
+
+
+
+
+legenda:
+v = voltooid (lijkt op zo'n vinkje)
+x = doet het nog niet
+? = even overleggen of dir goed is / of we dit moeten handelen
+/ = almost
+
+
+TODO
+unexpected token error when:
+
+[v]		user: |			
+[v]		user: >			(we could improve by saying "syntax error near unexpected token `newline' " )
+[v]		user: <			(we could improve by saying "syntax error near unexpected token `newline' " )
+[v]		user: >>		(we could improve by saying "syntax error near unexpected token `newline' " )
+[v]		user: <<		(we could improve by saying "syntax error near unexpected token `newline' " )
+
+zie hieronder wanneer nog meer:
+
+----------------------------------------
+
+
+
+
+
+TESTS!
+
+[v] 	echo bonjour ; |
+[v] 	echo bonjour | |
+[v] 	|
+[/] 	echo bonjour |;																	bash= bash: syntax error near unexpected token `;'												minishell= Command not found
+[/] 	echo bonjour ; ls																bash= bonjour
+																						      file1  file2  inc  libft  Makefile  minishell  obj  output  output1  src  TODO.txt		minishell= bonjour ; ls
+[x] 	echo bonjour > test\ 1															bash= creates file called test 1 with [bonjour] in it.											minishell= creates file called test\ with [bonjour 1] in it. (also the STDOUT dit not swich back because its followed by this): [91mcommands list with redirects has been cleared :) [0m \n	 [91mdata has been RESET :) 	\n 	[0m	\n	[?2004huser: )
+[v] 	cd $HOME/Documents
+[/] 	echo "\s" & echo "\s"															special characers \s and & we dont need to handle
+[v] 	echo >
+[v] 	echo -n -n -nnnn -nnnnm
+[/] 	cat /dev/random | head -n 1 | cat -e											I think its correct, but seeing as they are random values we can not compare
+[?] 	unset var1 # with undefined var1												doet niets, is dat correct?
+[/] 	export ""																		bash= export: `': not a valid identifier														minishell= export: not a valid identifier (basically perfect, we can check if we want to add the [`':])
+[v]		unset ""
+[x] 	echo test > file test1															bash= creates file called file with [test test1] in it.											minishell= does the same but does not give STDOUT back to terminal
+[?] 	$																				bash= $: command not found																		minishell= Command not found (hoofdletter C, en zonder de (niet bestaande) command ervoor)																		
+[x] 	not_cmd bonjour > salut															bash= not_cmd: command not found																minishell= same as above . (HOWEVER: is does create a new file calles salut which is good!)
+[?] 	env puis export puis env # vars aren't sorted									deze snap ik niet
+[x] 	cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code		bash= bash: cd: test: No such file or directory													minishell= test: No such file or directory  			(exitcode = 1 = correct (command not found))
+[v] 	cat Makefile | grep pr | head -n 5 | cat test (bin) # check status code			deze werkt dan weer wel? (exitcode = correct (exitcode = 1))
+[v] 	cat Makefile | grep pr | head -n 5 | hello (NA) # check status code				deze is ook goed
+[x] 	echo bonjour >>> test												HAHA NO!	bash= bash: syntax error near unexpected token `>'												minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.
+[X] 	echo bonjour > > out															bash= bash: syntax error near unexpected token `>'												minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.								
+[x] 	echo 2 >> out1 > out2															bijna goed, alleen STDOUT terug geven
+[x] 	echo 2 > out1 >> out2															same als hierboven
+[v] 	cat < test # with non-existent test												bash= bash: test: No such file or directory														minishell= test: No such file or directory (misschien willen we nog zeggen dat minishell dat zegt)
+[v] 	export var; export var=test														run as two seperate commands.
+[x] 	echo bonjour > $test # with test not defined									bash= bash: $test: ambiguous redirect															minishell= No such file or directory [\n] bonjour
+[x] 	file_name_in_current_dir														bash= Makefile: command not found																minishell= Execve failed: Permission denied
+[v] 	cd ../../../../../.. ; pwd
+[?] 	ctrl-C . 130 sur bin(ex : sleep 10)&line vide
+[?] 	ctrl-\ .131 sur bin
+[?????] 	echo "bip | bip ; coyotte > < " "
+[V] 	cat | cat | cat | ls # check outputs order
+[x] 	$bla # with bla not defined														bash= returns prompt to user. 																	minishell= Execve failed: Permission denied
+[almost] 	export var ="cat Makefile | grep >"											bash= bash: export: `=cat Makefile | grep >': not a valid identifier							minishell= export: not a valid identifier
+[v] 	export "test=ici"=coucou
+[v] 	c$var Makefile # with var=at
+[x] 	$LESS$VAR																		bash= returns prompt to user. 																	minishell= Execve failed: Permission denied
+[v] 	/bin/echo bonjour
+[/] 	not_cmd																			bash= not_cmd: command not found 																minishell= Command not found
+[/] 	sleep 5 | exit																	bash= sleeps 5 sec, then gives promt back.														minishell= Command not found
+[x] 	echo bonjour > $test w/ t														bash= bash: $test: ambiguous redirect		(also we dont need to handle \w)
+[/] 	"exit retour a la ligne"														bash= exit retour a la ligne: command not found 												minishell= Command not found
+[x] 	minishell # binary not in path without "./" before								bash= minishell: command not found																minishell= gives back promt
+[v] 	cat diufosgid # check exit code
+[?] 	exit # should return the last exit code value
+[?] 	exit -10
+[?] 	exit +10
+[/] 	echo coucou | ;																	i think its good, we don't need to handle the ;. when we replace this in bash it returns command not fount, just like our minihell. just syntax is een beetje anders
+[v] 	echo "$HOME"
+[v] 	echo '$HOME'
+[v] 	export ; env # display is different for both commands
+[v] 	echo $HOME
+[/] 	> log echo coucou																the SDOUT thingy
+[x] 	echo hudifg d | | hugdfihd														bash= bash: syntax error near unexpected token `|'												minishell= Command not found
+[v] 	echo
+[v] 	echo simple
+[v] 	echo -n simple
+[v] 	echo ''
+[v] 	echo ""
+[/] 	echo "\"																		think its good. bash looks like its in a heredoc, 												minishell prints [\]
+[v] 	echo "\n \n \n"
+[/] 	echo "\\n \\n \\n"																bash= \n \n \n			minishell= \\n \\n \\n  												DONT NEED TO HANDLE THIS
+[/] 	echo ;;																			bash= bash: syntax error near unexpected token `;;'												minishell= ;;
+[v] 	echo hi";" hihi
+[v] 	echo hi " ; " hihi
+[v] 	cd
+[v] 	cd .
+[x] 	cd ~																			bash= goes to /home/livliege																	minishell= ~: No such file or directory
+[v] 	cd /
+[/] 	cd no_file																		bash= bash: cd: no_file: No such file or directory												minishell= no_file: No such file or directory
+[x] 	cd a b c d																		bash= bash: cd: too many arguments																minishell
+[v] 	pwd a
+[v] 	pwd a b c d
+[v] 	export LOL=lala ROR=rara
+[v] 	unset LOL ROR
+[v] 	export "HI= hi"
+[/] 	export "HI =hi"																	bash= bash: export: `HI =hi': not a valid identifier											minishell= export: not a valid identifier
+[v] 	/bin/ls
+[v] 	# write something the press ctrl+c
+[v] 	# write something then press ctrl+d
+[v] 	# write something then press ctrl+\
+[v] 	echo $?
+[/] 	l^Ds																			bash= l^Ds: command not found																	minishell= Command not found
+[/] 	echo |																			bash= herdoc behaviour																			minishell= minishell: syntax error near unexpected token '|'
+[v] 	| echo
+[v?/] 	sort | ls # check output order													output is exactly the same as bash, but they both get stuck 
+[x] 	cat < >																			bash= bash: syntax error near unexpected token `>'			minishell= >: No such file or directory
+[x] 	cat < <																			bash= bash: syntax error near unexpected token `<'			minishell= <: No such file or directory
+[x] 	cat > >																			bash= bash: syntax error near unexpected token `>'			minishell= maakt file aan met naam [>] waar ik vervolgens in kan schrijven
+[V] 	> a ls > b < Makefile
+[x] 	echo > a Hello World!															the SDOUT thingy
+[x] 	> a echo Hello World!															the SDOUT thingy
+[V] 	cat < Makefile | grep gcc > output
+[?] 	exit 0 | exit 1																	bash lijkt niets te doen? minishell= command not found
+[?] 	exit 1 | exit 0																	bash lijkt niets te doen? minishell= command not found
+
+
+MY OWN TESTS (found by accident:)
+[x]	Documents/github/minishell_2														bash= bash: Documents/github/minishell_2: Is a directory										minishell= Command not found
+
+
+
+
+
+MORE TESTS!
+
+[x?]	echo sr*					bash= src	(hoeven we niet te handelen? toch? :D)
+[v]	echo "sr*"
+[v]	echo abc
+[v]	echo "xyz"
+[v]	echo "xyz"'123'
+[v]	echo a"x"y"z"a        ijk
+[x?]	echo ~						bash= /home/livliege	(hoeven we niet te handelen? toch? :D)
+[v]	echo '123'
+[v]	echo xyz'123'xyz
+[v]	echo 'x'$HOME'x'
+[v]	echo 'x'~'x'
+[v]	echo
+[v]	echo '"/home/araiva"'
+[v]	echo "'/home/araiva'"
+[v]	echo 0
+[v]	echo abc$HOME
+[v]	echo abc$HOMEde
+[v]	echo "abc$HOMEde"
+[v]	echo 'abc$HOMEde'
+[v]	echo abc0de
+[v]	echo "abc0de"
+[v]	echo 'abc0de'
+[v]	echo "10""20""30"
+[v]	echo "10"20"30"
+[v]	echo '10''20''30'
+[v]	echo '10'20'30'
+[v]	echo 10"20"'30'
+[v]	echo 10"20     "'30     '
+[v]	echo 10 "20     "'30     '
+[v]	echo 10    "20     "'30     '
+[v]	echo 10    "20     " '30     '
+[v]	echo 10    "20     "     '30     '
+[v]	echo "$HOME" '$HOME'
+[v]	echo x > redirect1 | echo
+[v]	cat redirect1
+[v]	rm redirect1 | echo
+[v]	echo fin

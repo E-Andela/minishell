@@ -18,7 +18,7 @@ void	mini_loop(t_data *data)
 	char	*input;
 
 	while (1)
-	{
+	{	reset_data(data);
 		init_signals();
 		input = readline(USER_MSG);
 		if (!input)
@@ -37,8 +37,10 @@ void	mini_loop(t_data *data)
 		expander_check(data->tokens_list, data);
 		// printf("after expantion:\n");
 		// print_tokens(data->tokens_list);
+		
+		if (!parser(data))
+			continue ;
 
-		parser(data);
 		// printf("after parser:\n");
 		// print_cmd_list(data->command_list);
 
