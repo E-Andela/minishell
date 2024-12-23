@@ -23,6 +23,8 @@ void	mini_loop(t_data *data)
 	while (1)
 	{
 		g_signal = 0;
+    reset_data(data);
+
 		init_signals();
 		input = readline(USER_MSG);
 		if (!input)
@@ -41,8 +43,10 @@ void	mini_loop(t_data *data)
 		expander_check(data->tokens_list, data);
 		// printf("after expantion:\n");
 		// print_tokens(data->tokens_list);
+		
+		if (!parser(data))
+			continue ;
 
-		parser(data);
 		// printf("after parser:\n");
 		// print_cmd_list(data->command_list);
 
@@ -55,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	(void) argv;
+	// (void) argv;
 	if (argc != 1)
 		shell_exit(ARGUMENTS_FAIL);
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);

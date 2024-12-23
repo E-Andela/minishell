@@ -39,14 +39,15 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-void				unexpected_token_error(t_data *data, t_tokens *token_list);
-void shell_exit(t_error_type error);
-void display_error(char *error_msg);
+void	unexpected_token_error(t_tokens *token_list);
+void	shell_exit(t_error_type error);
+void	display_error(char *error_msg);
 
 // free_and_exit.c 
 void			free_command_list(t_command *command_list);
 void			free_tokens_list(t_tokens *token_list);
 void			free_data(t_data *data);
+void			reset_data(t_data *data);
 void			exit_program(char *error_message, int errnbr, t_data *data);
 
 // builtin_utils.c
@@ -129,7 +130,7 @@ t_redirections	*init_redirection_node(char *file, t_token_type type);
 t_command		*init_command_node(void);
 
 // parser.c 
-void			parser(t_data *data);
+int			parser(t_data *data);
 
 // tokenizer_utils.c
 int				find_matching_quote(char *input, int start, int *num_quotes, char quote);
