@@ -2,6 +2,8 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include <unistd.h>
+
 # define VECTOR_INIT_CAPACITY 16
 
 typedef struct s_vector
@@ -70,6 +72,7 @@ typedef struct s_command
 	t_redirections		*redirections;
 	struct s_command	*prev;
 	struct s_command	*next;
+	pid_t				pid;
 }	t_command;
 
 typedef struct s_data

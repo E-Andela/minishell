@@ -1,5 +1,7 @@
 #include "../inc/minishell.h"
 
+int g_signal = 0;
+
 void	set_index(t_command *cmd_list)
 {
 	int	i;
@@ -16,9 +18,13 @@ void	set_index(t_command *cmd_list)
 void	mini_loop(t_data *data)
 {
 	char	*input;
-
+	
+	data->exit_code = 0;
 	while (1)
-	{	reset_data(data);
+	{
+		g_signal = 0;
+    reset_data(data);
+
 		init_signals();
 		input = readline(USER_MSG);
 		if (!input)

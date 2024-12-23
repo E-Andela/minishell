@@ -30,6 +30,8 @@
 # define ERR_TOKEN	"Tokenizer failed.\n"
 # define ERR_MALLOC	"Malloc returned NULL.\n"
 
+extern int g_signal;
+
 // debugging.c  -> 	TAKE THIS OUT!!!!
 void			print_linked_list(t_env_list *linked_list);
 void			print_tokens(t_tokens *token_list);
@@ -54,10 +56,10 @@ int				execute_builtin(char **args, t_env_list *env_list);
 
 // exec.c
 void			execute_cmds(t_command *cmd_list, t_env_list *env_list);
-int				wait_for_children(void);
+int				wait_for_children(t_command *cmd_list);
 // int				execute_commands(t_command *cmd_list, t_env_list *env_list);
 void execute_cmds(t_command *cmd_list, t_env_list *env_list);
-int	wait_for_children(void);
+// int	wait_for_children(void);
 int execute_commands(t_command *cmd_list, t_env_list *env_list);
 int	count_cmds(t_command *cmd_list);
 char	*ft_getenv(char *name, char **envp);
@@ -147,7 +149,7 @@ void				add_token(char *input, t_token_type token_type,
 // signals.c
 void	init_signals();
 void	init_child_signals();
-
+void	init_heredoc_signals();
 // main.c
 void			mini_loop(t_data *data);
 

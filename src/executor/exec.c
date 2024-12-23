@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   exec.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: eandela <eandela@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/08/29 13:28:04 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/23 16:27:44 by livliege      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/minishell.h"
 #include <stdio.h>
 #include <dirent.h>
@@ -212,14 +200,20 @@ void close_pipes(int **pipes, int size)
 	// close(STDIN_FILENO);
 }
 
-int	wait_for_children(void)
+int	wait_for_children(t_command *cmd_list)
 {
 	int status;
 	status = 0;
-	while (wait(&status) != -1 || errno != ECHILD)
+	// while (wait(&status) != -1 || errno != ECHILD);
+	while (cmd_list)
 	{
-		printf("status: %i, %i\n", WEXITSTATUS(status), status);
+		waitpid(cmd_list->pid, &status, 0);
+		cmd_list = cmd_list->next;
 	}
+	if (status == 2 && g_signal == SIGINT)
+		return (130);
+	if (status == 131 && g_signal == SIGQUIT)
+		return (131);	
 	// printf("final status: %i, %i\n", WEXITSTATUS(status), status);
 	return (WEXITSTATUS(status));	
 }
