@@ -6,27 +6,27 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/12/07 16:12:00 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/21 14:27:57 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/24 13:22:03 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int is_builtin(char *cmd)
+int is_builtin(t_command *cmd)
 {
-	if (!cmd)
+	if (!cmd->args)
 		return (0);
-	if (ft_strncmp(cmd, "echo", ft_strlen("echo")) == 0)
+	if (ft_strncmp(cmd->args[0], "echo", ft_strlen("echo") + 1) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "pwd", ft_strlen("pwd")) == 0)
+	if (ft_strncmp(cmd->args[0], "pwd", ft_strlen("pwd") + 1) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "cd", ft_strlen("cd")) == 0)
+	if (ft_strncmp(cmd->args[0], "cd", ft_strlen("cd") + 1) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "export", ft_strlen("export")) == 0)
+	if (ft_strncmp(cmd->args[0], "export", ft_strlen("export") + 1) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "unset", ft_strlen("unset")) == 0)
+	if (ft_strncmp(cmd->args[0], "unset", ft_strlen("unset") + 1) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "env", ft_strlen("env")) == 0)
+	if (ft_strncmp(cmd->args[0], "env", ft_strlen("env") + 1) == 0)
 		return (1);
 	// if (ft_strncmp(cmd, "exit", ft_strlen("exit")) == 0)
 	// 	return (1);
