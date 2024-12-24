@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 14:58:32 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/19 22:21:16 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/24 14:00:05 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int export_variables(char **args, t_env_list *env_list)
 {
 	int 	exit_status;
 	int		i;
+	int		j;
 	t_env_list	*new;
 	char	*key;
 	char	*value;
@@ -128,7 +129,7 @@ int export_variables(char **args, t_env_list *env_list)
 		}
 		else
 		{
-			ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
+			error_not_a_valid_identifier(args);
 			exit_status = 1;
 		}
 		free(key);

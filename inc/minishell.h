@@ -39,9 +39,12 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-void	unexpected_token_error(t_tokens *token_list);
-void	shell_exit(t_error_type error);
+// void	error_unexpected_token(t_tokens *type, char *token);
+void	error_unexpected_token(t_tokens *token_list);
+void	error_not_a_valid_identifier(char** identifier);
+void	error_command_not_found(char *cmd);
 void	display_error(char *error_msg);
+void	shell_exit(t_error_type error);
 
 // free_and_exit.c 
 void			free_command_list(t_command *command_list);
@@ -125,12 +128,15 @@ void			vector_init(t_vector *vector, t_data *data);
 // env_parsing.c 
 void			parse_env(char **envp, t_data *data);
 
-// init_nodes.c
+// parser_init_nodes.c
 t_redirections	*init_redirection_node(char *file, t_token_type type);
 t_command		*init_command_node(void);
 
+// parser_syntax_checker.c
+int				syntax_checker(t_data *data);
+
 // parser.c 
-int			parser(t_data *data);
+int				parser(t_data *data);
 
 // tokenizer_utils.c
 int				find_matching_quote(char *input, int start, int *num_quotes, char quote);

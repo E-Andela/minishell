@@ -2,18 +2,7 @@
 
 int g_signal = 0;
 
-void	set_index(t_command *cmd_list)
-{
-	int	i;
 
-	i = 0;
-	while (cmd_list)
-	{
-		cmd_list->index = i;
-		cmd_list = cmd_list->next;
-		i++;
-	}
-}
 
 void	mini_loop(t_data *data)
 {
@@ -45,12 +34,20 @@ void	mini_loop(t_data *data)
 		// print_tokens(data->tokens_list);
 		
 		if (!parser(data))
+		{
+			printf("%sPARSER ERROR!%s\n", RED, DEFAULT);
 			continue ;
+		}
 
-		// printf("after parser:\n");
-		// print_cmd_list(data->command_list);
+		printf("after parser:\n");
+		print_cmd_list(data->command_list);
 
-		set_index(data->command_list);
+		// if (!syntax_checker(data))
+		// {
+		// 	printf("%sSYNTAX ERROR!%s\n", RED, DEFAULT);
+		// 	continue;
+		// }
+
 		data->exit_code = execute_commands(data->command_list, data->environment);
 	}
 }
