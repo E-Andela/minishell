@@ -317,12 +317,12 @@ FIX: MAKE FUNCTION IN PARSER:
 	[x]		Documents/github/minishell_2									bash= bash: Documents/github/minishell_2: Is a directory					minishell= Command not found
 
 	SYNTAX ERRORS:	syntax error near unexpected token
-	[x] 	echo bonjour >>> test											bash= bash: syntax error near unexpected token `>'							minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.
-	[X] 	echo bonjour > > out											bash= bash: syntax error near unexpected token `>'							minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.								
-	[x] 	cat < >															bash= bash: syntax error near unexpected token `>'							minishell= >: No such file or directory
-	[x] 	cat < <															bash= bash: syntax error near unexpected token `<'							minishell= <: No such file or directory
-	[x] 	cat > >															bash= bash: syntax error near unexpected token `>'							minishell= maakt file aan met naam [>] waar ik vervolgens in kan schrijven
-	[x] 	echo hudifg d | | hugdfihd										bash= bash: syntax error near unexpected token `|'							minishell= Command not found
+	[v] 	echo bonjour >>> test											bash= bash: syntax error near unexpected token `>'							minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.
+	[v] 	echo bonjour > > out											bash= bash: syntax error near unexpected token `>'							minishell= creates file called [>] with [bonjour out] in it. also STDOUT problem again.								
+	[v] 	cat < >															bash= bash: syntax error near unexpected token `>'							minishell= >: No such file or directory
+	[v] 	cat < <															bash= bash: syntax error near unexpected token `<'							minishell= <: No such file or directory
+	[v] 	cat > >															bash= bash: syntax error near unexpected token `>'							minishell= maakt file aan met naam [>] waar ik vervolgens in kan schrijven
+	[v] 	echo hudifg d | | hugdfihd										bash= bash: syntax error near unexpected token `|'							minishell= Command not found
 
 	AMBIGUOUS REDIRECT
 	[x] 	echo bonjour > $test 	# with test not defined					bash= bash: $test: ambiguous redirect										minishell= No such file or directory [\n] bonjour

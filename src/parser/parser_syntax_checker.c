@@ -25,22 +25,22 @@
 // 	[x] 	$bla # with bla not defined								bash= returns prompt to user. 									minishell= Execve failed: Permission denied
 // 	[x] 	$LESS$VAR												bash= returns prompt to user. 									minishell= Execve failed: Permission denied
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int				syntax_checker(t_data *data)
-{
-	t_redirections *redir;
+// int				syntax_checker(t_data *data)
+// {
+// 	t_redirections *redir;
 
-	redir = data->command_list->redirections;
-	if (redir->type == OUT_APPEND)
-	{
-		if(redir->file == '>')
-		error_unexpected_token()
-	}
+// 	redir = data->command_list->redirections;
+// 	if (redir->type == OUT_APPEND)
+// 	{
+// 		if(redir->file == '>')
+// 		error_unexpected_token()
+// 	}
 
 
 
-		return (true);
-	if (bad)
-		return (false);
-}
+// 		return (true);
+// 	if (bad)
+// 		return (false);
+// }

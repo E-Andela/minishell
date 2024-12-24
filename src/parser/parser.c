@@ -76,7 +76,7 @@ int	parser(t_data *data)
 		exit_program(ERR_TOKEN, errno, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
-		error_unexpected_token(data->tokens_list->type);
+		error_unexpected_token(data->tokens_list);
 		return (false);
 	}
 	while (data->tokens_list != NULL)
@@ -96,9 +96,9 @@ int	parser(t_data *data)
 			current_cmd_node = new_cmd_node;
 			if (data->tokens_list->type == PIPE)
 			{
-				if (data->tokens_list->next == NULL)
+				if (data->tokens_list->next == NULL || data->tokens_list->next->type != WORD)
 				{
-					error_unexpected_token(data->tokens_list->type);
+					error_unexpected_token(data->tokens_list);
 					return (false);
 				}
 				data->tokens_list = data->tokens_list->next;
@@ -109,14 +109,17 @@ int	parser(t_data *data)
 			add_argument(current_cmd_node, data->tokens_list->value);
 		else if (data->tokens_list->type == OUT_REDIRECT || data->tokens_list->type == IN_REDIRECT || data->tokens_list->type == OUT_APPEND || data->tokens_list->type == HERE_DOC)
 		{
-			if (data->tokens_list->next)
+			if (data->tokens_list->next && data->tokens_list->next->type == WORD)
 			{
 				add_redirection(current_cmd_node, data->tokens_list->next->value, data->tokens_list->type, data);
 				data->tokens_list = data->tokens_list->next;
 			}
 			else
 			{
-				error_unexpected_token(data->tokens_list->type);
+				if (data->tokens_list->next && data->tokens_list->next->type != WORD)
+					error_unexpected_token(data->tokens_list->next);
+				else
+					error_unexpected_token(data->tokens_list);
 				return (false);
 			}
 		}
