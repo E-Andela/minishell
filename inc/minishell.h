@@ -51,7 +51,7 @@ void			reset_data(t_data *data);
 void			exit_program(char *error_message, int errnbr, t_data *data);
 
 // builtin_utils.c
-int				is_builtin(char *cmd);
+int				is_builtin(t_command *cmd);
 int				execute_builtin(char **args, t_env_list *env_list);
 
 // exec.c

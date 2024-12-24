@@ -39,10 +39,10 @@ void execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 			handle_pipes(pipes, cmd_list, pipe_size);
 			if (handle_redirections(cmd_list->redirections) != 0)
 				exit(EXIT_FAILURE);
-			if (is_builtin(cmd_list->args[0]))
-				exit(execute_builtin(cmd_list->args, env_list));
 			if (cmd_list->args)
 			{
+				if (is_builtin(cmd_list))
+					exit(execute_builtin(cmd_list->args, env_list));
 				path = get_path(cmd_list->args[0], ft_getenv("PATH", ft_ll2arr(env_list)));
 				if (!path)
 					shell_exit(CMD_FAIL);
@@ -63,7 +63,7 @@ int execute_commands(t_command *cmd_list, t_env_list *env_list)
 	status = create_heredocs(cmd_list);
 	if (status != 0)
 		return (status);
-	if (count_cmds(cmd_list) == 1 && is_builtin(cmd_list->args[0]))
+	if (count_cmds(cmd_list) == 1 && is_builtin(cmd_list))
 		status = execute_single_command(cmd_list, env_list);
 	else
 	{
