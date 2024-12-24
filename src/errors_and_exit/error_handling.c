@@ -1,12 +1,36 @@
 #include "../../inc/minishell.h"
 
-void	unexpected_token_error(t_tokens *token_list)
+void	error_unexpected_token(t_tokens *token_list)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token '", STDERR_FILENO);
 	ft_putstr_fd(token_list->value, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
 }
 
+void	error_command_not_found(char *cmd)
+{
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("command not found\n", STDERR_FILENO);
+	exit(127);
+}
+
+void	error_not_a_valid_identifier(char** identifier)
+{
+	int	j;
+
+	j = 0;
+	while (identifier[j + 1] != NULL)
+		j++;
+	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd(identifier[j], STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+}
+
+void display_error(char *error_msg)
+{
+	perror(error_msg);
+}
 void shell_exit(t_error_type error)
 {
 	if (error == ARGUMENTS_FAIL)
@@ -23,19 +47,15 @@ void shell_exit(t_error_type error)
 		perror("Open failed");
 	if (error == CWD_FAIL)
 		perror("Unknown error occured");
-	if (error == CMD_FAIL)
-	{
-		ft_putstr_fd("Command not found\n", STDERR_FILENO);
-		exit(127);
-	}
+	// if (error == CMD_FAIL)
+	// {
+	// 	ft_putstr_fd("command: \n", STDERR_FILENO);
+	// 	ft_putstr_fd("command not found\n", STDERR_FILENO);
+	// 	exit(127);
+	// }
 	if (error == EXECVE_FAIL)
 		perror("Execve failed");
 	exit(errno);
-}
-
-void display_error(char *error_msg)
-{
-	perror(error_msg);
 }
 
 void	exit_program(char *error_message, int errnbr, t_data *data)

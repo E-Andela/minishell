@@ -35,7 +35,8 @@ SOURCES = 	\
 			vectors.c \
 			\
 			env_parsing.c \
-			init_nodes.c \
+			parser_init_nodes.c \
+			parser_syntax_checker.c \
 			parser.c \
 			\
 			tokenizer.c \

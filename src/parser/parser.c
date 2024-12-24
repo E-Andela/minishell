@@ -49,6 +49,19 @@ void	add_redirection(t_command *cmd, char *file, t_token_type type, t_data *data
 	}
 }
 
+void	set_index(t_command *cmd_list)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_list)
+	{
+		cmd_list->index = i;
+		cmd_list = cmd_list->next;
+		i++;
+	}
+}
+
 int	parser(t_data *data)
 {
 	t_command	*current_cmd_node;
@@ -63,7 +76,7 @@ int	parser(t_data *data)
 		exit_program(ERR_TOKEN, errno, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
-		unexpected_token_error(data->tokens_list);
+		error_unexpected_token(data->tokens_list->type);
 		return (false);
 	}
 	while (data->tokens_list != NULL)
@@ -85,9 +98,8 @@ int	parser(t_data *data)
 			{
 				if (data->tokens_list->next == NULL)
 				{
-					unexpected_token_error(data->tokens_list);
+					error_unexpected_token(data->tokens_list->type);
 					return (false);
-					// break ;
 				}
 				data->tokens_list = data->tokens_list->next;
 				continue ;
@@ -104,7 +116,7 @@ int	parser(t_data *data)
 			}
 			else
 			{
-				unexpected_token_error(data->tokens_list);
+				error_unexpected_token(data->tokens_list->type);
 				return (false);
 			}
 		}
@@ -112,5 +124,6 @@ int	parser(t_data *data)
 	}
 	data->command_list = head_cmd_node;
 	free_tokens_list(data->tokens_list);
+	set_index(data->command_list);
 	return (true);
 }
