@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/07 14:58:32 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/24 14:00:05 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/26 18:31:15 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ int export_variables(char **args, t_env_list *env_list)
 				value = get_value(args[i]);
 				if (value)
 				{
-					free(new->key_value);
-					new->key_value = value;
+					free(new->value);
+					new->value = value;
 				}
 			}			
 		}
@@ -186,11 +186,11 @@ int	print_export(t_env_list *list)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(dup->key, STDOUT_FILENO);
-		if (dup->key_value)
+		if (dup->value)
 		{
 			ft_putchar_fd('=', STDOUT_FILENO);
 			ft_putchar_fd('"', STDOUT_FILENO);
-			ft_putstr_fd(dup->key_value, STDOUT_FILENO);
+			ft_putstr_fd(dup->value, STDOUT_FILENO);
 			ft_putchar_fd('"', STDOUT_FILENO);
 		}
 		ft_putchar_fd('\n', STDOUT_FILENO);

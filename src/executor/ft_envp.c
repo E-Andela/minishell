@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/04 18:28:31 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/19 22:23:59 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/26 18:31:15 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*key_val_to_str(t_env_list *element)
 	
 	i = 0;
 	j = 0;
-	len = ft_strlen(element->key) + ft_strlen(element->key_value) + 2;
+	len = ft_strlen(element->key) + ft_strlen(element->value) + 2;
 	string = malloc(sizeof(char) * len);
 	if (!string)
 		shell_exit(MALLOC_FAIL);
@@ -34,7 +34,7 @@ char	*key_val_to_str(t_env_list *element)
 			string[i] = '=';
 		else 
 		{
-			string[i] = element->key_value[j];
+			string[i] = element->value[j];
 			j++;
 		}
 		i++;
@@ -51,7 +51,7 @@ int	ll_count(t_env_list *list, bool skip_null)
 	{
 		if (skip_null)
 		{
-			if (list->key != NULL && list->key_value != NULL)
+			if (list->key != NULL && list->value != NULL)
 				i++;
 		}
 		else
@@ -75,7 +75,7 @@ char **ft_ll2arr(t_env_list *envp)
 	ret[entries] = NULL;
 	while (envp)
 	{
-		if (envp->key_value)
+		if (envp->value)
 		{
 			ret[i] = key_val_to_str(envp);
 			if (!ret[i])
@@ -116,15 +116,15 @@ t_env_list *new_element(char *envp)
 	if (i < 0)
 	{
 		element->key = ft_strdup(envp);
-		element->key_value = NULL;
+		element->value = NULL;
 		element->next = NULL;
 		return (element);
 	}
 	element->key = ft_substr(envp, 0, i);
 	if (!element->key)
 		shell_exit(MALLOC_FAIL);
-	element->key_value = ft_strdup(envp + (i + 1));
-	if (!element->key_value)
+	element->value = ft_strdup(envp + (i + 1));
+	if (!element->value)
 		shell_exit(MALLOC_FAIL);
 	element->next = NULL;
 	return (element);
@@ -175,7 +175,7 @@ void	print_ll(t_env_list	*list)
 {
 	while (list)
 	{
-		printf("key: %s, value: %s\n", list->key, list->key_value);
+		printf("key: %s, value: %s\n", list->key, list->value);
 		list = list->next;
 	}
 }
@@ -225,8 +225,8 @@ void	free_envp(t_env_list *head)
 		head = head->next;
 		if (tmp->key)
 			free(tmp->key);
-		if (tmp->key_value)
-			free(tmp->key_value);
+		if (tmp->value)
+			free(tmp->value);
 		free(tmp);
 	}
 }
@@ -236,11 +236,11 @@ void	swap_nodes(t_env_list *a, t_env_list *b)
 	t_env_list	tmp;
 	
 	tmp.key = a->key;
-	tmp.key_value = a->key_value;
+	tmp.value = a->value;
 	a->key = b->key;
-	a->key_value = b->key_value;
+	a->value = b->value;
 	b->key = tmp.key;
-	b->key_value = tmp.key_value;	
+	b->value = tmp.value;	
 }
 
 t_env_list *duplicate_node(t_env_list *node)
@@ -253,10 +253,10 @@ t_env_list *duplicate_node(t_env_list *node)
 	dup->key = ft_strdup(node->key);
 	if (!dup->key)
 		shell_exit(MALLOC_FAIL);
-	if (node->key_value)
+	if (node->value)
 	{
-		dup->key_value = ft_strdup(node->key_value);
-		if (!dup->key_value)
+		dup->value = ft_strdup(node->value);
+		if (!dup->value)
 			shell_exit(MALLOC_FAIL);
 	}
 	dup->next = NULL;

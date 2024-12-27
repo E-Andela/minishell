@@ -22,7 +22,7 @@ void	free_env_list(t_env_list *env_list)
 	{
 		next_node = env_list->next;
 		free(env_list->key);
-		free(env_list->key_value);
+		free(env_list->value);
 		free(env_list);
 		env_list = next_node;
 	}

@@ -10,7 +10,7 @@ char	*get_environment_key_values(t_data *data, char	*input)
 	while (temp != NULL)
 	{
 		if (ft_strncmp(input, temp->key, len) == 0 && temp->key[len] == '\0')
-			return (temp->key_value);
+			return (temp->value);
 		temp = temp->next;
 	}
 	return (NULL);
