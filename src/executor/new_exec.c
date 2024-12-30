@@ -65,6 +65,8 @@ int execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 				if (execve(path, cmd_list->args, ft_ll2arr(env_list)) == -1)
 					shell_exit(EXECVE_FAIL);
 			}
+			else
+				exit(EXIT_SUCCESS);
 		}
 		cmd_list = cmd_list->next;		
 	}

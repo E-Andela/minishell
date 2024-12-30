@@ -85,6 +85,9 @@ int				ft_echo(char **arg);
 // ft_env.c
 int				ft_env(char **envp);
 
+//ft_exit.c
+int	ft_exit(char **args);
+
 // ft_envp.c
 t_env_list		*ft_arr2ll(char **envp);
 char			*ft_strjoin(char const *s1, char const *s2);
