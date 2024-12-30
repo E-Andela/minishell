@@ -365,10 +365,10 @@ MORE CASES OF AMBIGUOUS REDIRECT: (do we need to handle this?)
 
 
 	WRONG ERROR (Execve failed: Permission denied)
-	[x] 	file_name_in_current_dir										bash= Makefile: command not found											minishell= Execve failed: Permission denied
-	[x] 	$bla # with bla not defined										bash= returns prompt to user. 												minishell= Execve failed: Permission denied
-	[x] 	$LESS$VAR														bash= returns prompt to user. 												minishell= Execve failed: Permission denied
-
+	[x] 	file_name_in_current_dir										bash= Makefile: command not found											minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+	[x] 	$bla # with bla not defined										bash= returns prompt to user. 												minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+	[x] 	$LESS$VAR														bash= returns prompt to user. 												minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+SAGFAULT!
 
 WRONG ERROR (command not found)
 [?] 	exit 0 | exit 1													bash lijkt niets te doen? 													minishell= command not found
