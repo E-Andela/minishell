@@ -17,11 +17,11 @@
 # include <sys/param.h>
 # include <limits.h>
 
-# define RED			"\033[91m"
+# define RED		"\033[91m"
 # define GREEN		"\033[92m"
 # define BLUE		"\033[94m"
 # define YELLOW		"\033[93m"
-# define DEFAULT		"\033[0m"
+# define DEFAULT	"\033[0m"
 
 # define USER_MSG	"user: "
 
@@ -43,6 +43,7 @@ void			print_cmd_list(t_command *command_list);
 void	error_unexpected_token(t_tokens *token_list);
 void	error_not_a_valid_identifier(char** identifier);
 void	error_command_not_found(char *cmd);
+void	error_ambiguous_redirect(t_tokens *token_list);
 void	display_error(char *error_msg);
 void	shell_exit(t_error_type error);
 
@@ -115,10 +116,11 @@ int				redirect_heredoc(t_redirections *redirection);
 // expander_utils.c
 char			*get_environment_key(char	*input, int *i, t_data *data);
 char			*get_environment_key_values(t_data *data, char	*input);
+bool			ambiguous_redir(t_tokens *current_node, char *token_value, t_data *data);
 
 // expander.c 
-void			expander_check(t_tokens	*token_list, t_data	*data);
-void			expand_token(char **token_value, t_data *data);
+bool			expander_check(t_tokens	*token_list, t_data	*data);
+bool			expand_token(t_tokens *token_node, char **token_value, t_data *data);
 void			remove_quotes(char **token_value, t_data *data);
 
 // vectors.c
@@ -132,8 +134,6 @@ void			parse_env(char **envp, t_data *data);
 t_redirections	*init_redirection_node(char *file, t_token_type type);
 t_command		*init_command_node(void);
 
-// parser_syntax_checker.c
-int				syntax_checker(t_data *data);
 
 // parser.c 
 int				parser(t_data *data);

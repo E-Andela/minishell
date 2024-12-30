@@ -12,7 +12,7 @@ void	mini_loop(t_data *data)
 	while (1)
 	{
 		g_signal = 0;
-    reset_data(data);
+    	reset_data(data);
 
 		init_signals();
 		input = readline(USER_MSG);
@@ -27,26 +27,24 @@ void	mini_loop(t_data *data)
 		free(input);
 
 		tokenizer(data->user_input, data);
-		// print_tokens(data->tokens_list);
 
-		expander_check(data->tokens_list, data);
-		// printf("after expantion:\n");
-		// print_tokens(data->tokens_list);
+		// print_tokens(data->tokens_list);			//TAKE OUT
+
+		if (!expander_check(data->tokens_list, data))
+		{
+			continue ;
+		}
+		// printf("after expantion:\n");				//TAKE OUT
+		// print_tokens(data->tokens_list);			//TAKE OUT
 		
 		if (!parser(data))
 		{
-			printf("%sPARSER ERROR!%s\n", RED, DEFAULT);
 			continue ;
 		}
 
-		printf("after parser:\n");
-		print_cmd_list(data->command_list);
-
-		// if (!syntax_checker(data))
-		// {
-		// 	printf("%sSYNTAX ERROR!%s\n", RED, DEFAULT);
-		// 	continue;
-		// }
+		// printf("after parser:\n");					//TAKE OUT
+		// print_cmd_list(data->command_list);			//TAKE OUT
+		// printf("%s----------------------------------%s\n", BLUE, DEFAULT);			//TAKE OUT
 
 		data->exit_code = execute_commands(data->command_list, data->environment);
 	}
@@ -56,9 +54,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	// (void) argv;
 	if (argc != 1)
 		shell_exit(ARGUMENTS_FAIL);
+	(void) argv;
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
 		shell_exit(MALLOC_FAIL);

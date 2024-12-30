@@ -2,9 +2,16 @@
 
 void	error_unexpected_token(t_tokens *token_list)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token '", STDERR_FILENO);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
 	ft_putstr_fd(token_list->value, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
+}
+
+void	error_ambiguous_redirect(t_tokens *token_list)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(token_list->value, STDERR_FILENO);
+	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
 }
 
 void	error_command_not_found(char *cmd)

@@ -36,7 +36,6 @@ SOURCES = 	\
 			\
 			env_parsing.c \
 			parser_init_nodes.c \
-			parser_syntax_checker.c \
 			parser.c \
 			\
 			tokenizer.c \

@@ -93,7 +93,7 @@ void	expander(t_vector *vector, int *i, char *token_value, t_data *data)
 		expand_env_variable(vector, i, token_value, data);
 }
 
-void	expand_token(char **token_value, t_data *data)
+bool	expand_token(t_tokens *token_node, char **token_value, t_data *data)
 {
 	int			i;
 	t_vector	vector;
@@ -111,9 +111,20 @@ void	expand_token(char **token_value, t_data *data)
 		}
 	}
 	vector_add_char(&vector, '\0', data);
+
+	if (ft_strlen(vector.value) == 0)
+	{
+		if (ambiguous_redir(token_node, *token_value, data))
+			return (false);
+	}
+
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
+	if (*token_value == NULL)
+		shell_exit(MALLOC_FAIL);
 	free(vector.value);
+
+	return (true);
 }
 
 void	remove_quotes(char **token_value, t_data *data)
@@ -147,5 +158,7 @@ void	remove_quotes(char **token_value, t_data *data)
 	vector_add_char(&vector, '\0', data);
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
+	if (*token_value == NULL)
+		shell_exit(MALLOC_FAIL);
 	free(vector.value);
 }

@@ -44,17 +44,17 @@
 		: Success
 		bash: echo 'ha'"llo"'	->
 		>
-	[ ] fix this:
+	[x] fix this:
 		WRONG:
-			user: "$USER"
+			user: "$USER"	
 			command not found: No such file or directory
 		CORRECT:
 			user: "$USER"
 			goliath: command not found
 
-[ ] check two token nodes next to each other. 
-	[ ] echo <<< now gets parsed as a heredock with < as dilimiter. this needs to be a syntax unexpected token error.
-	[ ]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
+[x] check two token nodes next to each other. 
+	[x] echo <<< now gets parsed as a heredock with < as dilimiter. this needs to be a syntax unexpected token error.
+	[x]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
 
 
 
@@ -67,14 +67,24 @@
 	echo "HELLO $USER!" > file2 | wc -l > file1 does work!
 
 
-[] WTF!
+[x] WTF! (fixed!)
 ./minishell 5 5
 Segmentation fault (core dumped)
 	- its because ive put (void)argv in the main function.
 
 
-[] compile with flags and fix errors
-[] norminette
+weird bug?:
+[ ]		1. export var ="cat Makefile | grep >"
+		2. export 	->		everything looks fine, var is an empty export variable
+		3. export var ="cat Makefile | grep >" (again)
+		4. export (again) looks like this:
+declare -x var="����!V"
+free(): invalid pointer
+Aborted (core dumped)
+
+
+[ ] compile with flags and fix errors
+[ ] norminette
 
 
 
@@ -102,7 +112,7 @@ unexpected token error when:
 [v]		user: >>		(we could improve by saying "syntax error near unexpected token `newline' " )
 [v]		user: <<		(we could improve by saying "syntax error near unexpected token `newline' " )
 
-zie hieronder wanneer nog meer:
+
 
 ----------------------------------------
 
@@ -327,6 +337,32 @@ FIX: MAKE FUNCTION IN PARSER:
 	AMBIGUOUS REDIRECT
 	[x] 	echo bonjour > $test 	# with test not defined					bash= bash: $test: ambiguous redirect										minishell= No such file or directory [\n] bonjour
 	[x] 	echo bonjour > $test w/ t										bash= bash: $test: ambiguous redirect										(also we dont need to handle \w)
+
+
+
+MORE CASES OF AMBIGUOUS REDIRECT: (do we need to handle this?)
+1. Variable Expands to a Glob Pattern
+- When the variable expands to a glob pattern (e.g., *, ?, or []), and the pattern matches multiple files or directories, Bash cannot determine a single target for the redirection.
+	Example:
+		test="*"
+		echo bonjour > $test
+		# -bash: $test: ambiguous redirect
+2. Array Variable Used Improperly
+- If you try to use an array variable directly in a redirection without specifying a single index, Bash doesn't know how to handle multiple values.
+	Example:
+		test=("file1" "file2")
+		echo bonjour > $test
+		# -bash: $test: ambiguous redirect
+3. Indirect Expansion or Invalid File Name
+- If the variable expands to a name that is not a valid file path due to special characters, spaces, or misquoting, it may cause an ambiguous redirect.
+	Example:
+		test="file with space"
+		echo bonjour > $test
+		# -bash: file: ambiguous redirect
+	Fixed Example:
+		echo bonjour > "$test"
+
+
 
 	WRONG ERROR (Execve failed: Permission denied)
 	[x] 	file_name_in_current_dir										bash= Makefile: command not found											minishell= Execve failed: Permission denied
