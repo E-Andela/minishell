@@ -71,7 +71,10 @@ void	tokenizer(char *input, t_data *data)
 	int	j;
 
 	if (!check_for_quotes(input))
+	{
+		// shell_exit(ERR_QUOTES);
 		exit_program(ERR_QUOTES, errno, data);
+	}
 	if (data->tokens_list)
 		free_tokens_list(data->tokens_list);
 	i = 0;

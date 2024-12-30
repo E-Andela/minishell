@@ -44,17 +44,17 @@
 		: Success
 		bash: echo 'ha'"llo"'	->
 		>
-	[ ] fix this:
+	[x] fix this:
 		WRONG:
-			user: "$USER"
+			user: "$USER"	
 			command not found: No such file or directory
 		CORRECT:
 			user: "$USER"
 			goliath: command not found
 
-[ ] check two token nodes next to each other. 
-	[ ] echo <<< now gets parsed as a heredock with < as dilimiter. this needs to be a syntax unexpected token error.
-	[ ]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
+[x] check two token nodes next to each other. 
+	[x] echo <<< now gets parsed as a heredock with < as dilimiter. this needs to be a syntax unexpected token error.
+	[x]	user: cat <<EOF | grep "test"  -> needs to give error and exit shell
 
 
 
@@ -67,14 +67,24 @@
 	echo "HELLO $USER!" > file2 | wc -l > file1 does work!
 
 
-[] WTF!
+[x] WTF! (fixed!)
 ./minishell 5 5
 Segmentation fault (core dumped)
 	- its because ive put (void)argv in the main function.
 
 
-[] compile with flags and fix errors
-[] norminette
+weird bug?:
+[ ]		1. export var ="cat Makefile | grep >"
+		2. export 	->		everything looks fine, var is an empty export variable
+		3. export var ="cat Makefile | grep >" (again)
+		4. export (again) looks like this:
+declare -x var="����!V"
+free(): invalid pointer
+Aborted (core dumped)
+
+
+[ ] compile with flags and fix errors
+[ ] norminette
 
 
 
@@ -102,7 +112,7 @@ unexpected token error when:
 [v]		user: >>		(we could improve by saying "syntax error near unexpected token `newline' " )
 [v]		user: <<		(we could improve by saying "syntax error near unexpected token `newline' " )
 
-zie hieronder wanneer nog meer:
+
 
 ----------------------------------------
 
@@ -295,10 +305,9 @@ ERROR MESSAGE: export: not a valid identifier:
 [v] 	export "HI =hi"													bash= bash: export: `HI =hi': not a valid identifier						minishell= export: not a valid identifier
 
 
-
-
 STDIN BUG:
 [x] 	echo bonjour > test\ 1											bash= creates file called test 1 with [bonjour] in it.						minishell= creates file called test\ with [bonjour 1] in it. (also the STDOUT dit not swich back because its followed by this): [91mcommands list with redirects has been cleared :) [0m \n	 [91mdata has been RESET :) 	\n 	[0m	\n	[?2004huser: )
+[x] 	echo bonjour > test1											bash= creates file called test 1 with [bonjour] in it.						minishell= creates file called test\ with [bonjour 1] in it. (also the STDOUT dit not swich back because its followed by this): [91mcommands list with redirects has been cleared :) [0m \n	 [91mdata has been RESET :) 	\n 	[0m	\n	[?2004huser: )
 [x] 	echo test > file test1											bash= creates file called file with [test test1] in it.						minishell= does the same but does not give STDOUT back to terminal
 [x] 	echo 2 >> out1 > out2											bijna goed, alleen STDOUT terug geven															
 [x] 	echo 2 > out1 >> out2											same als hierboven
@@ -325,22 +334,30 @@ FIX: MAKE FUNCTION IN PARSER:
 	[v] 	echo hudifg d | | hugdfihd										bash= bash: syntax error near unexpected token `|'							minishell= Command not found
 
 	AMBIGUOUS REDIRECT
-	[x] 	echo bonjour > $test 	# with test not defined					bash= bash: $test: ambiguous redirect										minishell= No such file or directory [\n] bonjour
-	[x] 	echo bonjour > $test w/ t										bash= bash: $test: ambiguous redirect										(also we dont need to handle \w)
+	[v] 	echo bonjour > $test 	# with test not defined					bash= bash: $test: ambiguous redirect										minishell= No such file or directory [\n] bonjour
+	[v] 	echo bonjour > $test w/ t										bash= bash: $test: ambiguous redirect										(also we dont need to handle \w)
+
+[v] edge case
+bash:
+	$JFKDSJFDSKFJDSFDSKF		gives promt back
+	"$JFKDSJFDSKFJDSFDSKF"		Command '' not found
+minishell:
+	$JFKDSJFDSKFJDSFDSKF		gives promt back
+	"$JFKDSJFDSKFJDSFDSKF"		gives promt back
+
+
 
 	WRONG ERROR (Execve failed: Permission denied)
-	[x] 	file_name_in_current_dir										bash= Makefile: command not found											minishell= Execve failed: Permission denied
-	[x] 	$bla # with bla not defined										bash= returns prompt to user. 												minishell= Execve failed: Permission denied
-	[x] 	$LESS$VAR														bash= returns prompt to user. 												minishell= Execve failed: Permission denied
-
+	[x] 	file_name_in_current_dir										bash= Makefile: command not found											minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+	[v] 	$bla # with bla not defined										bash= returns prompt to user. 												minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+	[v] 	$LESS$VAR														bash= returns prompt to user. 												minishell= Execve failed: Permission denied		-> 	SAGFAULT!
+SAGFAULT!
 
 WRONG ERROR (command not found)
 [?] 	exit 0 | exit 1													bash lijkt niets te doen? 													minishell= command not found
 [?] 	exit 1 | exit 0													bash lijkt niets te doen? 													minishell= command not found
 [/] 	sleep 5 | exit													bash= sleeps 5 sec, then gives promt back.									minishell= Command not found
 [x] 	minishell # binary not in path without "./" before				bash= minishell: command not found											minishell= executes minishell again
-
-
 
 
 

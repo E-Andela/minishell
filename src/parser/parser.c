@@ -119,7 +119,10 @@ int	parser(t_data *data)
 				if (data->tokens_list->next && data->tokens_list->next->type != WORD)
 					error_unexpected_token(data->tokens_list->next);
 				else
-					error_unexpected_token(data->tokens_list);
+				{
+					ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
+					// error_unexpected_token(data->tokens_list);
+				}
 				return (false);
 			}
 		}

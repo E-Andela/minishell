@@ -36,7 +36,6 @@ SOURCES = 	\
 			\
 			env_parsing.c \
 			parser_init_nodes.c \
-			parser_syntax_checker.c \
 			parser.c \
 			\
 			tokenizer.c \
@@ -56,7 +55,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	@echo "Building $(NAME)..."
-	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g 
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g
 # -fsanitize=address
 
 $(LIBFT):
