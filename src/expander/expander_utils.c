@@ -44,8 +44,6 @@ bool	check_dollar_sign(char	*str)
 	return (false);
 }
 
-
-
 bool	is_redirect(t_token_type type)
 {
 	if (type == IN_REDIRECT || type == OUT_REDIRECT || type == OUT_APPEND)
@@ -57,13 +55,14 @@ bool	ambiguous_redir(t_tokens *current_node, char *token_value, t_data *data)
 {
 	t_tokens *prev_node;
 
+	if (!current_node->prev)
+		return (true);
 	prev_node = current_node->prev;
 	if (!is_redirect(prev_node->type))
 		return (false);
 	error_ambiguous_redirect(current_node);
 	return (true);
 }
-
 
 bool	expander_check(t_tokens *tokens_list, t_data *data)
 {

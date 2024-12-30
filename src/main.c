@@ -27,24 +27,25 @@ void	mini_loop(t_data *data)
 		free(input);
 
 		tokenizer(data->user_input, data);
-
-		// print_tokens(data->tokens_list);			//TAKE OUT
+		
+		printf("tokens:\n");				//TAKE OUT
+		print_tokens(data->tokens_list);			//TAKE OUT
 
 		if (!expander_check(data->tokens_list, data))
 		{
 			continue ;
 		}
-		// printf("after expantion:\n");				//TAKE OUT
-		// print_tokens(data->tokens_list);			//TAKE OUT
+		printf("after expantion:\n");				//TAKE OUT
+		print_tokens(data->tokens_list);			//TAKE OUT
 		
 		if (!parser(data))
 		{
 			continue ;
 		}
 
-		// printf("after parser:\n");					//TAKE OUT
-		// print_cmd_list(data->command_list);			//TAKE OUT
-		// printf("%s----------------------------------%s\n", BLUE, DEFAULT);			//TAKE OUT
+		printf("after parser:\n");					//TAKE OUT
+		print_cmd_list(data->command_list);			//TAKE OUT
+		printf("%s----------------------------------%s\n", BLUE, DEFAULT);			//TAKE OUT
 
 		data->exit_code = execute_commands(data->command_list, data->environment);
 	}
