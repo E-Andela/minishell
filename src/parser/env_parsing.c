@@ -30,7 +30,7 @@ t_env_list	*create_linked_list_node(char *input)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->key = get_env_name(input);
-	new_node->key_value = get_env_value(input);
+	new_node->value = get_env_value(input);
 	new_node->next = NULL;
 	return (new_node);
 }

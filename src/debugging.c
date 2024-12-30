@@ -16,13 +16,13 @@ void	print_linked_list(t_env_list *linked_list)
 		while (temp->next != NULL)
 		{
 			printf("%sname	= %s%s\n", YELLOW, DEFAULT, temp->key);
-			printf("%svalue	= %s%s\n", YELLOW, DEFAULT, temp->key_value);
+			printf("%svalue	= %s%s\n", YELLOW, DEFAULT, temp->value);
 			temp = temp->next;
 		}
 		if (temp->next == NULL)
 		{
 			printf("%sname	= %s%s\n", YELLOW, DEFAULT, temp->key);
-			printf("%svalue	= %s%s\n", YELLOW, DEFAULT, temp->key_value);
+			printf("%svalue	= %s%s\n", YELLOW, DEFAULT, temp->value);
 		}
 	}
 }

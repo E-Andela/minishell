@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/18 19:25:20 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2024/12/26 18:31:15 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	ft_unset(char **args, t_env_list **env_list)
 		next = cur->next;
 		if (cur->key)
 			free(cur->key);
-		if (cur->key_value)
-			free(cur->key_value);
+		if (cur->value)
+			free(cur->value);
 		free(cur);
 		if (!prev)
 			*env_list = next;

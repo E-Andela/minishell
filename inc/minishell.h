@@ -42,7 +42,7 @@ void			print_cmd_list(t_command *command_list);
 // void	error_unexpected_token(t_tokens *type, char *token);
 void	error_unexpected_token(t_tokens *token_list);
 void	error_not_a_valid_identifier(char** identifier);
-void	error_command_not_found(char *cmd);
+int		error_command_not_found(char *cmd);
 void	error_ambiguous_redirect(t_tokens *token_list);
 void	display_error(char *error_msg);
 void	shell_exit(t_error_type error);
@@ -102,7 +102,7 @@ void			swap_nodes(t_env_list *a, t_env_list *b);
 int				ft_export(char **args, t_env_list *env_list);
 
 // ft_pwd.c
-int				ft_pwd(void);
+int				ft_pwd(char **args, t_env_list *env_list);
 
 // ft_unset.c
 int				ft_unset(char **args, t_env_list **env_list);

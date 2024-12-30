@@ -17,7 +17,12 @@ void	mini_loop(t_data *data)
 		init_signals();
 		input = readline(USER_MSG);
 		if (!input)
+		{
+			// free_data(data);
 			shell_exit(EXIT);
+		}
+		if (g_signal == SIGINT)
+			data->exit_code = 130;
 		data->user_input = ft_strtrim(input, " ");
 		if (!data->user_input)
 			shell_exit(MALLOC_FAIL);
@@ -48,6 +53,11 @@ void	mini_loop(t_data *data)
 		printf("%s----------------------------------%s\n", BLUE, DEFAULT);			//TAKE OUT
 
 		data->exit_code = execute_commands(data->command_list, data->environment);
+		if (data->exit_code == -1)
+		{
+			free_data(data);
+			exit (127);
+		}
 	}
 }
 

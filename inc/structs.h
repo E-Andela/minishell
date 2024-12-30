@@ -16,7 +16,7 @@ typedef struct s_vector
 typedef struct s_env_list
 {
 	char				*key;
-	char				*key_value;
+	char				*value;
 	struct s_env_list	*next;
 }	t_env_list;
 

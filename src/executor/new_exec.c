@@ -1,5 +1,18 @@
 #include "../../inc/minishell.h"
 
+void free_pipes(int **pipes, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(pipes[i]);
+		i++;
+	}
+	free(pipes);
+}
+
 int execute_single_command(t_command *cmd_list, t_env_list *env_list)
 {
 	int status;
@@ -9,13 +22,13 @@ int execute_single_command(t_command *cmd_list, t_env_list *env_list)
 	og_stdin = dup(STDIN_FILENO);
 	og_stdout = dup(STDOUT_FILENO);
 	status = handle_redirections(cmd_list->redirections);
+	status = execute_builtin(cmd_list->args, env_list);
 	dup2(og_stdin, STDIN_FILENO);
 	dup2(og_stdout, STDOUT_FILENO);
-	status = execute_builtin(cmd_list->args, env_list);
 	return (status);
 }
 
-void execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
+int execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 {
 	int **pipes;
 	const int pipe_size = count_cmds(cmd_list) - 1;
@@ -43,11 +56,11 @@ void execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 			{
 				if (is_builtin(cmd_list))
 					exit(execute_builtin(cmd_list->args, env_list));
-				path = get_path(cmd_list->args[0], ft_getenv("PATH", ft_ll2arr(env_list)));
+				path = get_path(cmd_list->args[0], ft_getenvp("PATH", env_list)->value);
 				if (!path)
 				{
 					error_command_not_found(cmd_list->args[0]);
-					// shell_exit(CMD_FAIL);
+					return (-1);
 				}
 				if (execve(path, cmd_list->args, ft_ll2arr(env_list)) == -1)
 					shell_exit(EXECVE_FAIL);
@@ -56,6 +69,7 @@ void execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 		cmd_list = cmd_list->next;		
 	}
 	close_pipes(pipes, pipe_size);
+	return (0);
 }
 
 int execute_commands(t_command *cmd_list, t_env_list *env_list)
@@ -70,13 +84,9 @@ int execute_commands(t_command *cmd_list, t_env_list *env_list)
 		status = execute_single_command(cmd_list, env_list);
 	else
 	{
-		execute_piped_commands(cmd_list, env_list);
+		if (execute_piped_commands(cmd_list, env_list) == -1)
+			return (-1);
 		status = wait_for_children(cmd_list);
 	}
 	return (status);
 }
-
-// int main()
-// {
-// 	is_builtin(NULL);
-// }

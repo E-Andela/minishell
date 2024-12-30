@@ -14,12 +14,12 @@ void	error_ambiguous_redirect(t_tokens *token_list)
 	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
 }
 
-void	error_command_not_found(char *cmd)
+int	error_command_not_found(char *cmd)
 {
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd("command not found\n", STDERR_FILENO);
-	exit(127);
+	return (127);
 }
 
 void	error_not_a_valid_identifier(char** identifier)
