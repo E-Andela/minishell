@@ -28,8 +28,13 @@ char	*get_path(char *command, char *full_path)
 	char	*path_part;
 	int		i;
 
-	if (access(command, F_OK) == 0)
-		return(command);
+	if (ft_strchr(command, '/'))
+	{
+		if (access(command, F_OK) == 0)
+			return(command);
+		else
+			return (NULL);
+	}	
 	split_path = ft_split(full_path, ':');
 	i = 0;
 	while (split_path[i])
@@ -191,20 +196,19 @@ void close_pipes(int **pipes, int size)
 	i = 0;
 	while (i < size)
 	{
-		// dprintf(STDERR_FILENO, "closing fd: %i & %i\n", pipes[i][0], pipes[i][1]);
 		close(pipes[i][0]);
 		close(pipes[i][1]);
+		free(pipes[i]);
 		i++;
 	}
-	// close(STDOUT_FILENO);
-	// close(STDIN_FILENO);
+	if (size > 0)
+		free(pipes);
 }
 
 int	wait_for_children(t_command *cmd_list)
 {
 	int status;
 	status = 0;
-	// while (wait(&status) != -1 || errno != ECHILD);
 	while (cmd_list)
 	{
 		waitpid(cmd_list->pid, &status, 0);
@@ -213,171 +217,6 @@ int	wait_for_children(t_command *cmd_list)
 	if (status == 2 && g_signal == SIGINT)
 		return (130);
 	if (status == 131 && g_signal == SIGQUIT)
-		return (131);	
-	// printf("final status: %i, %i\n", WEXITSTATUS(status), status);
+		return (131);
 	return (WEXITSTATUS(status));	
 }
-
-// void execute_cmds(t_command *cmd_list, t_env_list *env_list)
-// {
-// 	int id;
-// 	int **pipes;
-// 	int pipe_size ;
-// 	char *path;
-
-// 	pipe_size = count_cmds(cmd_list) - 1;
-// 	pipes = create_pipes(pipe_size);
-// 	id = -1;
-// 	while (cmd_list)
-// 	{
-// 		id = fork();
-// 		if (id == 0)
-// 		{
-// 			handle_pipes(pipes, cmd_list, pipe_size);
-// 			if (handle_redirections(cmd_list->redirections) != 0)
-// 				return ;
-// 			if (is_builtin(cmd_list->args[0]))
-// 			{
-// 				execute_builtin(cmd_list->args, env_list);
-// 				return;
-// 			}
-// 			if (cmd_list->args)
-// 			{
-// 				path = get_path(cmd_list->args[0], ft_getenv("PATH", ft_ll2arr(env_list)));
-// 				if (!path)
-// 				{
-// 					perror("command not found");
-// 					return;
-// 				}
-// 				// printf("path: %s\n", path);
-// 				if (execve(path, cmd_list->args, ft_ll2arr(env_list)) == -1)
-// 					perror("execve failed");
-// 			}
-// 		}
-// 		cmd_list = cmd_list->next;
-// 	}
-// 	close_pipes(pipes, pipe_size);
-// }
-
-// int execute_builtin_command(t_command *cmd_list, t_env_list *env_list, int **pipes, int pipe_size)
-// {
-// 	int og_stdin = dup(STDIN_FILENO);
-// 	int og_stdout = dup(STDOUT_FILENO);
-// 	int status;
-	
-// 	handle_pipes(pipes, cmd_list, pipe_size);
-// 	if ((status = handle_redirections(cmd_list->redirections)) != 0)
-// 		return (status);
-// 	status = execute_builtin(cmd_list->args, env_list);
-// 	dup2(og_stdin, STDIN_FILENO);
-// 	dup2(og_stdout, STDOUT_FILENO);
-// 	close(og_stdin);
-// 	close(og_stdout);
-// 	return (status);
-// }
-
-// int execute_external_command(t_command *cmd_list, t_env_list *env_list, int **pipes, int pipe_size)
-// {
-// 	int id;
-// 	char *path;
-	
-// 	id = fork();
-// 	if (id == 0)
-// 	{
-// 		handle_pipes(pipes, cmd_list, pipe_size);
-// 		if (handle_redirections(cmd_list->redirections) != 0)
-// 			return (-1);
-// 		if (cmd_list->args)
-// 		{
-// 			path = get_path(cmd_list->args[0], ft_getenv("PATH", ft_ll2arr(env_list)));
-// 			if (!path)
-// 			{
-// 				perror("command not found");
-// 				return (-1);
-// 			}
-// 			if (execve(path, cmd_list->args, ft_ll2arr(env_list)) == -1)
-// 				perror("execve failed");
-// 		}
-// 	}
-// 	return (0);
-// }
-
-// int execute_commands(t_command *cmd_list, t_env_list *env_list)
-// {
-// 	int **pipes;
-// 	const int pipe_size = count_cmds(cmd_list) - 1;
-	
-// 	pipes = create_pipes(pipe_size);
-// 	while (cmd_list)
-// 	{
-// 		if (is_builtin(cmd_list->args[0]))
-// 		{
-// 			execute_builtin_command(cmd_list, env_list, pipes, pipe_size);
-// 		}
-// 		else
-// 		{
-// 			execute_external_command(cmd_list, env_list, pipes, pipe_size);
-// 		}			
-// 		cmd_list = cmd_list->next;
-// 	}
-// 	close_pipes(pipes, pipe_size);
-// 	return (0);
-// }
-
-// int execute_single_command(t_command *cmd_list, t_env_list *env_list)
-// {
-// 	int status;
-
-// 	handle_redirections(cmd_list->redirections);
-// 	if (is_builtin(cmd_list->args[0]))
-// 	{
-// 		status = execute_builtin(cmd_list->args, env_list);
-// 	}
-// 	else
-// 	{
-// 		status = execute_external_command(cmd_list, env_list, NULL, 0);
-// 	}
-// }
-
-// int execute_commands(t_command *cmd_list, t_env_list *env_list)
-// {
-// 	const int pipe_size = count_cmds(cmd_list) - 1;
-// 	int status;
-
-// 	if (count_cmds(cmd_list) == 1)
-// 		status = execute_single_command(cmd_list, env_list);
-// 	else
-// 		status = execute_piped_commands(cmd_list, env_list, pipe_size);
-// 	return (status);
-// }
-
-
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_command *cmd_list;
-// 	// t_envp *envp_list;
-
-// 	// envp_list = ft_arr2ll(envp);
-// 	// open_fds = open("fds_open.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	
-// 	cmd_list = NULL;
-// 	if (!argc && !argv && !envp)
-// 		return (0);
-// 	// printf("hogdsai");
-// 	fill_cmd_list(&cmd_list);
-// 	// print_list(cmd_list);
-// 	// printf("commands: %i\n", count_cmds(cmd_list));
-// 	execute_cmds(cmd_list, envp);
-// 	// list_open_fds();
-// 	// ft_pwd();
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	wait(NULL);
-// 	return (250);
-// }

@@ -12,12 +12,17 @@ void	mini_loop(t_data *data)
 	while (1)
 	{
 		g_signal = 0;
-    reset_data(data);
+    	reset_data(data);
 
 		init_signals();
 		input = readline(USER_MSG);
 		if (!input)
+		{
+			// free_data(data);
 			shell_exit(EXIT);
+		}
+		if (g_signal == SIGINT)
+			data->exit_code = 130;
 		data->user_input = ft_strtrim(input, " ");
 		if (!data->user_input)
 			shell_exit(MALLOC_FAIL);
@@ -39,8 +44,8 @@ void	mini_loop(t_data *data)
 			continue ;
 		}
 
-		printf("after parser:\n");
-		print_cmd_list(data->command_list);
+		// printf("after parser:\n");
+		// print_cmd_list(data->command_list);
 
 		// if (!syntax_checker(data))
 		// {
@@ -49,6 +54,11 @@ void	mini_loop(t_data *data)
 		// }
 
 		data->exit_code = execute_commands(data->command_list, data->environment);
+		if (data->exit_code == -1)
+		{
+			free_data(data);
+			exit (127);
+		}
 	}
 }
 

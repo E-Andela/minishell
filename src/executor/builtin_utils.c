@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/12/07 16:12:00 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/24 13:22:03 by eandela       ########   odam.nl         */
+/*   Updated: 2024/12/27 17:10:46 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int execute_builtin(char **args, t_env_list *env_list)
 	if (ft_strncmp(args[0], "echo", ft_strlen("echo")) == 0)
 		return (ft_echo(args));
 	if (ft_strncmp(args[0], "pwd", ft_strlen("pwd")) == 0)
-		return (ft_pwd());
+		return (ft_pwd(args, env_list));
 	if (ft_strncmp(args[0], "cd", ft_strlen("cd")) == 0)
 		return (ft_cd(args, env_list));
 	if (ft_strncmp(args[0], "export", ft_strlen("export")) == 0)
