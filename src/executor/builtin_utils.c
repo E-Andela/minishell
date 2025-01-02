@@ -6,13 +6,13 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/12/07 16:12:00 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/30 21:23:05 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/02 18:30:20 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int is_builtin(t_command *cmd)
+int	is_builtin(t_command *cmd)
 {
 	if (!cmd->args)
 		return (0);
@@ -33,7 +33,7 @@ int is_builtin(t_command *cmd)
 	return (0);
 }
 
-int execute_builtin(char **args, t_env_list *env_list)
+int	execute_builtin(char **args, t_env_list *env_list)
 {
 	if (ft_strncmp(args[0], "echo", ft_strlen("echo")) == 0)
 		return (ft_echo(args));
@@ -51,4 +51,3 @@ int execute_builtin(char **args, t_env_list *env_list)
 		return (ft_exit(args));
 	return (0);
 }
-

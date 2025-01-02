@@ -6,15 +6,15 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/23 18:11:19 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/12 17:41:21 by livliege      ########   odam.nl         */
+/*   Updated: 2025/01/02 18:37:28 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool is_n(char *arg)
+bool	is_n(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!arg)
@@ -27,7 +27,7 @@ bool is_n(char *arg)
 	while (arg[i])
 	{
 		if (arg[i] != 'n')
-			return false;
+			return (false);
 		i++;
 	}
 	return (true);
@@ -35,9 +35,9 @@ bool is_n(char *arg)
 
 int	ft_echo(char **arg)
 {
-	bool n;
-	int i;
-	
+	bool	n;
+	int		i;
+
 	n = false;
 	i = 1;
 	while (arg[i])
@@ -45,7 +45,7 @@ int	ft_echo(char **arg)
 		if (is_n(arg[i]))
 			n = true;
 		else
-			break;
+			break ;
 		i++;
 	}
 	while (arg[i])
@@ -57,11 +57,5 @@ int	ft_echo(char **arg)
 	}
 	if (!n)
 		ft_putchar_fd('\n', STDOUT_FILENO);
-	return 0;
+	return (0);
 }
-
-// int main(void)
-// {
-// 	char *arg[] = {"-nt", "-n", "-nnnnn", "-hello", "-nnn", NULL};
-// 	ft_echo(arg);
-// }

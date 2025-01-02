@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/04 18:28:31 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/26 18:31:15 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/02 18:40:12 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,18 +262,3 @@ t_env_list *duplicate_node(t_env_list *node)
 	dup->next = NULL;
 	return (dup);
 }
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_envp *list;
-// 	t_envp *new;
-
-// 	list = new_element("hello");
-// 	new = new_element("world");
-// 	add_element_back(list, new);
-	
-// 	print_ll(list);
-// 	if (!argc || !argv || !envp)
-// 		return (0);
-	
-// }

@@ -6,17 +6,17 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/18 19:25:20 by eandela       #+#    #+#                 */
-/*   Updated: 2024/12/26 18:31:15 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/02 21:17:27 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_env_list *prev_node(t_env_list *node, t_env_list *list)
+t_env_list	*prev_node(t_env_list *node, t_env_list *list)
 {
-	t_env_list *prev;
+	t_env_list	*prev;
 
-	prev = NULL;	
+	prev = NULL;
 	while (list)
 	{
 		if (list == node)
@@ -29,10 +29,10 @@ t_env_list *prev_node(t_env_list *node, t_env_list *list)
 
 int	ft_unset(char **args, t_env_list **env_list)
 {
-	int	i;
-	t_env_list *prev;
-	t_env_list *cur;
-	t_env_list *next;
+	int			i;
+	t_env_list	*prev;
+	t_env_list	*cur;
+	t_env_list	*next;
 
 	i = 1;
 	while (args[i])
@@ -40,7 +40,7 @@ int	ft_unset(char **args, t_env_list **env_list)
 		cur = ft_getenvp(args[i], *env_list);
 		i++;
 		if (!cur)
-			continue;
+			continue ;
 		prev = prev_node(cur, *env_list);
 		next = cur->next;
 		if (cur->key)
@@ -55,16 +55,3 @@ int	ft_unset(char **args, t_env_list **env_list)
 	}
 	return (0);
 }
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_envp *list;
-// 	char *args[] = {"unset", "HOME", NULL};
-
-// 	list = ft_arr2ll(envp);
-// 	ft_unset(args, &list);
-// 	print_ll(list);
-// 	free_envp(list);
-// 	if (!argc || !argv || !envp)
-// 		return (-1);
-// }

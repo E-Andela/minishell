@@ -1,10 +1,11 @@
 #include "../../inc/minishell.h"
 
-void set_pwd(t_env_list *env_list)
+void	set_pwd(t_env_list *env_list)
 {
-	t_env_list *pwd = ft_getenvp("PWD", env_list);
-	char tmp[PATH_MAX];
+	t_env_list	*pwd;
+	char		tmp[PATH_MAX];
 
+	pwd = ft_getenvp("PWD", env_list);
 	getcwd(tmp, PATH_MAX);
 	if (pwd)
 	{
@@ -16,10 +17,11 @@ void set_pwd(t_env_list *env_list)
 	}
 }
 
-void set_oldpwd(t_env_list *env_list, char *new_oldpwd)
+void	set_oldpwd(t_env_list *env_list, char *new_oldpwd)
 {
-	t_env_list *oldpwd = ft_getenvp("OLDPWD", env_list);
+	t_env_list	*oldpwd;
 
+	oldpwd = ft_getenvp("OLDPWD", env_list);
 	if (oldpwd)
 	{
 		free(oldpwd->value);
@@ -32,35 +34,29 @@ void set_oldpwd(t_env_list *env_list, char *new_oldpwd)
 
 int	ft_cd(char **args, t_env_list *env_list)
 {
-	char *path;
-	char *oldpwd;
-	char tmp[PATH_MAX];
+	char	*path;
+	char	*oldpwd;
 
 	oldpwd = ft_getenvp("PWD", env_list)->value;
 	if (!args[1])
-	{
 		path = getenv("HOME");
-	}
 	else
 		path = args[1];
 	if (args[2])
-	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
-		return (1);
-	}
+		return (ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO), 1);
 	if (path != NULL && path[0] != '\0')
 	{
 		if (chdir(path) == 0)
 		{
 			set_oldpwd(env_list, oldpwd);
 			set_pwd(env_list);
-			return (0);		
+			return (0);
 		}
 		else
 		{
 			perror(path);
 			return (1);
-		}		
+		}
 	}
 	return (0);
 }
