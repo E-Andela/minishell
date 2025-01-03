@@ -1,5 +1,5 @@
 
-vpath %.c src src/errors_and_exit src/executor src/expander src/parser src/tokenizer src/signals
+vpath %.c src src/builtins src/errors_and_exit src/executor src/expander src/parser src/tokenizer src/signals
 vpath %.h inc
 
 NAME = minishell
@@ -15,20 +15,21 @@ LIBFTNAME = libft.a
 LIBFT = $(LIBFTDIR)/$(LIBFTNAME)
 
 SOURCES = 	\
-			error_handling.c \
-			free_and_exit.c \
-			\
 			builtin_utils.c \
 			ft_cd.c \
-			exec.c \
-			new_exec.c \
 			ft_echo.c \
 			ft_env.c \
-			ft_envp.c \
 			ft_exit.c \
 			ft_export.c \
 			ft_pwd.c \
 			ft_unset.c \
+			\
+			error_handling.c \
+			free_and_exit.c \
+			\
+			exec.c \
+			new_exec.c \
+			ft_envp.c \
 			here_doc.c \
 			\
 			expander_utils.c \
