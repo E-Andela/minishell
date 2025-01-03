@@ -41,7 +41,7 @@ void			print_cmd_list(t_command *command_list);
 // error_handling.c 
 // void	error_unexpected_token(t_tokens *type, char *token);
 void	error_unexpected_token(t_tokens *token_list);
-void	error_not_a_valid_identifier(char** identifier);
+void	error_not_a_valid_identifier(char* identifier);
 int		error_command_not_found(char *cmd);
 void	error_ambiguous_redirect(t_tokens *token_list);
 void	display_error(char *error_msg);
@@ -100,6 +100,16 @@ void			add_element_back(t_env_list **list, t_env_list *new);
 void			free_envp(t_env_list *head);
 t_env_list		*duplicate_node(t_env_list *node);
 void			swap_nodes(t_env_list *a, t_env_list *b);
+
+// export_utils.c
+int			valid_var_name(char	*name);
+char		*get_key(char *key_value);
+char		*get_value(char *key_value);
+void		sort_envp_list(t_env_list *head);
+t_env_list	*dup_envp_list(t_env_list *head);
+
+// export_utils2.c
+int			arg_counter(char **args);
 
 // ft_export.c
 int				ft_export(char **args, t_env_list *env_list);

@@ -16,6 +16,8 @@ LIBFT = $(LIBFTDIR)/$(LIBFTNAME)
 
 SOURCES = 	\
 			builtin_utils.c \
+			export_utils.c \
+			export_utils2.c \
 			ft_cd.c \
 			ft_echo.c \
 			ft_env.c \
