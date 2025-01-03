@@ -37,7 +37,7 @@ int	check_for_quotes(char *input)
 
 int	check_whitespace(char c)
 {
-	if (c == 32 || (c > 8 && c < 14))
+	if (c == ' ' || (c >= '\t' && c <= '\r'))
 		return (1);
 	return (0);
 }

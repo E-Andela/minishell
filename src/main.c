@@ -23,7 +23,7 @@ void	mini_loop(t_data *data)
 		}
 		if (g_signal == SIGINT)
 			data->exit_code = 130;
-		data->user_input = ft_strtrim(input, " ");
+		data->user_input = ft_strtrim(input, " \t\v\f\r\n");
 		if (!data->user_input)
 			shell_exit(MALLOC_FAIL);
 		if (data->user_input[0] == '\0')
