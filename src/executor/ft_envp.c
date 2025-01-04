@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/04 18:28:31 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/02 18:40:12 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/04 22:10:09 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ t_env_list *duplicate_node(t_env_list *node)
 		if (!dup->value)
 			shell_exit(MALLOC_FAIL);
 	}
+	else
+		dup->value = NULL;
 	dup->next = NULL;
 	return (dup);
 }
