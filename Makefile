@@ -46,7 +46,8 @@ SOURCES = 	\
 			tokenizer_utils.c \
 			tokens_create.c \
 			\
-			signals.c \
+			signal_handlers.c \
+			signal_init.c \
 			\
 			debugging.c \
 			main.c \

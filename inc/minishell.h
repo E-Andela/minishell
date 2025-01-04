@@ -169,6 +169,13 @@ void				add_token(char *input, t_token_type token_type,
 void	init_signals();
 void	init_child_signals();
 void	init_heredoc_signals();
+
+// signal_handlers.c
+void sigint_handler(int signal);
+void	sigint_handler_child(int signal);
+void sigint_handler_heredoc(int signal);
+void	quit(int signal);
+
 // main.c
 void			mini_loop(t_data *data);
 
