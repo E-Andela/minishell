@@ -26,7 +26,9 @@ SOURCES = 	\
 			ft_pwd.c \
 			ft_unset.c \
 			\
-			ft_envp.c \
+			env_helpers.c \
+			env_list_utils.c \
+			env_list.c \
 			\
 			error_handling.c \
 			free_and_exit.c \

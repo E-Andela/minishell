@@ -90,6 +90,7 @@ int	ft_exit(char **args);
 
 // ft_envp.c
 t_env_list		*ft_arr2ll(char **envp);
+int	ll_count(t_env_list *list, bool skip_null);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			**ft_ll2arr(t_env_list *envp);
 int				ft_max(int a, int b);
