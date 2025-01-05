@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/11/23 23:53:18 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/02 18:57:12 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/05 21:20:09 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,5 @@ int	create_heredocs(t_command *cmd_list)
 		}
 		cmd_list = cmd_list->next;
 	}
-	return (0);
-}
-
-int	redirect_heredoc(t_redirections *redirection)
-{
-	int	fd;
-
-	fd = open(redirection->file, O_RDONLY);
-	if (fd == -1)
-	{
-		unlink(redirection->file);
-		return (-1);
-	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	unlink(redirection->file);
 	return (0);
 }
