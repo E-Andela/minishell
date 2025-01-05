@@ -1,5 +1,5 @@
 
-vpath %.c src src/builtins src/errors_and_exit src/executor src/expander src/parser src/tokenizer src/signals
+vpath %.c src src/builtins src/environment_list src/errors_and_exit src/executor src/expander src/parser src/tokenizer src/signals
 vpath %.h inc
 
 NAME = minishell
@@ -26,13 +26,17 @@ SOURCES = 	\
 			ft_pwd.c \
 			ft_unset.c \
 			\
+			ft_envp.c \
+			\
 			error_handling.c \
 			free_and_exit.c \
 			\
-			exec.c \
-			new_exec.c \
-			ft_envp.c \
+			command_path.c \
+			execution_utils.c \
+			execution.c \
 			here_doc.c \
+			pipes.c \
+			redirections.c \
 			\
 			expander_utils.c \
 			expander.c \
@@ -46,7 +50,8 @@ SOURCES = 	\
 			tokenizer_utils.c \
 			tokens_create.c \
 			\
-			signals.c \
+			signal_handlers.c \
+			signal_init.c \
 			\
 			debugging.c \
 			main.c \
