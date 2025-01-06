@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/05 22:43:16 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/05 22:55:40 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/06 19:06:19 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,14 @@ char	**ft_ll2arr(t_env_list *envp)
 		envp = envp->next;
 	}
 	return (ret);
+}
+
+char	*get_envp_value(char *key, t_env_list *env_list)
+{
+	t_env_list	*node;
+
+	node = ft_getenvp(key, env_list);
+	if (!node)
+		return (NULL);
+	return (node->value);
 }

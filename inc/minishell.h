@@ -101,6 +101,7 @@ void			add_element_back(t_env_list **list, t_env_list *new);
 void			free_envp(t_env_list *head);
 t_env_list		*duplicate_node(t_env_list *node);
 void			swap_nodes(t_env_list *a, t_env_list *b);
+char *get_envp_value(char *key, t_env_list *env_list);
 
 // export_utils.c
 int			valid_var_name(char	*name);
