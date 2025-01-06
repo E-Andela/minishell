@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/04 23:13:24 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/05 16:37:33 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/06 19:00:08 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute_child_process(
 	{
 		if (is_builtin(cmd_list))
 			exit(execute_builtin(cmd_list->args, env_list));
-		path = get_path(cmd_list->args[0], ft_getenvp("PATH", env_list)->value);
+		path = get_path(cmd_list->args[0], get_envp_value("PATH", env_list));
 		if (!path)
 		{
 			error_command_not_found(cmd_list->args[0]);
