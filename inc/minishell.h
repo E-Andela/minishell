@@ -41,7 +41,7 @@ void			print_cmd_list(t_command *command_list);
 // error_handling.c 
 // void	error_unexpected_token(t_tokens *type, char *token);
 void	error_unexpected_token(t_tokens *token_list);
-void	error_not_a_valid_identifier(char** identifier);
+void	error_not_a_valid_identifier(char* identifier);
 int		error_command_not_found(char *cmd);
 void	error_ambiguous_redirect(t_tokens *token_list);
 void	display_error(char *error_msg);
@@ -90,6 +90,7 @@ int	ft_exit(char **args);
 
 // ft_envp.c
 t_env_list		*ft_arr2ll(char **envp);
+int	ll_count(t_env_list *list, bool skip_null);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			**ft_ll2arr(t_env_list *envp);
 int				ft_max(int a, int b);
@@ -100,6 +101,17 @@ void			add_element_back(t_env_list **list, t_env_list *new);
 void			free_envp(t_env_list *head);
 t_env_list		*duplicate_node(t_env_list *node);
 void			swap_nodes(t_env_list *a, t_env_list *b);
+char *get_envp_value(char *key, t_env_list *env_list);
+
+// export_utils.c
+int			valid_var_name(char	*name);
+char		*get_key(char *key_value);
+char		*get_value(char *key_value);
+void		sort_envp_list(t_env_list *head);
+t_env_list	*dup_envp_list(t_env_list *head);
+
+// export_utils2.c
+int			arg_counter(char **args);
 
 // ft_export.c
 int				ft_export(char **args, t_env_list *env_list);
@@ -159,6 +171,13 @@ void				add_token(char *input, t_token_type token_type,
 void	init_signals();
 void	init_child_signals();
 void	init_heredoc_signals();
+
+// signal_handlers.c
+void sigint_handler(int signal);
+void	sigint_handler_child(int signal);
+void sigint_handler_heredoc(int signal);
+void	quit(int signal);
+
 // main.c
 void			mini_loop(t_data *data);
 

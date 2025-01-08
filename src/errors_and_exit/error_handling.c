@@ -22,15 +22,13 @@ int	error_command_not_found(char *cmd)
 	return (127);
 }
 
-void	error_not_a_valid_identifier(char** identifier)
+void	error_not_a_valid_identifier(char* identifier)
 {
 	int	j;
 
 	j = 0;
-	while (identifier[j + 1] != NULL)
-		j++;
 	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
-	ft_putstr_fd(identifier[j], STDERR_FILENO);
+	ft_putstr_fd(identifier, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 

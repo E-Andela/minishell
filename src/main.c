@@ -18,8 +18,10 @@ void	mini_loop(t_data *data)
 		input = readline(USER_MSG);
 		if (!input)
 		{
+			free(input);
 			// free_data(data);
 			shell_exit(EXIT);
+			// exit(0);
 		}
 		if (g_signal == SIGINT)
 			data->exit_code = 130;
