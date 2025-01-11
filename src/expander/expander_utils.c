@@ -1,35 +1,5 @@
 #include "../../inc/minishell.h"
 
-char	*get_environment_key_values(t_data *data, char	*input)
-{
-	t_env_list	*temp;
-	int			len;
-
-	temp = data->environment;
-	len = ft_strlen(input);
-	while (temp != NULL)
-	{
-		if (ft_strncmp(input, temp->key, len) == 0 && temp->key[len] == '\0')
-			return (temp->value);
-		temp = temp->next;
-	}
-	return (NULL);
-}
-
-char	*get_environment_key(char	*input, int *i, t_data *data)
-{
-	int		start;
-	char	*key;
-
-	start = (*i);
-	while (input[(*i)] && (ft_isalnum(input[(*i)]) || input[(*i)] == '_'))
-		(*i)++;
-	key = ft_substr(input, start, (*i) - start);
-	if (!key)
-		shell_exit(MALLOC_FAIL);
-	return (key);
-}
-
 bool	check_dollar_sign(char	*str)
 {
 	int		i;

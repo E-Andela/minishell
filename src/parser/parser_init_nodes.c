@@ -26,3 +26,19 @@ t_redirections	*init_redirection_node(char *file, t_token_type type)
 	redir->next = NULL;
 	return (redir);
 }
+
+void	init_cmd_nodes(t_command **new_cmd_node, t_command **head_cmd_node, \
+t_command **current_cmd_node, t_data *data)
+{
+	*new_cmd_node = init_command_node();
+	if (*new_cmd_node == NULL)
+		exit_program(ERR_MALLOC, errno, data);
+	if (*head_cmd_node == NULL)
+		*head_cmd_node = *new_cmd_node;
+	if (*current_cmd_node != NULL)
+	{
+		(*current_cmd_node)->next = *new_cmd_node;
+		(*new_cmd_node)->prev = *current_cmd_node;
+	}
+	*current_cmd_node = *new_cmd_node;
+}

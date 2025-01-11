@@ -32,6 +32,7 @@ SOURCES = 	\
 			\
 			error_handling.c \
 			free_and_exit.c \
+			free_lists.c \
 			\
 			command_path.c \
 			execution_utils.c \
@@ -42,10 +43,13 @@ SOURCES = 	\
 			\
 			expander_utils.c \
 			expander.c \
+			handle_environment.c \
+			handle_quotes.c \
 			vectors.c \
 			\
 			env_parsing.c \
 			parser_init_nodes.c \
+			parser_utils.c \
 			parser.c \
 			\
 			tokenizer.c \
