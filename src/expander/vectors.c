@@ -1,6 +1,7 @@
 #include "../../inc/minishell.h"
 
-char	*ft_realloc_copy(char *str, unsigned int old_size, unsigned int new_size)
+char	*ft_realloc_copy(char *str, \
+unsigned int old_size, unsigned int new_size)
 {
 	char			*new_str;
 	unsigned int	i;
@@ -72,4 +73,3 @@ void	vector_init(t_vector *vector, t_data *data)
 	if (!vector->value)
 		exit_program(ERR_MALLOC, errno, data);
 }
-

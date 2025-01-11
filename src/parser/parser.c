@@ -30,7 +30,8 @@ void	add_argument(t_command *cmd, char *arg)
 	cmd->args = new_args;
 }
 
-void	add_redirection(t_command *cmd, char *file, t_token_type type, t_data *data)
+void	add_redirection(t_command *cmd, char *file, \
+t_token_type type, t_data *data)
 {
 	t_redirections	*redir;
 	t_redirections	*current;
@@ -96,7 +97,8 @@ int	parser(t_data *data)
 			current_cmd_node = new_cmd_node;
 			if (data->tokens_list->type == PIPE)
 			{
-				if (data->tokens_list->next == NULL || data->tokens_list->next->type != WORD)
+				if (data->tokens_list->next == NULL || \
+				data->tokens_list->next->type != WORD)
 				{
 					error_unexpected_token(data->tokens_list);
 					return (false);
@@ -107,22 +109,26 @@ int	parser(t_data *data)
 		}
 		if (data->tokens_list->type == WORD)
 			add_argument(current_cmd_node, data->tokens_list->value);
-		else if (data->tokens_list->type == OUT_REDIRECT || data->tokens_list->type == IN_REDIRECT || data->tokens_list->type == OUT_APPEND || data->tokens_list->type == HERE_DOC)
+		else if (data->tokens_list->type == OUT_REDIRECT || \
+		data->tokens_list->type == IN_REDIRECT || \
+		data->tokens_list->type == OUT_APPEND || \
+		data->tokens_list->type == HERE_DOC)
 		{
-			if (data->tokens_list->next && data->tokens_list->next->type == WORD)
+			if (data->tokens_list->next && \
+			data->tokens_list->next->type == WORD)
 			{
-				add_redirection(current_cmd_node, data->tokens_list->next->value, data->tokens_list->type, data);
+				add_redirection(current_cmd_node, \
+				data->tokens_list->next->value, data->tokens_list->type, data);
 				data->tokens_list = data->tokens_list->next;
 			}
 			else
 			{
-				if (data->tokens_list->next && data->tokens_list->next->type != WORD)
+				if (data->tokens_list->next && \
+				data->tokens_list->next->type != WORD)
 					error_unexpected_token(data->tokens_list->next);
 				else
-				{
-					ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
-					// error_unexpected_token(data->tokens_list);
-				}
+					ft_putstr_fd("minishell: syntax error near \
+					unexpected token `newline'\n", STDERR_FILENO);
 				return (false);
 			}
 		}
@@ -131,5 +137,5 @@ int	parser(t_data *data)
 	data->command_list = head_cmd_node;
 	free_tokens_list(data->tokens_list);
 	set_index(data->command_list);
-		return (true);
+	return (true);
 }

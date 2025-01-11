@@ -11,7 +11,6 @@ void	free_tokens_list(t_tokens *token_list)
 		free(token_list);
 		token_list = next_node;
 	}
-	// printf("%stoken list has been cleared :) %s\n", RED, DEFAULT);
 }
 
 void	free_env_list(t_env_list *env_list)
@@ -26,8 +25,6 @@ void	free_env_list(t_env_list *env_list)
 		free(env_list);
 		env_list = next_node;
 	}
-	// printf("%senviroment list has been cleared :) %s\n", RED, DEFAULT);
-
 }
 
 void	free_cmd_args(char **args)
@@ -78,7 +75,6 @@ void	free_command_list(t_command *command_list)
 		free(command_list);
 		command_list = next_node;
 	}
-	// printf("%scommands list with redirects has been cleared :) %s\n", RED, DEFAULT);
 }
 
 void	free_data(t_data *data)
@@ -101,7 +97,6 @@ void	free_data(t_data *data)
 		data->command_list = NULL;
 	}
 	free(data);
-	// printf("%sdata has been CLEARED :) %s\n", RED, DEFAULT);
 }
 
 void	reset_data(t_data *data)
@@ -118,5 +113,4 @@ void	reset_data(t_data *data)
 		free_command_list(data->command_list);
 		data->command_list = NULL;
 	}
-	// printf("%sdata has been RESET :) %s\n", RED, DEFAULT);
 }

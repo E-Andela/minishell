@@ -1,6 +1,5 @@
 #include "../../inc/minishell.h"
 
-// here we are going to handle |, >, >>, <, <<
 int	handle_token(char *input, int i, t_data *data)
 {
 	t_token_type	token;
@@ -42,7 +41,6 @@ int	skip_to_next_quote(int start, char *input, char quote)
 	return (i);
 }
 
-// here we are going to read the words, we're not going to handle them yet
 int	check_words(char *input, int start, t_data *data)
 {
 	int				j;
@@ -71,10 +69,7 @@ void	tokenizer(char *input, t_data *data)
 	int	j;
 
 	if (!check_for_quotes(input))
-	{
-		// shell_exit(ERR_QUOTES);
 		exit_program(ERR_QUOTES, errno, data);
-	}
 	if (data->tokens_list)
 		free_tokens_list(data->tokens_list);
 	i = 0;

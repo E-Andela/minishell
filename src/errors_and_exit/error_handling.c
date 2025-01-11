@@ -2,7 +2,8 @@
 
 void	error_unexpected_token(t_tokens *token_list)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+	ft_putstr_fd("minishell: syntax error near \
+	unexpected token `", STDERR_FILENO);
 	ft_putstr_fd(token_list->value, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
 }
@@ -22,7 +23,7 @@ int	error_command_not_found(char *cmd)
 	return (127);
 }
 
-void	error_not_a_valid_identifier(char* identifier)
+void	error_not_a_valid_identifier(char *identifier)
 {
 	int	j;
 
@@ -32,11 +33,12 @@ void	error_not_a_valid_identifier(char* identifier)
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
-void display_error(char *error_msg)
+void	display_error(char *error_msg)
 {
 	perror(error_msg);
 }
-void shell_exit(t_error_type error)
+
+void	shell_exit(t_error_type error)
 {
 	if (error == ARGUMENTS_FAIL)
 		ft_putstr_fd("Please execute without arguments\n", STDERR_FILENO);

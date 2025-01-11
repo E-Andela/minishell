@@ -1,23 +1,7 @@
 #include "../../inc/minishell.h"
 
-// void	count_quotes(char *input, int *s, int *d)
-// {
-// 	int	i;
-
-// 	*s = 0;
-// 	*d = 0;
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		if (input[i] == '\"')
-// 			i += find_matching_quote(input, i, d, '\"');
-// 		if (input[i] == '\'')
-// 			i += find_matching_quote(input, i, s, '\'');
-// 		i++;
-// 	}
-// }
-
-t_tokens	*create_token_node(char *input, t_token_type token_type, int index, t_data *data)
+t_tokens	*create_token_node(char *input, \
+t_token_type token_type, int index, t_data *data)
 {
 	t_tokens	*new_token;
 
@@ -43,7 +27,8 @@ t_tokens	*get_last_token(t_tokens *token_list)
 	return (token_list);
 }
 
-void	add_token(char *input, t_token_type token_type, t_tokens **token_list, t_data *data)
+void	add_token(char *input, t_token_type token_type, \
+t_tokens **token_list, t_data *data)
 {
 	t_tokens	*new_token;
 	t_tokens	*last_token;
