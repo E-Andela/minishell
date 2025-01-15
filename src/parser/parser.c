@@ -40,25 +40,27 @@ t_command	*parse_tokens(t_data *data)
 {
 	t_command	*current_cmd_node;
 	t_command	*head_cmd_node;
+	t_tokens	*temp_list;
 
 	current_cmd_node = NULL;
 	head_cmd_node = NULL;
-	while (data->tokens_list != NULL)
+	temp_list = data->tokens_list;
+	while (temp_list != NULL)
 	{
-		if (data->tokens_list->type == PIPE || current_cmd_node == NULL)
+		if (temp_list->type == PIPE || current_cmd_node == NULL)
 		{
 			if (!handle_pipe_node(&current_cmd_node, &head_cmd_node, data))
 				return (NULL);
 			continue ;
 		}
-		if (data->tokens_list->type == WORD)
-			add_argument(current_cmd_node, data->tokens_list->value);
-		else if (check_if_redirect(data->tokens_list->type))
+		if (temp_list->type == WORD)
+			add_argument(current_cmd_node, temp_list->value);
+		else if (check_if_redirect(temp_list->type))
 		{
 			if (!handle_redirection(current_cmd_node, data))
 				return (NULL);
 		}
-		data->tokens_list = data->tokens_list->next;
+		temp_list = temp_list->next;
 	}
 	return (head_cmd_node);
 }
@@ -77,6 +79,7 @@ int	parser(t_data *data)
 		return (false);
 	data->command_list = head_cmd_node;
 	free_tokens_list(data->tokens_list);
+	data->tokens_list = NULL;
 	set_index(data->command_list);
 	return (true);
 }

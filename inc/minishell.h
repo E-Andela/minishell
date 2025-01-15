@@ -179,7 +179,7 @@ t_token_type	check_token(char c);
 int				skip_spaces(char *input, int start);
 
 // tokenizer.c 
-int				check_for_quotes(char *input);
+bool			check_for_quotes(char *input);
 int				check_whitespace(char c);
 void			tokenizer(char *input, t_data *data);
 

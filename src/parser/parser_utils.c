@@ -29,6 +29,7 @@ void	add_argument(t_command *cmd, char *arg)
 		exit_program(ERR_MALLOC, errno, NULL);
 	copy_arguments(new_args, cmd->args, count);
 	new_args[count] = ft_strdup(arg);
+	// free(arg);
 	if (!new_args[count])
 		exit_program(ERR_MALLOC, errno, NULL);
 	new_args[count + 1] = NULL;

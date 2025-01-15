@@ -13,7 +13,7 @@ int	find_matching_quote(char *input, int start, int *num_quotes, char quote)
 	return (i - start);
 }
 
-int	check_for_quotes(char *input)
+bool	check_for_quotes(char *input)
 {
 	int	i;
 	int	s;

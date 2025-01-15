@@ -64,6 +64,7 @@ void	print_tokens(t_tokens *token_list)
 			// printf("token index:	%d\n", temp->index);
 			printf("value:		%s\n", temp->value);
 			printf("type:		%s (%d)\n", get_token_type_string(temp->type), temp->type);
+			ft_printf("NextNode:		%p\n", temp->next);
 			printf("%s----------------------------------%s\n", BLUE, DEFAULT);
 			temp = temp->next;
 		}

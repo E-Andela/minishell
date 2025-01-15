@@ -6,7 +6,7 @@
 #    By: eandela <marvin@42.fr>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/19 12:27:38 by eandela       #+#    #+#                  #
-#    Updated: 2024/12/13 15:26:07 by anonymous     ########   odam.nl          #
+#    Updated: 2025/01/15 15:56:02 by anonymous     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,13 @@ SRC =	ft_isalpha.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c \
+		ft_printf_charstring.c \
+		ft_printf_hexadecimalsptr.c \
+		ft_printf_number.c \
+		ft_printf_unsigned_number.c \
+		ft_printf.c
+
 
 OBJECTS 	= $(SRC:%.c=$(OBJDIR)/%.o)
 

@@ -34,7 +34,7 @@ int	skip_to_next_quote(int start, char *input, char quote)
 	if (input[start + i] == quote)
 	{
 		i++;
-		while (input[start + i] != quote && input[start + i])
+		while (input[start + i] && input[start + i] != quote)
 			i++;
 		i++;
 	}
@@ -70,8 +70,8 @@ void	tokenizer(char *input, t_data *data)
 
 	if (!check_for_quotes(input))
 		exit_program(ERR_QUOTES, errno, data);
-	if (data->tokens_list)
-		free_tokens_list(data->tokens_list);
+	// if (data->tokens_list)
+	// 	free_tokens_list(data->tokens_list);
 	i = 0;
 	while (input[i] != '\0')
 	{
