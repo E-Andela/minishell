@@ -41,7 +41,7 @@ int	skip_to_next_quote(int start, char *input, char quote)
 	return (i);
 }
 
-int	check_words(char *input, int start, t_data *data)
+int	handle_words(char *input, int start, t_data *data)
 {
 	int				j;
 	char			*token_value;
@@ -60,7 +60,8 @@ int	check_words(char *input, int start, t_data *data)
 	if (!token_value)
 		exit_program(ERR_MALLOC, errno, data);
 	add_token(token_value, WORD, &data->tokens_list, data);
-	return (free(token_value), j);
+	free(token_value);
+	return (j);
 }
 
 void	tokenizer(char *input, t_data *data)
@@ -70,8 +71,6 @@ void	tokenizer(char *input, t_data *data)
 
 	if (!check_for_quotes(input))
 		exit_program(ERR_QUOTES, errno, data);
-	// if (data->tokens_list)
-	// 	free_tokens_list(data->tokens_list);
 	i = 0;
 	while (input[i] != '\0')
 	{
@@ -80,7 +79,7 @@ void	tokenizer(char *input, t_data *data)
 		if (check_token(input[i]) != UNSET)
 			j = handle_token(input, i, data);
 		else
-			j = check_words(input, i, data);
+			j = handle_words(input, i, data);
 		i += j;
 	}
 }

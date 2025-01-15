@@ -46,7 +46,9 @@ bool	expander_check(t_tokens *tokens_list, t_data *data)
 				return (false);
 			}
 		}
-		else if ((tokens_list->type == WORD) && (ft_strchr(tokens_list->value, '\'') || ft_strchr(tokens_list->value, '\"'))) 
+		else if ((tokens_list->type == WORD) && \
+		(ft_strchr(tokens_list->value, '\'') || \
+		ft_strchr(tokens_list->value, '\"')))
 		{
 			remove_quotes(&tokens_list->value, data);
 		}

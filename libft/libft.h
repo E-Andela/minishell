@@ -6,7 +6,7 @@
 /*   By: eandela <marvin@42.fr>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 18:08:15 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/15 16:00:58 by anonymous     ########   odam.nl         */
+/*   Updated: 2025/01/15 18:28:17 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,5 @@ int		ft_print_string(char *str);
 int		ft_print_number(int d);
 int		ft_print_unsigned_number(unsigned int u);
 int		ft_hexadecimal(unsigned long h, char placeholder);
-
 
 #endif

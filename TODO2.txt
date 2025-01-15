@@ -1,99 +1,152 @@
+[] SHLVL!
 [] (echo "hal) -> lelijke exit. verander alle "exit_program" naar "shell_exit". moeten we clear data nog doen? dan moet shell exit aangepast worden 
+[] un-comment flags in libft makefile and minishell makefile and
+[] remove unused variables 
+		(ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
+		(ft_envp.c:205:25: error: variable ‘i’ set but not used [-Werror=unused-but-set-variable] 205 | int  i;)
+		op mijn laptop runt blijkbaar een andere cc/gcc versie die dit wel opmerkt
+[] fix errors bij TESTS!
 [] 
 [] 
 [] 
 [] 
-[] 
-[] 
-[] 
-[] 
-[] 
+[] debugging file verwijderen (ook uit makefile en header)
+[] check of fsanitize en valgrind uit staan
+[] run norminette one last lime!
+
+
+
+
 
 
 
 
 TESTED AGAIN ON 15-01-2025
 
+TESTS!	
 
-	PASSED:
-	FAILED, BUT DO WE NEED TO HANDLE THIS?
-	FAILED:
+DUBBEL CHECKEN MET IEMAND:
+exit 
+	# should return the last exit code value
+exit -10
+exit +10
+sleep 5 | exit
+exit 0 | exit 1
+exit 1 | exit 0
+
+
+FAILED:
+echo test > file test1
+	bash: file met "test test1" erin
+	minishell: file met "test file test1" erin
+env puis export puis env 
+	# vars aren't sorted
+
+echo 2 >> out1 > out2
+echo 2 > out1 >> out2
+echo bonjour > $test		
+echo x > redirect1 | echo
+	# hij gooit de file name(s) er ook in??
+
+> log echo coucou
+cd ~
+> a ls > b < Makefile
+echo > a Hello World!
+> a echo Hello World!
+cat < Makefile | grep gcc > output
+Documents/github/minishell_2
+"$USERS"	-> expand naar nothing, needs to give error '' command not found
 
 
 
-
-	TESTS!	
-cd $HOME/Documents
-echo bonjour | |
-|
+FAILED, BUT DO WE NEED TO HANDLE THIS?:
 echo bonjour > test\ 1
 echo "\s" & echo "\s"
-	
-echo >
+export var; export var=test
+echo coucou | ;
+echo "\"
+echo "\\n \\n \\n"
+echo ;;
+echo hi";" hihi
+echo hi " ; " hihi
+echo |
+echo sr*
+echo ~
+
+
+
+PASSED, BUT CAN BE BETTER
+cd $HOME/Documents
+	-bash: cd: /home/goliath/Documents: No such file or directory
+	/home/goliath/Documents: No such file or directory
+cat Makefile | grep pr | head -n 5 | cd test 
+		(mybin) # check status code
+	-bash: cd: test: No such file or directory
+	test: No such file or directory (however, it does work with 'cat Makefile | grep pr | head -n 5 | cat test')
+cat < test 
+	# with non-existent test
+cd no_file
+	bash: cd: no_file: No such file or directory
+	no_file: No such file or directory
+cd a b c d
+	bash: cd: too many arguments
+	cd: too many arguments
+
+
+PASSED:
+echo bonjour | |
+|
+echo >	
 echo -n -n -nnnn -nnnnm
 cat /dev/random | head -n 1 | cat -e
 unset var1 # with undefined var1
 export ""
 unset ""
-echo test > file test1
 $
 not_cmd bonjour > salut
-env puis export puis env # vars aren't sorted
-cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code
-cat Makefile | grep pr | head -n 5 | cat test (bin) # check status code
-cat Makefile | grep pr | head -n 5 | hello (NA) # check status code
+cat Makefile | grep pr | head -n 5 | cat test 
+	(bin) # check status code
+cat Makefile | grep pr | head -n 5 | hello
+	(NA) # check status code
 echo bonjour >>> test
 echo bonjour > > out
-echo 2 >> out1 > out2
-echo 2 > out1 >> out2
-cat < test # with non-existent test
-export var; export var=test
-echo bonjour > $test # with test not defined
+echo bonjour > $test 
+	# with test not defined
 file_name_in_current_dir
 cd ../../../../../.. ; pwd
-ctrl-C . 130 sur bin(ex : sleep 10)&line vide
-ctrl-\ .131 sur bin
-echo "bip | bip ; coyotte > < " "
-cat | cat | cat | ls # check outputs order
-$bla # with bla not defined
+coyotte > < " "
+echo "bip | bip 
+cat | cat | cat | ls 
+	# check outputs order
+$bla 
+	# with bla not defined
 export var ="cat Makefile | grep >"
 export "test=ici"=coucou
-c$var Makefile # with var=at
+c$var Makefile 
+	# with var=at
 $LESS$VAR
 /bin/echo bonjour
 not_cmd
-sleep 5 | exit
-echo bonjour > $test w/ t
 "exit retour a la ligne"
-minishell # binary not in path without "./" before
-cat diufosgid # check exit code
-exit # should return the last exit code value
-exit -10
-exit +10
-echo coucou | ;
+minishell 
+	# binary not in path without "./" before
+cat diufosgid 
+	# check exit code
+echo $HOME
 echo "$HOME"
 echo '$HOME'
-export ; env # display is different for both commands
-echo $HOME
-> log echo coucou
+export ; env 
+	# display is different for both commands
 echo hudifg d | | hugdfihd
 echo
 echo simple
 echo -n simple
 echo ''
 echo ""
-echo "\"
 echo "\n \n \n"
-echo "\\n \\n \\n"
-echo ;;
-echo hi";" hihi
-echo hi " ; " hihi
 cd
 cd .
-cd ~
 cd /
-cd no_file
-cd a b c d
 pwd a
 pwd a b c d
 export LOL=lala ROR=rara
@@ -106,26 +159,17 @@ export "HI =hi"
 # write something then press ctrl+\
 echo $?
 l^Ds
-echo |
 | echo
-sort | ls # check output order
+sort | ls 
+	# check output order
 cat < >
 cat < <
 cat > >
-> a ls > b < Makefile
-echo > a Hello World!
-> a echo Hello World!
-cat < Makefile | grep gcc > output
-exit 0 | exit 1
-exit 1 | exit 0
-Documents/github/minishell_2
-echo sr*
 echo "sr*"
 echo abc
 echo "xyz"
 echo "xyz"'123'
 echo a"x"y"z"a        ijk
-echo ~
 echo '123'
 echo xyz'123'xyz
 echo 'x'$HOME'x'
@@ -152,11 +196,9 @@ echo 10    "20     "'30     '
 echo 10    "20     " '30     '
 echo 10    "20     "     '30     '
 echo "$HOME" '$HOME'
-echo x > redirect1 | echo
 cat redirect1
 rm redirect1 | echo
 echo fin
-user: >>>
-user: <<<
-$JFKDSJFDSKFJDSFDSKF
-"$JFKDSJFDSKFJDSFDSKF"
+>>>
+<<<
+$USERS

@@ -4,7 +4,7 @@ vpath %.h inc
 
 NAME = minishell
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 LINKER = -lreadline
 
 SOURCE_DIR = ./src
@@ -70,7 +70,8 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	@echo "Building $(NAME)..."
-	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g -fsanitize=address
+	@cc $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBFT) $(LINKER) -g 
+#-fsanitize=address
 
 $(LIBFT):
 	@echo "Building libft..."

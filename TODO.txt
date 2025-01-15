@@ -1,5 +1,5 @@
 
-[ ] Make exit code expander function
+[x] Make exit code expander function
 [ ] un-comment flags in libft makefile and minishell makefile and
 [ ] remove unused variables 
 		(ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
@@ -59,7 +59,7 @@
 
 
 [X] 	echo "hallo '$USER' hoe gaat het?" -> hallo 'goliath' hoe gaat het?
-[ ]	echo $USER > file1  writes this in file1: 	goliath
+[x]	echo $USER > file1  writes this in file1: 	goliath
 												[?2004huser:
 		-> dub function needs to set STDOUT back to terminal? now STDOUT stayes in file1
 
@@ -74,7 +74,7 @@ Segmentation fault (core dumped)
 
 
 weird bug?:
-[ ]		1. export var ="cat Makefile | grep >"
+[x]		1. export var ="cat Makefile | grep >"
 		2. export 	->		everything looks fine, var is an empty export variable
 		3. export var ="cat Makefile | grep >" (again)
 		4. export (again) looks like this:
