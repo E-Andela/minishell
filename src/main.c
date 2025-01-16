@@ -44,7 +44,7 @@ bool	handle_input(t_data *data)
 	if (!input)
 	{
 		free(input);
-		exit_program(ERR_INPUT, data);
+		shell_exit(EXIT);
 	}
 	if (g_signal == SIGINT)
 		data->exit_code = 130;

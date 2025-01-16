@@ -52,9 +52,9 @@ FAILED:
 [X] echo > a Hello World!
 [X] > a echo Hello World!
 [X] cat < Makefile | grep gcc > output
-[ ] Documents/github/minishell_2
-[ ] "$USERS"	-> expand naar nothing, needs to give error '' command not found
-[ ] ""
+[X] Documents/github/minishell_2
+[X] "$USERS"	-> expand naar nothing, needs to give error '' command not found
+[X] ""
 
 
 FAILED, BUT DO WE NEED TO HANDLE THIS?:

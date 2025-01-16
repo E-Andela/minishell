@@ -141,6 +141,7 @@ int				redirect_heredoc(t_redirections *redirection);
 // expander_utils.c
 char			*get_environment_key(char	*input, int *i);
 char			*get_environment_key_values(t_data *data, char	*input);
+bool			is_redirect(t_token_type type);
 bool			ambiguous_redir(t_tokens *current_node);
 
 // expander.c 
