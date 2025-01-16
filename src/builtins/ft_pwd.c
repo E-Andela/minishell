@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/15 15:52:16 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/02 21:20:03 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/16 15:01:51 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putstrendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-int	ft_pwd(char **args, t_env_list *env_list)
+int	ft_pwd(t_env_list *env_list)
 {
 	char	pwd[PATH_MAX];
 	char	*fail_pwd;

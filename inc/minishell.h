@@ -116,7 +116,7 @@ int				arg_counter(char **args);
 int				ft_export(char **args, t_env_list *env_list);
 
 // ft_pwd.c
-int				ft_pwd(char **args, t_env_list *env_list);
+int				ft_pwd(t_env_list *env_list);
 
 // ft_unset.c
 int				ft_unset(char **args, t_env_list **env_list);
