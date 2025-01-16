@@ -25,9 +25,10 @@
 # define USER_MSG	"user: "
 
 # define ERR_ARGC	"Minishell does not take any arguments.\n"
-# define ERR_QUOTES	"Missing closing quote.\n"
+# define ERR_QUOTES	"Incorrect number of quotes.\n"
 # define ERR_TOKEN	"Tokenizer failed.\n"
-# define ERR_MALLOC	"Malloc returned NULL.\n"
+# define ERR_MALLOC	"Malloc failed.\n"
+# define ERR_INPUT	"Readline function returned NULL.\n"
 
 extern int	g_signal;
 
@@ -47,7 +48,7 @@ void			display_error(char *error_msg);
 // free_and_exit.c 
 void			free_data(t_data *data);
 void			reset_data(t_data *data);
-void			exit_program(char *error_message, int errnbr, t_data *data);
+void			exit_program(char *error_message, t_data *data);
 void			shell_exit(t_error_type error);
 
 // free_lists.c
