@@ -46,7 +46,7 @@ bool	expand_token(t_tokens *token_node, char **token_value, t_data *data)
 	vector_add_char(&vector, '\0', data);
 	if (ft_strlen(vector.value) == 0)
 	{
-		if (ambiguous_redir(token_node, *token_value, data))
+		if (ambiguous_redir(token_node))
 			return (false);
 	}
 	free(*token_value);

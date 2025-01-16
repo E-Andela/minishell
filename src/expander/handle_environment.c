@@ -16,7 +16,7 @@ char	*get_environment_key_values(t_data *data, char	*input)
 	return (NULL);
 }
 
-char	*get_environment_key(char	*input, int *i, t_data *data)
+char	*get_environment_key(char	*input, int *i)
 {
 	int		start;
 	char	*key;
@@ -63,7 +63,7 @@ char *token_value, t_data *data)
 			vector_add_char(vector, token_value[*i++], data);
 		return ;
 	}
-	env_key = get_environment_key(token_value, i, data);
+	env_key = get_environment_key(token_value, i);
 	env_key_value = get_environment_key_values(data, env_key);
 	if (env_key_value == NULL)
 		return ;
