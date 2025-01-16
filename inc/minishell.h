@@ -201,4 +201,7 @@ void			quit(int signal);
 // main.c
 void			mini_loop(t_data *data);
 
+// shell_lvl.c
+void			increase_shlvl(t_env_list *env_list);
+
 #endif
