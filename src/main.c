@@ -137,6 +137,7 @@ int	main(int argc, char **argv, char **envp)
 	if (data == NULL)
 		shell_exit(MALLOC_FAIL);
 	data->environment = ft_arr2ll(envp);
+	increase_shlvl(data->environment);
 	mini_loop(data);
 	free_data(data);
 	return (0);
