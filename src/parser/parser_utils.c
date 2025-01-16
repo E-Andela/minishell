@@ -16,7 +16,6 @@ void	add_argument(t_command *cmd, char *arg)
 {
 	int		count;
 	char	**new_args;
-	char	*trimmed_arg;
 
 	count = 0;
 	if (cmd->args)

@@ -127,10 +127,9 @@ int				create_heredocs(t_command *cmd_list);
 int				redirect_heredoc(t_redirections *redirection);
 
 // expander_utils.c
-char			*get_environment_key(char	*input, int *i, t_data *data);
+char			*get_environment_key(char	*input, int *i);
 char			*get_environment_key_values(t_data *data, char	*input);
-bool			ambiguous_redir(t_tokens *current_node,
-					char *token_value, t_data *data);
+bool			ambiguous_redir(t_tokens *current_node);
 
 // expander.c 
 bool			expander_check(t_tokens	*token_list, t_data	*data);

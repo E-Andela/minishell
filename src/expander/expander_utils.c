@@ -21,7 +21,7 @@ bool	is_redirect(t_token_type type)
 	return (false);
 }
 
-bool	ambiguous_redir(t_tokens *current_node, char *token_value, t_data *data)
+bool	ambiguous_redir(t_tokens *current_node)
 {
 	t_tokens	*prev_node;
 
