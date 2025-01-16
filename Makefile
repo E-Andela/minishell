@@ -61,6 +61,7 @@ SOURCES = 	\
 			\
 			debugging.c \
 			main.c \
+			shell_lvl.c \
 
 OBJECTS = $(patsubst %.c, $(OBJECT_DIR)/%.o, $(SOURCES))
 
