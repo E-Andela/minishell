@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 15:12:54 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/16 17:34:22 by livliege      ########   odam.nl         */
+/*   Updated: 2025/01/16 17:48:58 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ bool	ambiguous_redir(t_tokens *current_node)
 
 	if (!current_node->prev)
 	{
-		printf("%sTEST\n%s", YELLOW, DEFAULT);		// TAKE OUT!!!!!!!!!!!
 		return (true);
 	}
 	prev_node = current_node->prev;
