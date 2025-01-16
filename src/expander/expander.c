@@ -56,15 +56,28 @@ bool	expand_token(t_tokens *token_node, char **token_value, t_data *data)
 			vector_add_char(&vector, (*token_value)[i++], data);
 	}
 	vector_add_char(&vector, '\0', data);
-	if (ft_strlen(vector.value) == 0 && (token_node->prev && is_redirect(token_node->prev->type)))
+	
+	// printf("%stoken_value:%s\n%s", BLUE, *token_value, DEFAULT);		// TAKE OUT!!!!!!!!!!!
+	// printf("%svector_value:%s\n%s", BLUE, vector.value, DEFAULT);		// TAKE OUT!!!!!!!!!!!
+	
+	if (ft_strlen(vector.value) == 0)
 	{
-		printf("tokenvalue!!!: %s\n", vector.value);				// TAKE OUT
-		if (ambiguous_redir(token_node))
+		// printf("%sTEST\n%s", RED, DEFAULT);		// TAKE OUT!!!!!!!!!!!
+		if (token_node->prev && is_redirect(token_node->prev->type))
+		{
+			error_ambiguous_redirect(token_node);
+			free(vector.value);
 			return (false);
+		}
+		if (!ft_strchr(*token_value, '\"'))
+		{
+			free(vector.value);
+			return (false);
+		}
 	}
+	// printf("%sTEST\n%s", GREEN, DEFAULT);		// TAKE OUT!!!!!!!!!!!
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
-	printf("tokenvalue: %s\n", *token_value);				// TAKE OUT
 	if (*token_value == NULL)
 		exit_program(ERR_MALLOC, data);
 	free(vector.value);
