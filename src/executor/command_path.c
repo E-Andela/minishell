@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/05 16:49:03 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/05 19:55:58 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/16 15:33:35 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*get_path(char *command, char *full_path)
 	char	**split_path;
 	char	*path;
 
+	if (command[0] == '\0')
+		return (NULL);
 	path = check_direct_path(command);
 	if (path)
 		return (path);
