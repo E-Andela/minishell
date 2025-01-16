@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   tokenizer.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:59 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:33:53 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	handle_token(char *input, int i, t_data *data)
@@ -58,7 +70,7 @@ int	handle_words(char *input, int start, t_data *data)
 	}
 	token_value = ft_substr(input, start, j);
 	if (!token_value)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	add_token(token_value, WORD, &data->tokens_list, data);
 	free(token_value);
 	return (j);
@@ -70,7 +82,7 @@ void	tokenizer(char *input, t_data *data)
 	int	j;
 
 	if (!check_for_quotes(input))
-		exit_program(ERR_QUOTES, errno, data);
+		exit_program(ERR_QUOTES, data);
 	i = 0;
 	while (input[i] != '\0')
 	{

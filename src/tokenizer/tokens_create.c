@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   tokens_create.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:14:03 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:14:03 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_tokens	*create_token_node(char *input, \
@@ -7,10 +19,10 @@ t_token_type token_type, int index, t_data *data)
 
 	new_token = (t_tokens *)malloc(sizeof(t_tokens));
 	if (!new_token)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	new_token->value = ft_strdup(input);
 	if (!new_token->value)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	new_token->type = token_type;
 	new_token->index = index;
 	new_token->prev = NULL;
@@ -38,7 +50,7 @@ t_tokens **token_list, t_data *data)
 		index = 0;
 	new_token = create_token_node(input, token_type, index++, data);
 	if (!new_token)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	if (!(*token_list))
 	{
 		new_token->next = NULL;

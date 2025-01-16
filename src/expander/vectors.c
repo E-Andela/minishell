@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   vectors.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:12 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:33:25 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*ft_realloc_copy(char *str, \
@@ -52,7 +64,7 @@ static void	vector_resize(t_vector *vector, int new_capacity, t_data *data)
 
 	resized_vector = ft_realloc(vector->value, vector->capacity, new_capacity);
 	if (!resized_vector)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	vector->value = resized_vector;
 	vector->capacity = new_capacity;
 }
@@ -71,5 +83,5 @@ void	vector_init(t_vector *vector, t_data *data)
 	vector->total = 0;
 	vector->value = (char *)malloc(sizeof(char) * vector->capacity);
 	if (!vector->value)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 }

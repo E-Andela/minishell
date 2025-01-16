@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   handle_quotes.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:09 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:13:09 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	expand_double_quotes(t_vector *vector, int *i, \
@@ -54,6 +66,6 @@ void	remove_quotes(char **token_value, t_data *data)
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
 	if (*token_value == NULL)
-		shell_exit(MALLOC_FAIL);
+		exit_program(ERR_MALLOC, data);
 	free(vector.value);
 }

@@ -47,7 +47,6 @@ SOURCES = 	\
 			handle_quotes.c \
 			vectors.c \
 			\
-			env_parsing.c \
 			parser_init_nodes.c \
 			parser_utils.c \
 			parser.c \

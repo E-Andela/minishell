@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser_init_nodes.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:46 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:33:29 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_command	*init_command_node(void)
@@ -32,7 +44,7 @@ t_command **current_cmd_node, t_data *data)
 {
 	*new_cmd_node = init_command_node();
 	if (*new_cmd_node == NULL)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	if (*head_cmd_node == NULL)
 		*head_cmd_node = *new_cmd_node;
 	if (*current_cmd_node != NULL)

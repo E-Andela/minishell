@@ -1,18 +1,18 @@
-[] SHLVL!
-[] (echo "hal) -> lelijke exit. verander alle "exit_program" naar "shell_exit". moeten we clear data nog doen? dan moet shell exit aangepast worden 
-[] un-comment flags in libft makefile and minishell makefile and
-[] remove unused variables 
+[X] SHLVL!
+[X] (echo "hal) -> lelijke exit. verander alle "exit_program" naar "shell_exit". moeten we clear data nog doen? dan moet shell exit aangepast worden 
+[ ] un-comment flags in libft makefile and minishell makefile and
+[ ] remove unused variables 
 		(ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
 		(ft_envp.c:205:25: error: variable ‘i’ set but not used [-Werror=unused-but-set-variable] 205 | int  i;)
 		op mijn laptop runt blijkbaar een andere cc/gcc versie die dit wel opmerkt
-[] fix errors bij TESTS!
-[] 
-[] 
-[] 
-[] 
-[] debugging file verwijderen (ook uit makefile en header)
-[] check of fsanitize en valgrind uit staan
-[] run norminette one last lime!
+[ ] fix errors bij TESTS!
+[X] add 42 headers (liath)
+[ ] 
+[ ] 
+[ ] 
+[ ] debugging file verwijderen (ook uit makefile en header)
+[ ] check of fsanitize en valgrind uit staan
+[ ] run norminette one last lime!
 
 
 
@@ -26,52 +26,52 @@ TESTED AGAIN ON 15-01-2025
 TESTS!	
 
 DUBBEL CHECKEN MET IEMAND:
-exit 
+[ ] exit 
 	# should return the last exit code value
-exit -10
-exit +10
-sleep 5 | exit
-exit 0 | exit 1
-exit 1 | exit 0
+[ ] exit -10
+[ ] exit +10
+[ ] sleep 5 | exit
+[ ] exit 0 | exit 1
+[ ] exit 1 | exit 0
 
 
 FAILED:
-echo test > file test1
+[X] echo test > file test1
 	bash: file met "test test1" erin
 	minishell: file met "test file test1" erin
 	# vars aren't sorted
 
-echo 2 >> out1 > out2
-echo 2 > out1 >> out2
-echo bonjour > $test		
-echo x > redirect1 | echo
-	# hij gooit de file name(s) er ook in??
+[X] echo 2 >> out1 > out2
+[X] echo 2 > out1 >> out2
+[X] echo bonjour > $test		
+[X] echo x > redirect1 | echo
+		# hij gooit de file name(s) er ook in??
 
-> log echo coucou
-> a ls > b < Makefile
-echo > a Hello World!
-> a echo Hello World!
-cat < Makefile | grep gcc > output
-Documents/github/minishell_2
-"$USERS"	-> expand naar nothing, needs to give error '' command not found
-""
+[X] > log echo coucou
+[X] > a ls > b < Makefile
+[X] echo > a Hello World!
+[X] > a echo Hello World!
+[X] cat < Makefile | grep gcc > output
+[ ] Documents/github/minishell_2
+[X] "$USERS"	-> expand naar nothing, needs to give error '' command not found
+[ ] ""
 
 
 FAILED, BUT DO WE NEED TO HANDLE THIS?:
-echo bonjour > test\ 1
-echo "\s" & echo "\s"
-export var; export var=test
-echo coucou | ;
-echo "\"
-echo "\\n \\n \\n"
-echo ;;
-echo hi";" hihi
-echo hi " ; " hihi
-echo |
-echo sr*
-echo ~
-env puis export puis env 
-cd ~
+[ ] echo bonjour > test\ 1
+[ ] echo "\s" & echo "\s"
+[ ] export var; export var=test
+[ ] echo coucou | ;
+[ ] echo "\"
+[ ] echo "\\n \\n \\n"
+[ ] echo ;;
+[ ] echo hi";" hihi
+[ ] echo hi " ; " hihi
+[ ] echo |
+[ ] echo sr*
+[ ] echo ~
+[ ] env puis export puis env 
+[ ] cd ~
 
 
 

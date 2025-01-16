@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:48 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:13:48 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	copy_arguments(char **new_args, char **old_args, int count)
@@ -25,11 +37,11 @@ void	add_argument(t_command *cmd, char *arg)
 	}
 	new_args = (char **)malloc(sizeof(char *) * (count + 2));
 	if (!new_args)
-		exit_program(ERR_MALLOC, errno, NULL);
+		exit_program(ERR_MALLOC, NULL);
 	copy_arguments(new_args, cmd->args, count);
 	new_args[count] = ft_strdup(arg);
 	if (!new_args[count])
-		exit_program(ERR_MALLOC, errno, NULL);
+		exit_program(ERR_MALLOC, NULL);
 	new_args[count + 1] = NULL;
 	free(cmd->args);
 	cmd->args = new_args;
@@ -43,7 +55,7 @@ t_token_type type, t_data *data)
 
 	redir = init_redirection_node(file, type);
 	if (!redir)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	if (!cmd->redirections)
 		cmd->redirections = redir;
 	else
