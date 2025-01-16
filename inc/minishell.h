@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 16:03:44 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 16:03:44 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// # include "../lib_liath/lib_liath.h"
 # include "structs.h"
 # include "../libft/libft.h"
 

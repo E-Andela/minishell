@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   error_handling.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 16:04:19 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 16:04:19 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	error_unexpected_token(t_tokens *token_list)
