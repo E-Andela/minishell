@@ -26,6 +26,7 @@
 # include <fcntl.h>
 # include <sys/param.h>
 # include <limits.h>
+# include <sys/stat.h>
 
 # define RED		"\033[91m"
 # define GREEN		"\033[92m"
@@ -73,6 +74,7 @@ int				execute_builtin(char **args, t_env_list *env_list);
 
 // exec.c
 int				wait_for_children(t_command *cmd_list);
+void			check_if_directory(char *path, t_command *cmd_list);
 // int			execute_commands(t_command *cmd_list, t_env_list *env_list);
 // int			wait_for_children(void);
 int				execute_commands(t_command *cmd_list, t_env_list *env_list);

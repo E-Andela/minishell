@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/05 21:35:24 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/05 21:39:45 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/16 16:30:24 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,22 @@ int	wait_for_children(t_command *cmd_list)
 	if (status == 131 && g_signal == SIGQUIT)
 		return (131);
 	return (WEXITSTATUS(status));
+}
+
+void check_if_directory(char *path, t_command *cmd_list)
+{
+	struct stat path_stat;
+
+	if (!path)
+	{
+		error_command_not_found(cmd_list->args[0]);
+		exit(127);
+	}
+	if (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd_list->args[0], STDERR_FILENO);
+		ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+		exit(126);
+	}
 }
