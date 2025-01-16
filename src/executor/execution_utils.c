@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/05 21:35:24 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/16 16:30:24 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/16 16:39:32 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	wait_for_children(t_command *cmd_list)
 	return (WEXITSTATUS(status));
 }
 
-void check_if_directory(char *path, t_command *cmd_list)
+void	check_if_directory(char *path, t_command *cmd_list)
 {
-	struct stat path_stat;
+	struct stat	path_stat;
 
 	if (!path)
 	{
