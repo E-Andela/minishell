@@ -70,6 +70,7 @@ t_command	*parse_tokens(t_data *data)
 		{
 			if (!handle_redirection(current_cmd_node, temp_list, data))
 				return (NULL);
+			temp_list = temp_list->next;
 		}
 		temp_list = temp_list->next;
 	}
@@ -82,7 +83,7 @@ int	parser(t_data *data)
 
 	head_cmd_node = NULL;
 	if (data->tokens_list == NULL)
-		exit_program(ERR_TOKEN, errno, data);
+		exit_program(ERR_TOKEN, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 		return (error_unexpected_token(data->tokens_list), false);
 	head_cmd_node = parse_tokens(data);
@@ -92,6 +93,5 @@ int	parser(t_data *data)
 	set_index(data->command_list);
 	free_tokens_list(data->tokens_list);
 	data->tokens_list = NULL;
-	print_cmd_list(data->command_list);
 	return (true);
 }

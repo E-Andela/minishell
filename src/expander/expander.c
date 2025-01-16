@@ -19,7 +19,7 @@ t_vector	*expand_exit_code(t_vector *vector, t_data *data)
 
 	exit_code = ft_itoa(data->exit_code);
 	if (!exit_code)
-		exit_program(ERR_MALLOC, errno, data);
+		exit_program(ERR_MALLOC, data);
 	i = 0;
 	while (exit_code[i] != '\0')
 	{
