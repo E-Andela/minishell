@@ -80,5 +80,6 @@ int	parser(t_data *data)
 	set_index(data->command_list);
 	free_tokens_list(data->tokens_list);
 	data->tokens_list = NULL;
+	print_cmd_list(data->command_list);
 	return (true);
 }
