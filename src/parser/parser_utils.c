@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:48 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:13:48 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	copy_arguments(char **new_args, char **old_args, int count)

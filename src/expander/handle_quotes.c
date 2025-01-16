@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   handle_quotes.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: livliege <livliege@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/16 15:13:09 by livliege      #+#    #+#                 */
+/*   Updated: 2025/01/16 15:13:09 by livliege      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	expand_double_quotes(t_vector *vector, int *i, \
