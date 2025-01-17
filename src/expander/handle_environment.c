@@ -17,7 +17,7 @@ char	*get_environment_key_values(t_data *data, char	*input)
 	t_env_list	*temp;
 	int			len;
 
-	temp = data->environment;
+	temp = *data->environment;
 	len = ft_strlen(input);
 	while (temp != NULL)
 	{

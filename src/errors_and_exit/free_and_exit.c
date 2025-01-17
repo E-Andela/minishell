@@ -18,7 +18,7 @@ void	free_data(t_data *data)
 		free(data->user_input);
 	if (data->environment)
 	{
-		free_env_list(data->environment);
+		free_env_list(*data->environment);
 		data->environment = NULL;
 	}
 	if (data->tokens_list)
