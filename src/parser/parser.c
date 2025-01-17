@@ -23,7 +23,7 @@ t_command **head_node, t_tokens *temp_list, t_data *data)
 		if (temp_list->next == NULL || \
 		temp_list->next->type != WORD)
 		{
-			return (error_unexpected_token(temp_list), false);
+			return (error_unexpected_token(data, temp_list), false);
 		}
 	}
 	return (true);
@@ -41,10 +41,13 @@ t_tokens *temp_list, t_data *data)
 	else
 	{
 		if (temp_list->next && temp_list->next->type != WORD)
-			error_unexpected_token(temp_list->next);
+			error_unexpected_token(data, temp_list->next);
 		else
+		{
+			data->exit_code = 2;
 			ft_putstr_fd("minishell: syntax error near \
 unexpected token `newline'\n", STDERR_FILENO);
+		}
 		return (false);
 	}
 }
@@ -86,7 +89,10 @@ int	parser(t_data *data)
 	if (data->tokens_list == NULL)
 		exit_program(ERR_TOKEN, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
-		return (error_unexpected_token(data->tokens_list), false);
+	{
+		error_unexpected_token(data, data->tokens_list);
+		return (false);
+	}
 	head_node = parse_tokens(data);
 	if (head_node == NULL)
 		return (false);

@@ -37,7 +37,7 @@
 # define USER_MSG	"user: "
 
 # define ERR_ARGC	"Minishell does not take any arguments.\n"
-# define ERR_QUOTES	"Incorrect number of quotes.\n"
+# define ERR_QUOTES	"unexpected EOF while looking for matching quote.\n"
 # define ERR_TOKEN	"Tokenizer failed.\n"
 # define ERR_MALLOC	"Malloc failed.\n"
 # define ERR_INPUT	"Readline function returned NULL.\n"
@@ -51,7 +51,7 @@ void			print_cmd_list(t_command *command_list);
 // ---------------------------------------------------------------------
 
 // error_handling.c 
-void			error_unexpected_token(t_tokens *token_list);
+void			error_unexpected_token(t_data *data, t_tokens *token_list);
 void			error_not_a_valid_identifier(char *identifier);
 int				error_command_not_found(char *cmd);
 void			error_ambiguous_redirect(t_tokens *token_list);

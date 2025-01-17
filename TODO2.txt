@@ -15,8 +15,8 @@
 [ ] run norminette one last lime!
 
 
-
-
+[ ] remove unused function amiguous_redir -> expander_utils
+[ ] remove warnings from liath's laptop (daar zijn een paar extra warnings)
 
 
 
@@ -201,4 +201,6 @@ rm redirect1 | echo
 echo fin
 >>>
 <<<
-$USERS
+
+
+

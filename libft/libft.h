@@ -6,7 +6,7 @@
 /*   By: eandela <marvin@42.fr>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 18:08:15 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/15 18:28:17 by anonymous     ########   odam.nl         */
+/*   Updated: 2025/01/17 14:41:10 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+
+# define FD_LIMIT 1024
+
+# define RED "\033[91m"
+# define GREEN "\033[92m"
+# define BLUE "\033[94m"
+# define YELLOW "\033[93m"
+# define DEFAULT "\033[0m"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -59,5 +71,10 @@ int		ft_print_string(char *str);
 int		ft_print_number(int d);
 int		ft_print_unsigned_number(unsigned int u);
 int		ft_hexadecimal(unsigned long h, char placeholder);
+char	*get_next_line(int fd);
+char	*ft_strchr_gnl(const char *s, int c);
+size_t	ft_strlen_gnl(const char *str);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+void	*ft_memset_gnl(void *s, int c, size_t n);
 
 #endif

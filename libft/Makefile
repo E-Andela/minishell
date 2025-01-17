@@ -6,7 +6,7 @@
 #    By: eandela <marvin@42.fr>                       +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/19 12:27:38 by eandela       #+#    #+#                  #
-#    Updated: 2025/01/15 15:56:02 by anonymous     ########   odam.nl          #
+#    Updated: 2025/01/17 14:35:09 by anonymous     ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,10 @@ SRC =	ft_isalpha.c \
 		ft_printf_hexadecimalsptr.c \
 		ft_printf_number.c \
 		ft_printf_unsigned_number.c \
-		ft_printf.c
+		ft_printf.c	\
+		get_next_line_bonus.c \
+		get_next_line_utils.c
+		
 
 
 OBJECTS 	= $(SRC:%.c=$(OBJDIR)/%.o)

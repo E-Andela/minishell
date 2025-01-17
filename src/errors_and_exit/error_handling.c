@@ -12,18 +12,19 @@
 
 #include "../../inc/minishell.h"
 
-void	error_unexpected_token(t_tokens *token_list)
+void	error_unexpected_token(t_data *data, t_tokens *token_node)
 {
+	data->exit_code = 2;
 	ft_putstr_fd("minishell: syntax error near \
 unexpected token `", STDERR_FILENO);
-	ft_putstr_fd(token_list->value, STDERR_FILENO);
+	ft_putstr_fd(token_node->value, STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
 }
 
-void	error_ambiguous_redirect(t_tokens *token_list)
+void	error_ambiguous_redirect(t_tokens *token_node)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(token_list->value, STDERR_FILENO);
+	ft_putstr_fd(token_node->value, STDERR_FILENO);
 	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
 }
 
