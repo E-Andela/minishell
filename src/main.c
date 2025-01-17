@@ -106,9 +106,9 @@ int	main(int argc, char **argv, char **envp)
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
 		exit_program(ERR_MALLOC, data);
-	data->environment = ft_arr2ll(envp);
-	increase_shlvl(data->environment);
-
+	env_list = ft_arr2ll(envp);
+	data->environment = &env_list;
+	increase_shlvl(*data->environment);
 	if (!isatty(STDIN_FILENO))
 		exit(run_single_command(data));
 	
