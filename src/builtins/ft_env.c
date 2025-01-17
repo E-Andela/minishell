@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/21 21:01:14 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/02 18:37:54 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/17 15:12:25 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	ft_env(char **envp)
 		ft_putendl_fd(envp[i], STDOUT_FILENO);
 		i++;
 	}
+	ft_free_dbl(envp);
 	return (EXIT_SUCCESS);
 }

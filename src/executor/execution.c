@@ -6,13 +6,13 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/04 23:13:24 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/16 16:31:02 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/17 14:47:56 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	execute_single_command(t_command *cmd_list, t_env_list *env_list)
+int	execute_single_command(t_command *cmd_list, t_env_list **env_list)
 {
 	int	status;
 	int	og_stdin;
@@ -31,7 +31,7 @@ void	execute_child_process(
 	t_command *cmd_list,
 	int **pipes,
 	int pipe_size,
-	t_env_list *env_list
+	t_env_list **env_list
 )
 {
 	char	*path;
@@ -43,9 +43,9 @@ void	execute_child_process(
 	{
 		if (is_builtin(cmd_list))
 			exit(execute_builtin(cmd_list->args, env_list));
-		path = get_path(cmd_list->args[0], get_envp_value("PATH", env_list));
+		path = get_path(cmd_list->args[0], get_envp_value("PATH", *env_list));
 		check_if_directory(path, cmd_list);
-		if (execve(path, cmd_list->args, ft_ll2arr(env_list)) == -1)
+		if (execve(path, cmd_list->args, ft_ll2arr(*env_list)) == -1)
 			shell_exit(EXECVE_FAIL);
 	}
 	else
@@ -56,7 +56,7 @@ void	fork_and_execute(
 	t_command *cmd_list,
 	int **pipes,
 	int pipe_size,
-	t_env_list *env_list
+	t_env_list **env_list
 )
 {
 	cmd_list->pid = fork();
@@ -67,7 +67,7 @@ void	fork_and_execute(
 		execute_child_process(cmd_list, pipes, pipe_size, env_list);
 }
 
-int	execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
+int	execute_piped_commands(t_command *cmd_list, t_env_list **env_list)
 {
 	int			**pipes;
 	const int	pipe_size = count_cmds(cmd_list) - 1;
@@ -87,7 +87,7 @@ int	execute_piped_commands(t_command *cmd_list, t_env_list *env_list)
 	return (0);
 }
 
-int	execute_commands(t_command *cmd_list, t_env_list *env_list)
+int	execute_commands(t_command *cmd_list, t_env_list **env_list)
 {
 	int	status;
 

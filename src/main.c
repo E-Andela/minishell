@@ -97,6 +97,7 @@ int	run_single_command(t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
+	t_env_list	*env_list;
 
 	if (argc != 1)
 		printf("Too many arguments to run minishell\n");
