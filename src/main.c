@@ -78,6 +78,7 @@ void	mini_loop(t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
+	t_env_list	*env_list;
 
 	if (argc != 1)
 		shell_exit(ARGUMENTS_FAIL);
@@ -85,8 +86,9 @@ int	main(int argc, char **argv, char **envp)
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
 		exit_program(ERR_MALLOC, data);
-	data->environment = ft_arr2ll(envp);
-	increase_shlvl(data->environment);
+	env_list = ft_arr2ll(envp);
+	data->environment = &env_list;
+	increase_shlvl(*data->environment);
 	mini_loop(data);
 	free_data(data);
 	return (0);

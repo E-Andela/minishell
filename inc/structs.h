@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 16:03:39 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/16 16:03:40 by livliege      ########   odam.nl         */
+/*   Updated: 2025/01/17 14:39:55 by eandela       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_command
 typedef struct s_data
 {
 	char			*user_input;
-	t_env_list		*environment;
+	t_env_list		**environment;
 	t_tokens		*tokens_list;
 	t_command		*command_list;
 	int				exit_code;
