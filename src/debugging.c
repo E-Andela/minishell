@@ -39,28 +39,26 @@ void	print_linked_list(t_env_list *linked_list)
 	}
 }
 
-
-const char *get_token_type_string(t_token_type type)
+const char	*get_token_type_string(t_token_type type)
 {
-    switch (type)
-    {
-        case WORD: return "WORD";
-        case SINGLE_QUOTED: return "SINGLE_QUOTED";
-        case DOUBLE_QUOTED: return "DOUBLE_QUOTED";
-        case PIPE: return "PIPE";
-        case OUT_APPEND: return "OUT_APPEND";
-        case IN_REDIRECT: return "IN_REDIRECT";
-        case OUT_REDIRECT: return "OUT_REDIRECT";
-        case HERE_DOC: return "HERE_DOC";
-		case UNSET: return "UNSET";
-        default: return "UNKNOWN";
-    }
+	switch (type)
+	{
+		case WORD: return ("WORD");
+		case SINGLE_QUOTED: return ("SINGLE_QUOTED");
+		case DOUBLE_QUOTED: return ("DOUBLE_QUOTED");
+		case PIPE: return ("PIPE");
+		case OUT_APPEND: return ("OUT_APPEND");
+		case IN_REDIRECT: return ("IN_REDIRECT");
+		case OUT_REDIRECT: return ("OUT_REDIRECT");
+		case HERE_DOC: return ("HERE_DOC");
+		case UNSET: return ("UNSET");
+		default: return ("UNKNOWN");
+	}
 }
-
 
 void	print_tokens(t_tokens *token_list)
 {
-	t_tokens *temp;
+	t_tokens	*temp;
 
 	if (!token_list)
 	{
@@ -73,7 +71,6 @@ void	print_tokens(t_tokens *token_list)
 		while (temp != NULL)
 		{
 			printf("%sindex:		%d\n", GREEN, temp->index);
-			// printf("token index:	%d\n", temp->index);
 			printf("value:		%s\n", temp->value);
 			printf("type:		%s (%d)\n", get_token_type_string(temp->type), temp->type);
 			ft_printf("NextNode:		%p\n", temp->next);
@@ -83,64 +80,54 @@ void	print_tokens(t_tokens *token_list)
 	}
 }
 
-
-
-void print_cmd_list(t_command *head_cmd_node)
+void	print_cmd_list(t_command *head_cmd_node)
 {
-    t_command *current_cmd;
-	t_redirections *current_redir;
-	int i;
+	t_command		*current_cmd;
+	t_redirections	*current_redir;
+	int				i;
 
 	if (!head_cmd_node)
 	{
-	    printf("Command list is empty.\n");
-	    return;
+		printf("Command list is empty.\n");
+		return ;
 	}
-    current_cmd = head_cmd_node;
+	current_cmd = head_cmd_node;
 	printf("%s----------------------------------%s\n", BLUE, DEFAULT);
-
-    while (current_cmd != NULL)
-    {
-        // printf("%sCommand Node:\n%s", YELLOW, GREEN);
-
-        // Print arguments
-        printf("%sArguments:	%s", YELLOW, DEFAULT);
-        if (current_cmd->args)
-        {
-            i = 0;
+	while (current_cmd != NULL)
+	{
+		printf("%sArguments:	%s", YELLOW, DEFAULT);
+		if (current_cmd->args)
+		{
+			i = 0;
 			while (current_cmd->args[i] != NULL)
-        	{
+			{
 				printf("%s  \n		", current_cmd->args[i]);
 				i++;
-			}             
+			}
 			printf("\n");
-        }
-        else
-        {
-            printf("None\n");
-        }
-
-
-        // Print redirections
-        printf("%sRedirections:	", YELLOW);
-        if (current_cmd->redirections)
-        {
-            current_redir = current_cmd->redirections;
-            while (current_redir != NULL)
-            {
-                printf("\n%s    Type:	%s%s\n", YELLOW, DEFAULT, get_token_type_string(current_redir->type));
-                
+		}
+		else
+		{
+			printf("None\n");
+		}
+		printf("%sRedirections:	", YELLOW);
+		if (current_cmd->redirections)
+		{
+			current_redir = current_cmd->redirections;
+			while (current_redir != NULL)
+			{
+				printf("\n%s	Type:	%s%s\n", YELLOW, DEFAULT, get_token_type_string(current_redir->type));
 				if (current_redir->type == HERE_DOC)
-					printf("%s    Dilimiter:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
-				else 
-					printf("%s    File:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
-                current_redir = current_redir->next;
-            }
-        }
-        else
-            printf("%sNone\n", DEFAULT);
-        printf("\n");
+					printf("%s	Dilimiter:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
+				else
+					printf("%s	File:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
+				current_redir = current_redir->next;
+			}
+		}
+		else
+			printf("%sNone\n", DEFAULT);
+		printf("\n");
 		printf("%s----------------------------------%s\n", BLUE, DEFAULT);
-        current_cmd = current_cmd->next;
-    }
+		current_cmd = current_cmd->next;
+	}
 }

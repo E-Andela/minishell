@@ -6,11 +6,11 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 14:56:19 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/16 15:06:28 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/22 12:28:00 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	increase_shlvl(t_env_list	*env_list)
 {

@@ -20,8 +20,7 @@ t_command **head_node, t_tokens *temp_list, t_data *data)
 	init_cmd_nodes(&new_cmd_node, head_node, current_node, data);
 	if (temp_list->type == PIPE)
 	{
-		if (temp_list->next == NULL || \
-		temp_list->next->type != WORD)
+		if (temp_list->next == NULL || temp_list->next->type == PIPE)
 		{
 			return (error_unexpected_token(data, temp_list), false);
 		}

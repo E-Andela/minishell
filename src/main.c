@@ -74,34 +74,14 @@ void	mini_loop(t_data *data)
 		execute_and_handle_exit(data);
 	}
 }
-int	run_single_command(t_data *data)
-{
-	char	*input;
-
-	input = get_next_line(STDIN_FILENO);
-	if (input && *input)
-	{
-		data->user_input = ft_strtrim(input, " \t\v\f\r\n");
-		if (!data->user_input)
-			exit_program(ERR_MALLOC, data);
-		process_input(data);
-		if (data->exit_code)
-			return (data->exit_code);	
-		add_history(input);
-		execute_and_handle_exit(data);
-		free(input);
-	}
-	return (data->exit_code);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data		*data;
 	t_env_list	*env_list;
 
 	if (argc != 1)
-		printf("Too many arguments to run minishell\n");
-		// shell_exit(ARGUMENTS_FAIL);
+		shell_exit(ARGUMENTS_FAIL);
 	(void) argv;
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
@@ -110,8 +90,7 @@ int	main(int argc, char **argv, char **envp)
 	data->environment = &env_list;
 	increase_shlvl(*data->environment);
 	if (!isatty(STDIN_FILENO))
-		exit(run_single_command(data));
-	
+		exit(run_tester(data));
 	mini_loop(data);
 	free_data(data);
 	return (0);

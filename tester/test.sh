@@ -55,6 +55,7 @@ compare_command ()
 		printf "Error:  \e[32m✔\e[0m\n"
 	else
 	{
+		((WRONG++))
 		printf "Error:  \e[31m?\e[0m\n"
 		print_diff $err_mini $err_bash
 	}
@@ -85,6 +86,7 @@ compare_syntax () {
 		printf "Exit:   \e[32m✔\e[0m\n"
 	else
 	{
+		((WRONG++))
 		printf "Exit:   \e[31m✘\e[0m\n"
 		printf "mini_output: $mini_exit\nbash_output: $bash_exit\n"
 	}
@@ -106,11 +108,11 @@ compare_syntax "(| |)"
 
 printf "\n\e[32mtesting empty input\e[0m\n"
 sleep 1
-compare_command ""
-compare_command "	"
-compare_command "'"
-compare_command '"'
-compare_command '""'
+compare_syntax ""
+compare_syntax "	"
+compare_syntax "'"
+compare_syntax '"'
+compare_syntax '""'
 
 
 printf "\n\e[32mtesting basic commands\e[0m\n"
@@ -143,24 +145,25 @@ compare_command "echo "hey" | ls"
 compare_command "echo "hey" | ls | cat | wc -l"
 
 printf "\n\e[32mextra tests liath:\e[0m\n"
-compare_command "echo bonjour | |"
-compare_command "|"
-compare_command "echo >	"
+compare_syntax "echo bonjour | |"
+compare_syntax "|"
+compare_syntax "echo >	"
 compare_command "echo -n -n -nnnn -nnnnm"
 compare_command "cat /dev/random | head -n 1 | cat -e"
 compare_command "unset var1 # with undefined var1"
-compare_command "export """
-compare_command "unset """
+compare_command "export \"\""
+compare_command "unset \"\""
 compare_command "$"
 compare_command "not_cmd bonjour > salut"
 compare_command "cat Makefile | grep pr | head -n 5 | cat test "
 compare_command "cat Makefile | grep pr | head -n 5 | hello"
-compare_command "echo bonjour >>> test"
-compare_command "echo bonjour > > out"
+compare_syntax "echo bonjour >>> test"
+compare_syntax "echo bonjour > > out"
 compare_command "echo bonjour > \$test "
 compare_command "file_name_in_current_dir"
-compare_command "cd ../../../../../.. ; pwd"
-compare_command "coyotte > < " ""
+compare_command "cd ../../../../../.."
+compare_command "pwd"
+compare_syntax "coyotte > < " ""
 compare_command "cat | cat | cat | ls "
 compare_command "\$bla "
 compare_command "export var ="cat Makefile | grep >""
@@ -182,17 +185,18 @@ compare_command "export "HI= hi""
 compare_command "export "HI =hi""
 compare_command "/bin/ls"
 compare_command "l^Ds"
-compare_command "| echo"
+compare_syntax "| echo"
 compare_command "sort | ls "
-compare_command "cat < >"
-compare_command "cat < <"
-compare_command "cat > >"
+compare_syntax "cat < >"
+compare_syntax "cat < <"
+compare_syntax "cat > >"
+compare_syntax "cat > <"
 compare_command "echo \$?"
-compare_command "echo "sr\*""
+compare_command "echo \"sr\*\""
 compare_command "echo abc"
 compare_command "echo "xyz""
 compare_command "echo "xyz"'123'"
-compare_command "echo a"x"y"z"a        ijk"
+compare_command "echo a\"x\"y\"z\"a        ijk"
 compare_command "echo '123'"
 compare_command "echo xyz'123'xyz"
 compare_command "echo 'x'\$HOME'x'"
@@ -203,7 +207,7 @@ compare_command "echo "'/home/araiva'""
 compare_command "echo 0"
 compare_command "echo abc\$HOME"
 compare_command "echo abc\$HOMEde"
-compare_command "echo "abc\$HOMEde""
+compare_command "echo \"abc\$HOMEde\""
 compare_command "echo 'abc\$HOMEde'"
 compare_command "echo abc0de"
 compare_command "echo "abc0de""
@@ -218,23 +222,23 @@ compare_command "echo 10 "20     "'30     '"
 compare_command "echo 10    "20     "'30     '"
 compare_command "echo 10    "20     " '30     '"
 compare_command "echo 10    "20     "     '30     '"
-compare_command "echo "\$HOME" '\$HOME'"
+compare_command "echo \"\$HOME\" '\$HOME'"
 compare_command "echo fin"
 compare_command "echo test > file test1"
 compare_command "echo 2 >> out1 > out2"
 compare_command "echo 2 > out1 >> out2"
 compare_command "echo bonjour > \$test		"
-compare_command "echo x > redirect1 | echo"
 compare_command "echo \$HOME"
-compare_command "echo "\$HOME""
+compare_command "echo \"\$HOME\""
 compare_command "echo '\$HOME'"
-compare_command "echo hudifg d | | hugdfihd"
+compare_syntax "echo hudifg d | | hugdfihd"
 compare_command "echo"
 compare_command "echo simple"
 compare_command "echo -n simple"
 compare_command "echo ''"
 compare_command "echo """
 compare_command "echo "\n \n \n""
+compare_command "echo x > redirect1 | echo"
 compare_command "cat redirect1"
 compare_command "rm redirect1 | echo"
 compare_command "> log echo coucou"
@@ -243,19 +247,36 @@ compare_command "echo > a Hello World!"
 compare_command "> a echo Hello World!"
 compare_command "cat < Makefile | grep gcc > output"
 compare_command "Documents/github/minishell_2"
-compare_command ""\$USERS""
-compare_command "\$USERS"
-compare_command "'\$USERS'"
 compare_command """"
-compare_command ">>>"
-compare_command "<<<"
+compare_syntax ">>>"
+compare_syntax "<<<"
 compare_command "cd \$HOME/Documents"
 compare_command "cat Makefile | grep pr | head -n 5 | cd test "
 compare_command "cat < test "
 compare_command "cd no_file"
 compare_command "cd a b c d"
+compare_command "sleep 5 | > \$BLABLABLALALAL"
+compare_command "ls |> hoi"
 
-#rm -rf ~/bullshit
+compare_command "echo \$USERS"
+compare_command "echo \"\$USERS\""
+compare_command "echo '\$USERS'"
+compare_syntax "\$USERS"
+compare_syntax "\"\$USERS\""
+compare_syntax "'\$USERS'"
+
+# # wrong:
+# printf "\n\e[32mWRONG tests:\e[0m\n"
+# compare_syntax ") ()"
+# compare_syntax "	"
+# compare_syntax "'"
+# compare_syntax '"'
+# compare_command "Documents/github/minishell_2"
+
+
+
+
+rm -rf ~/bullshit
 rm lol 2> /dev/null
 rm cat 2> /dev/null
 rm test 2> /dev/null
@@ -269,6 +290,7 @@ rm out1 2> /dev/null
 rm out2 2> /dev/null
 rm output 2> /dev/null
 rm salut 2> /dev/null
+rm hoi 2> /dev/null
 
 if [ "$WRONG" -eq 0 ]; then
 	printf "\nALL TESTS PASSED\n"
@@ -277,6 +299,19 @@ else
 fi
 
 # # $OLDPWD leaks
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

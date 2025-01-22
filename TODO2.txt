@@ -1,4 +1,5 @@
 [X] SHLVL!
+[ ] SHLVL starts at 2, is that correct?
 [X] (echo "hal) -> lelijke exit. verander alle "exit_program" naar "shell_exit". moeten we clear data nog doen? dan moet shell exit aangepast worden 
 [ ] un-comment flags in libft makefile and minishell makefile and
 [ ] remove unused variables 
@@ -16,7 +17,16 @@
 
 
 [ ] remove unused function amiguous_redir -> expander_utils
-[ ] remove warnings from liath's laptop (daar zijn een paar extra warnings)
+[x] remove warnings from liath's laptop (daar zijn een paar extra warnings)
+
+
+
+[ ] check inputs from test:
+") ()"
+"	"
+"'"
+'"'
+"Documents/github/minishell_2"
 
 
 

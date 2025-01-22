@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/04 18:28:31 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/05 22:58:00 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/22 12:30:53 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ void	add_element_back(t_env_list **list, t_env_list *new)
 
 t_env_list	*ft_getenvp(char *key, t_env_list *list)
 {
-	int		i;
 	int		len;
 
-	i = 0;
 	len = 0;
 	while (list)
 	{
