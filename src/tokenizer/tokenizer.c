@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 15:13:59 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/16 15:33:53 by livliege      ########   odam.nl         */
+/*   Updated: 2025/01/22 10:18:40 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	handle_token(char *input, int i, t_data *data)
 	{
 		input_token[0] = input[i];
 		input_token[1] = '\0';
+		if (token == PIPE)
+			data->pipe_count ++;
 		add_token(input_token, token, &data->tokens_list, data);
 		return (1);
 	}

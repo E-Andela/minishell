@@ -54,7 +54,7 @@ void			print_cmd_list(t_command *command_list);
 void			error_unexpected_token(t_data *data, t_tokens *token_list);
 void			error_not_a_valid_identifier(char *identifier);
 int				error_command_not_found(char *cmd);
-void			error_ambiguous_redirect(t_tokens *token_list);
+void			error_ambiguous_redirect(t_data *data, t_tokens *token_list);
 void			display_error(char *error_msg);
 
 // free_and_exit.c 
@@ -141,7 +141,7 @@ int				redirect_heredoc(t_redirections *redirection);
 char			*get_environment_key(char	*input, int *i);
 char			*get_environment_key_values(t_data *data, char	*input);
 bool			is_redirect(t_token_type type);
-bool			ambiguous_redir(t_tokens *current_node);
+bool			ambiguous_redir(t_data *data, t_tokens *current_node);
 
 // expander.c 
 bool			expander_check(t_tokens	*token_list, t_data	*data);
@@ -214,5 +214,8 @@ void			mini_loop(t_data *data);
 
 // shell_lvl.c
 void			increase_shlvl(t_env_list *env_list);
+
+// tester.c
+int				run_tester(t_data *data);
 
 #endif

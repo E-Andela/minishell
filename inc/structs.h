@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 16:03:39 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/17 14:39:55 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/22 10:16:11 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_data
 	t_tokens		*tokens_list;
 	t_command		*command_list;
 	int				exit_code;
+	int				pipe_count;
 }	t_data;
 
 #endif

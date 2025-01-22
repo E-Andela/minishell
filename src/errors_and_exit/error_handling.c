@@ -21,8 +21,9 @@ unexpected token `", STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
 }
 
-void	error_ambiguous_redirect(t_tokens *token_node)
+void	error_ambiguous_redirect(t_data *data, t_tokens *token_node)
 {
+	data->exit_code = 1;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(token_node->value, STDERR_FILENO);
 	ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
@@ -38,9 +39,6 @@ int	error_command_not_found(char *cmd)
 
 void	error_not_a_valid_identifier(char *identifier)
 {
-	int	j;
-
-	j = 0;
 	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 	ft_putstr_fd(identifier, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);

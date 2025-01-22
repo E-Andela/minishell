@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/05 22:43:16 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/06 19:06:19 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/22 12:31:23 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ char	*key_val_to_str(t_env_list *element)
 {
 	int		len;
 	char	*string;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	len = ft_strlen(element->key) + ft_strlen(element->value) + 2;
 	string = malloc(sizeof(char) * len);
 	if (!string)
