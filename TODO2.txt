@@ -26,7 +26,6 @@
 "	"
 "'"
 '"'
-"Documents/github/minishell_2"
 
 
 

@@ -43,16 +43,26 @@ const char	*get_token_type_string(t_token_type type)
 {
 	switch (type)
 	{
-		case WORD: return ("WORD");
-		case SINGLE_QUOTED: return ("SINGLE_QUOTED");
-		case DOUBLE_QUOTED: return ("DOUBLE_QUOTED");
-		case PIPE: return ("PIPE");
-		case OUT_APPEND: return ("OUT_APPEND");
-		case IN_REDIRECT: return ("IN_REDIRECT");
-		case OUT_REDIRECT: return ("OUT_REDIRECT");
-		case HERE_DOC: return ("HERE_DOC");
-		case UNSET: return ("UNSET");
-		default: return ("UNKNOWN");
+		case WORD:
+			return ("WORD");
+		case SINGLE_QUOTED:
+			return ("SINGLE_QUOTED");
+		case DOUBLE_QUOTED:
+			return ("DOUBLE_QUOTED");
+		case PIPE:
+			return ("PIPE");
+		case OUT_APPEND:
+			return ("OUT_APPEND");
+		case IN_REDIRECT:
+			return ("IN_REDIRECT");
+		case OUT_REDIRECT:
+			return ("OUT_REDIRECT");
+		case HERE_DOC:
+			return ("HERE_DOC");
+		case UNSET:
+			return ("UNSET");
+		default :
+			return ("UNKNOWN");
 	}
 }
 
@@ -72,7 +82,8 @@ void	print_tokens(t_tokens *token_list)
 		{
 			printf("%sindex:		%d\n", GREEN, temp->index);
 			printf("value:		%s\n", temp->value);
-			printf("type:		%s (%d)\n", get_token_type_string(temp->type), temp->type);
+			printf("type:		%s (%d)\n", \
+				get_token_type_string(temp->type), temp->type);
 			ft_printf("NextNode:		%p\n", temp->next);
 			printf("%s----------------------------------%s\n", BLUE, DEFAULT);
 			temp = temp->next;
@@ -116,11 +127,14 @@ void	print_cmd_list(t_command *head_cmd_node)
 			current_redir = current_cmd->redirections;
 			while (current_redir != NULL)
 			{
-				printf("\n%s	Type:	%s%s\n", YELLOW, DEFAULT, get_token_type_string(current_redir->type));
+				printf("\n%s	Type:	%s%s\n", YELLOW, DEFAULT, \
+					get_token_type_string(current_redir->type));
 				if (current_redir->type == HERE_DOC)
-					printf("%s	Dilimiter:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
+					printf("%s	Dilimiter:	%s%s\n", YELLOW, DEFAULT, \
+						current_redir->file);
 				else
-					printf("%s	File:	%s%s\n", YELLOW, DEFAULT, current_redir->file);
+					printf("%s	File:	%s%s\n", YELLOW, DEFAULT, \
+						current_redir->file);
 				current_redir = current_redir->next;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: eandela <eandela@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/04 23:13:24 by eandela       #+#    #+#                 */
-/*   Updated: 2025/01/17 14:47:56 by eandela       ########   odam.nl         */
+/*   Updated: 2025/01/23 10:41:31 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ int	execute_single_command(t_command *cmd_list, t_env_list **env_list)
 	return (status);
 }
 
-void	execute_child_process(
-	t_command *cmd_list,
-	int **pipes,
-	int pipe_size,
-	t_env_list **env_list
-)
+void	execute_child_process(t_command *cmd_list, int **pipes, \
+int pipe_size, t_env_list **env_list)
 {
 	char	*path;
 

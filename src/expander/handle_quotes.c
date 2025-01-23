@@ -66,6 +66,6 @@ void	remove_quotes(char **token_value, t_data *data)
 	free(*token_value);
 	*token_value = ft_strdup(vector.value);
 	if (*token_value == NULL)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	free(vector.value);
 }

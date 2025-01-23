@@ -21,7 +21,7 @@ int	run_tester(t_data *data)
 	{
 		data->user_input = ft_strtrim(input, " \t\v\f\r\n");
 		if (!data->user_input)
-			exit_program(ERR_MALLOC, data);
+			exit_program(ERR_MALLOC, errno, data);
 		process_input(data);
 		if (data->exit_code)
 			return (data->exit_code);

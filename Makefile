@@ -15,53 +15,55 @@ LIBFTNAME = libft.a
 LIBFT = $(LIBFTDIR)/$(LIBFTNAME)
 
 SOURCES = 	\
-			builtin_utils.c \
-			export_utils.c \
-			export_utils2.c \
-			ft_cd.c \
-			ft_echo.c \
-			ft_env.c \
-			ft_exit.c \
-			ft_export.c \
-			ft_pwd.c \
-			ft_unset.c \
+			builtins/builtin_utils.c \
+			builtins/export_utils.c \
+			builtins/export_utils2.c \
+			builtins/ft_cd.c \
+			builtins/ft_echo.c \
+			builtins/ft_env.c \
+			builtins/ft_exit.c \
+			builtins/ft_export.c \
+			builtins/ft_pwd.c \
+			builtins/ft_unset.c \
 			\
-			env_helpers.c \
-			env_list_utils.c \
-			env_list.c \
+			environment_list/env_helpers.c \
+			environment_list/env_list_utils.c \
+			environment_list/env_list.c \
 			\
-			error_handling.c \
-			free_and_exit.c \
-			free_lists.c \
+			errors_and_exit/error_handling.c \
+			errors_and_exit/free_and_exit.c \
+			errors_and_exit/free_lists.c \
 			\
-			command_path.c \
-			execution_utils.c \
-			execution.c \
-			here_doc.c \
-			pipes.c \
-			redirections.c \
+			executor/command_path.c \
+			executor/execution_utils.c \
+			executor/execution.c \
+			executor/here_doc.c \
+			executor/pipes.c \
+			executor/redirections.c \
 			\
-			expander_utils.c \
-			expander.c \
-			handle_environment.c \
-			handle_quotes.c \
-			vectors.c \
+			expander/expander_utils.c \
+			expander/expander.c \
+			expander/handle_environment.c \
+			expander/handle_quotes.c \
+			expander/vectors.c \
 			\
-			parser_init_nodes.c \
-			parser_utils.c \
-			parser.c \
+			parser/parser_init_nodes.c \
+			parser/parser_utils.c \
+			parser/parser.c \
 			\
-			tokenizer.c \
-			tokenizer_utils.c \
-			tokens_create.c \
+			signals/signal_handlers.c \
+			signals/signal_init.c \
 			\
-			signal_handlers.c \
-			signal_init.c \
+			tokenizer/tokenizer.c \
+			tokenizer/tokenizer_utils.c \
+			tokenizer/tokens_create.c \
+			\
+			utils/shell_lvl.c \
+			utils/tester.c \
 			\
 			debugging.c \
-			main.c \
-			shell_lvl.c \
-			tester.c
+			main.c
+
 
 OBJECTS = $(patsubst %.c, $(OBJECT_DIR)/%.o, $(SOURCES))
 

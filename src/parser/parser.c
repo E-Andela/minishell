@@ -86,7 +86,7 @@ int	parser(t_data *data)
 
 	head_node = NULL;
 	if (data->tokens_list == NULL)
-		exit_program(ERR_TOKEN, data);
+		exit_program(ERR_TOKEN, errno, data);
 	if (data->tokens_list->index == 0 && data->tokens_list->type == PIPE)
 	{
 		error_unexpected_token(data, data->tokens_list);

@@ -50,7 +50,7 @@ bool	handle_input(t_data *data)
 		data->exit_code = 130;
 	data->user_input = ft_strtrim(input, " \t\v\f\r\n");
 	if (!data->user_input)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	if (data->user_input[0] == '\0')
 	{
 		free(input);
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (data == NULL)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	env_list = ft_arr2ll(envp);
 	data->environment = &env_list;
 	increase_shlvl(*data->environment);

@@ -50,11 +50,11 @@ void	reset_data(t_data *data)
 	}
 }
 
-void	exit_program(char *error_message, t_data *data)
+void	exit_program(char *error_message, int error, t_data *data)
 {
 	free_data(data);
 	ft_putstr_fd(error_message, STDERR_FILENO);
-	exit(errno);
+	exit(error);
 }
 
 void	shell_exit(t_error_type error)

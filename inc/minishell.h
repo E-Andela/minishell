@@ -60,7 +60,7 @@ void			display_error(char *error_msg);
 // free_and_exit.c 
 void			free_data(t_data *data);
 void			reset_data(t_data *data);
-void			exit_program(char *error_message, t_data *data);
+void			exit_program(char *error_message, int error, t_data *data);
 void			shell_exit(t_error_type error);
 
 // free_lists.c
@@ -211,6 +211,8 @@ void			quit(int signal);
 
 // main.c
 void			mini_loop(t_data *data);
+void			execute_and_handle_exit(t_data *data);
+bool			process_input(t_data *data);
 
 // shell_lvl.c
 void			increase_shlvl(t_env_list *env_list);

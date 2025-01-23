@@ -19,10 +19,10 @@ t_token_type token_type, int index, t_data *data)
 
 	new_token = (t_tokens *)malloc(sizeof(t_tokens));
 	if (!new_token)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	new_token->value = ft_strdup(input);
 	if (!new_token->value)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	new_token->type = token_type;
 	new_token->index = index;
 	new_token->prev = NULL;
@@ -50,7 +50,7 @@ t_tokens **token_list, t_data *data)
 		index = 0;
 	new_token = create_token_node(input, token_type, index++, data);
 	if (!new_token)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	if (!(*token_list))
 	{
 		new_token->next = NULL;

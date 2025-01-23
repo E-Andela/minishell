@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 15:13:59 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/22 10:18:40 by anonymous     ########   odam.nl         */
+/*   Updated: 2025/01/23 11:09:02 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	handle_words(char *input, int start, t_data *data)
 	}
 	token_value = ft_substr(input, start, j);
 	if (!token_value)
-		exit_program(ERR_MALLOC, data);
+		exit_program(ERR_MALLOC, errno, data);
 	add_token(token_value, WORD, &data->tokens_list, data);
 	free(token_value);
 	return (j);
@@ -84,7 +84,10 @@ void	tokenizer(char *input, t_data *data)
 	int	j;
 
 	if (!check_for_quotes(input))
-		exit_program(ERR_QUOTES, data);
+	{
+		data->exit_code = 2;
+		exit_program(ERR_QUOTES, 2, data);
+	}
 	i = 0;
 	while (input[i] != '\0')
 	{
