@@ -1,32 +1,25 @@
 [X] SHLVL!
-[ ] SHLVL starts at 2, is that correct?
+[X] SHLVL starts at 2, is that correct?
 [X] (echo "hal) -> lelijke exit. verander alle "exit_program" naar "shell_exit". moeten we clear data nog doen? dan moet shell exit aangepast worden 
-[ ] un-comment flags in libft makefile and minishell makefile and
-[ ] remove unused variables 
+[X] un-comment flags in libft makefile and minishell makefile and
+[X] remove unused variables 
 		(ft_strlcat.c:20:17: error: variable ‘result’ set but not used [-Werror=unused-but-set-variable] 20 | size_t  result;)
 		(ft_envp.c:205:25: error: variable ‘i’ set but not used [-Werror=unused-but-set-variable] 205 | int  i;)
 		op mijn laptop runt blijkbaar een andere cc/gcc versie die dit wel opmerkt
-[ ] fix errors bij TESTS!
+[X] fix errors bij TESTS!
 [X] add 42 headers (liath)
-[ ] 
-[ ] 
-[ ] 
 [ ] debugging file verwijderen (ook uit makefile en header)
-[ ] check of fsanitize en valgrind uit staan
+[X] check of fsanitize en valgrind uit staan
 [ ] run norminette one last lime!
 
+[X] remove unused function amiguous_redir -> expander_utils
+[X] remove warnings from liath's laptop (daar zijn een paar extra warnings)
 
-[ ] remove unused function amiguous_redir -> expander_utils
-[x] remove warnings from liath's laptop (daar zijn een paar extra warnings)
-
-
-
-[ ] check inputs from test:
+[X] check inputs from test:
 ") ()"
 "	"
 "'"
 '"'
-
 
 
 
@@ -42,7 +35,6 @@ DUBBEL CHECKEN MET IEMAND:
 [ ] sleep 5 | exit
 [ ] exit 0 | exit 1
 [ ] exit 1 | exit 0
-
 
 FAILED:
 [X] echo test > file test1
@@ -65,7 +57,6 @@ FAILED:
 [X] "$USERS"	-> expand naar nothing, needs to give error '' command not found
 [X] ""
 
-
 FAILED, BUT DO WE NEED TO HANDLE THIS?:
 [ ] echo bonjour > test\ 1
 [ ] echo "\s" & echo "\s"
@@ -81,8 +72,6 @@ FAILED, BUT DO WE NEED TO HANDLE THIS?:
 [ ] echo ~
 [ ] env puis export puis env 
 [ ] cd ~
-
-
 
 PASSED, BUT CAN BE BETTER
 cd $HOME/Documents
@@ -100,7 +89,6 @@ cd no_file
 cd a b c d
 	bash: cd: too many arguments
 	cd: too many arguments
-
 
 PASSED:
 echo bonjour | |

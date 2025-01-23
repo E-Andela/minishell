@@ -4,7 +4,7 @@ vpath %.h inc
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 LINKER = -lreadline
 
 SOURCE_DIR = ./src

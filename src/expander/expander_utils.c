@@ -6,7 +6,7 @@
 /*   By: livliege <livliege@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/16 15:12:54 by livliege      #+#    #+#                 */
-/*   Updated: 2025/01/22 12:24:33 by anonymous     ########   odam.nl         */
+/*   Updated: 2025/01/23 13:33:51 by livliege      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ bool	is_redirect(t_token_type type)
 	if (type == IN_REDIRECT || type == OUT_REDIRECT || type == OUT_APPEND)
 		return (true);
 	return (false);
-}
-
-bool	ambiguous_redir(t_data *data, t_tokens *current_node)
-{
-	t_tokens	*prev_node;
-
-	if (!current_node->prev)
-	{
-		return (true);
-	}
-	prev_node = current_node->prev;
-	if (!is_redirect(prev_node->type))
-		return (false);
-	error_ambiguous_redirect(data, current_node);
-	return (true);
 }
 
 bool	expander_check(t_tokens *tokens_list, t_data *data)
